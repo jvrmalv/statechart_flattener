@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" datamodel="ecmascript" name="Statechart">
+	<state id="main_region">
+		<initial>
+			<transition target="StateA" type="internal">
+			</transition>
+		</initial>
+		<state id="StateA">
+			<transition event="myEvent"  target="StateB">
+			</transition>
+		</state>
+		<state id="StateB">
+			<transition   target="StateC">
+			</transition>
+		</state>
+		<state id="StateC">
+			<transition event="myEvent"  target="StateA">
+			</transition>
+		</state>
+	</state>
+</scxml>
