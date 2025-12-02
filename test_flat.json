@@ -1,0 +1,65 @@
+{
+  "initial": "off",
+  "states": [
+    {
+      "id": "cooking",
+      "transitions": [
+        {
+          "event": "done",
+          "source_defined": "cooking",
+          "target": "idle"
+        },
+        {
+          "event": "turn_off",
+          "source_defined": "on",
+          "target": "off"
+        }
+      ]
+    },
+    {
+      "id": "heating",
+      "transitions": [
+        {
+          "event": "error",
+          "source_defined": "heating",
+          "target": "idle"
+        },
+        {
+          "event": "temp_reached",
+          "source_defined": "heating",
+          "target": "cooking"
+        },
+        {
+          "event": "turn_off",
+          "source_defined": "on",
+          "target": "off"
+        }
+      ]
+    },
+    {
+      "id": "idle",
+      "transitions": [
+        {
+          "event": "start",
+          "source_defined": "idle",
+          "target": "heating"
+        },
+        {
+          "event": "turn_off",
+          "source_defined": "on",
+          "target": "off"
+        }
+      ]
+    },
+    {
+      "id": "off",
+      "transitions": [
+        {
+          "event": "turn_on",
+          "source_defined": "off",
+          "target": "idle"
+        }
+      ]
+    }
+  ]
+}

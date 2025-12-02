@@ -1,0 +1,18 @@
+<scxml version="1.0" initial="off" xmlns="http://www.w3.org/2005/07/scxml">
+  <state id="cooking">
+    <transition target="idle" event="done"/>
+    <transition target="off" event="turn_off"/>
+  </state>
+  <state id="heating">
+    <transition target="idle" event="error"/>
+    <transition target="cooking" event="temp_reached"/>
+    <transition target="off" event="turn_off"/>
+  </state>
+  <state id="idle">
+    <transition target="heating" event="start"/>
+    <transition target="off" event="turn_off"/>
+  </state>
+  <state id="off">
+    <transition target="idle" event="turn_on"/>
+  </state>
+</scxml>
