@@ -1,4 +1,3 @@
-# flatten_scxml_fixed.exs
 Mix.install([
   {:statifier, "~> 1.9"},
   {:jason, "~> 1.4"},
@@ -6,7 +5,7 @@ Mix.install([
 ])
 
 defmodule ScxmlFlattener do
-  def run(file_path) do
+  def run(file_path, output_path) do
     # 1. Read and Parse
     xml_content = File.read!(file_path)
 
@@ -34,10 +33,9 @@ defmodule ScxmlFlattener do
       # 4. Flatten
       flat_states = flatten_machine(all_states_map)
 
-      # 5. Output
-      base_name = Path.rootname(file_path)
-      write_json("#{base_name}_flat.json", flat_states, global_initial)
-      write_scxml("#{base_name}_flat.scxml", flat_states, global_initial)
+      # 5. Output/\
+      write_json("#{output_path}_flat.json", flat_states, global_initial)
+      write_scxml("#{output_path}_flat.scxml", flat_states, global_initial)
     else
       {:error, reason} ->
         IO.puts(:stderr, "❌ Error: #{inspect(reason)}")
@@ -174,5 +172,5 @@ defmodule ScxmlFlattener do
   end
 end
 
-[input_file] = System.argv()
-ScxmlFlattener.run(input_file)
+[input_file, output_file] = System.argv()
+ScxmlFlattener.run(input_file, output_file)
