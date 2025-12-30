@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Vending Machine - Multiple variables with guards -->
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" datamodel="ecmascript" name="VendingMachine">
+	<datamodel>
+		<data expr="0" id="coins"/>
+		<data expr="false" id="hasProduct"/>
+	</datamodel>
+	<state id="machine">
+		<initial>
+			<transition target="Idle" type="internal"/>
+		</initial>
+		<state id="Idle">
+			<onentry>
+				<assign location="coins" expr="0"/>
+				<assign location="hasProduct" expr="false"/>
+			</onentry>
+			<transition event="insertCoin" target="Accepting">
+				<assign location="coins" expr="1"/>
+			</transition>
+		</state>
+		<state id="Accepting">
+			<transition event="insertCoin" cond="coins &lt; 3" target="Accepting">
+				<assign location="coins" expr="coins + 1"/>
+			</transition>
+			<transition event="select" cond="coins >= 2" target="Dispensing">
+				<assign location="hasProduct" expr="true"/>
+			</transition>
+			<transition event="cancel" target="Idle"/>
+		</state>
+		<state id="Dispensing">
+			<onentry>
+				<send event="productReady"/>
+			</onentry>
+			<transition event="take" target="Idle"/>
+		</state>
+	</state>
+</scxml>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Deeply Nested Elevator - 3 levels of hierarchy -->
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" datamodel="ecmascript" name="Elevator">
+	<datamodel>
+		<data expr="0" id="floor"/>
+	</datamodel>
+	<state id="elevator">
+		<initial>
+			<transition target="Operational" type="internal"/>
+		</initial>
+		<state id="Operational">
+			<initial>
+				<transition target="Stopped" type="internal"/>
+			</initial>
+			<state id="Stopped">
+				<initial>
+					<transition target="DoorsOpen" type="internal"/>
+				</initial>
+				<state id="DoorsOpen">
+					<transition event="closeDoors" target="DoorsClosed"/>
+				</state>
+				<state id="DoorsClosed">
+					<transition event="openDoors" target="DoorsOpen"/>
+					<transition event="goUp" cond="floor &lt; 5" target="MovingUp"/>
+					<transition event="goDown" cond="floor > 0" target="MovingDown"/>
+				</state>
+			</state>
+			<state id="MovingUp">
+				<onentry>
+					<assign location="floor" expr="floor + 1"/>
+				</onentry>
+				<transition event="arrived" target="Stopped"/>
+			</state>
+			<state id="MovingDown">
+				<onentry>
+					<assign location="floor" expr="floor - 1"/>
+				</onentry>
+				<transition event="arrived" target="Stopped"/>
+			</state>
+			<transition event="emergency" target="Emergency"/>
+		</state>
+		<state id="Emergency">
+			<transition event="reset" target="Operational"/>
+		</state>
+	</state>
+</scxml>
