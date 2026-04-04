@@ -1,0 +1,35 @@
+{
+  "initial": "main_Red__",
+  "states": [
+    {
+      "state": "main_Green__",
+      "transitions": [
+        {
+          "input": "timer",
+          "output": [],
+          "target": "main_Yellow__"
+        }
+      ]
+    },
+    {
+      "state": "main_Red__",
+      "transitions": [
+        {
+          "input": "timer",
+          "output": [],
+          "target": "main_Green__"
+        }
+      ]
+    },
+    {
+      "state": "main_Yellow__",
+      "transitions": [
+        {
+          "input": "timer",
+          "output": [],
+          "target": "main_Red__"
+        }
+      ]
+    }
+  ]
+}

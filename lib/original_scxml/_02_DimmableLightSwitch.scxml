@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" datamodel="ecmascript" name="_02_DimmableLightSwitch">
+	<datamodel>
+		<data expr="0" id="brightness" />
+	</datamodel>
+	<state id="main">
+		<initial>
+			<transition target="Off" type="internal">
+			</transition>
+		</initial>
+		<state id="Off">
+			<onentry>
+				 <assign location="brightness" expr="0"/>
+			</onentry>
+			<transition event="switch"  target="On">
+				 <assign location="brightness" expr="10"/>
+			</transition>
+		</state>
+		<state id="On">
+			<transition event="switch"  target="Off">
+			</transition>
+			<transition event="changeBrightness" cond="brightness &gt; 1" target="On">
+				 <assign location="brightness" expr="brightness - 1"/>
+			</transition>
+			<transition event="changeBrightness" cond="brightness &lt;= 1" target="On">
+				 <assign location="brightness" expr="10"/>
+			</transition>
+		</state>
+	</state>
+</scxml>

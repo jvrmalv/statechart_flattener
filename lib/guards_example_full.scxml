@@ -1,0 +1,195 @@
+<scxml version="1.0" initial="main_MotionSensing_Off__brightness_0" xmlns="http://www.w3.org/2005/07/scxml">
+  <state id="main_Manual_Off__brightness_0">
+    <transition target="main_Manual_On__brightness_10" event="switch"/>
+    <transition target="main_MotionSensing_Off__brightness_0" event="toggleMode"/>
+  </state>
+  <state id="main_Manual_Off__brightness_1">
+    <transition target="main_Manual_On__brightness_10" event="switch"/>
+    <transition target="main_MotionSensing_Off__brightness_1" event="toggleMode"/>
+  </state>
+  <state id="main_Manual_Off__brightness_10">
+    <transition target="main_Manual_On__brightness_10" event="switch"/>
+    <transition target="main_MotionSensing_Off__brightness_10" event="toggleMode"/>
+  </state>
+  <state id="main_Manual_Off__brightness_2">
+    <transition target="main_Manual_On__brightness_10" event="switch"/>
+    <transition target="main_MotionSensing_Off__brightness_2" event="toggleMode"/>
+  </state>
+  <state id="main_Manual_Off__brightness_3">
+    <transition target="main_Manual_On__brightness_10" event="switch"/>
+    <transition target="main_MotionSensing_Off__brightness_3" event="toggleMode"/>
+  </state>
+  <state id="main_Manual_Off__brightness_4">
+    <transition target="main_Manual_On__brightness_10" event="switch"/>
+    <transition target="main_MotionSensing_Off__brightness_4" event="toggleMode"/>
+  </state>
+  <state id="main_Manual_Off__brightness_5">
+    <transition target="main_Manual_On__brightness_10" event="switch"/>
+    <transition target="main_MotionSensing_Off__brightness_5" event="toggleMode"/>
+  </state>
+  <state id="main_Manual_Off__brightness_6">
+    <transition target="main_Manual_On__brightness_10" event="switch"/>
+    <transition target="main_MotionSensing_Off__brightness_6" event="toggleMode"/>
+  </state>
+  <state id="main_Manual_Off__brightness_7">
+    <transition target="main_Manual_On__brightness_10" event="switch"/>
+    <transition target="main_MotionSensing_Off__brightness_7" event="toggleMode"/>
+  </state>
+  <state id="main_Manual_Off__brightness_8">
+    <transition target="main_Manual_On__brightness_10" event="switch"/>
+    <transition target="main_MotionSensing_Off__brightness_8" event="toggleMode"/>
+  </state>
+  <state id="main_Manual_Off__brightness_9">
+    <transition target="main_Manual_On__brightness_10" event="switch"/>
+    <transition target="main_MotionSensing_Off__brightness_9" event="toggleMode"/>
+  </state>
+  <state id="main_Manual_On__brightness_1">
+    <transition target="main_Manual_On__brightness_10" event="changeBrightness"/>
+    <transition target="main_Manual_Off__brightness_1" event="switch"/>
+    <transition target="main_MotionSensing_Off__brightness_1" event="toggleMode"/>
+  </state>
+  <state id="main_Manual_On__brightness_10">
+    <transition target="main_Manual_On__brightness_9" event="changeBrightness"/>
+    <transition target="main_Manual_Off__brightness_10" event="switch"/>
+    <transition target="main_MotionSensing_Off__brightness_10" event="toggleMode"/>
+  </state>
+  <state id="main_Manual_On__brightness_2">
+    <transition target="main_Manual_On__brightness_1" event="changeBrightness"/>
+    <transition target="main_Manual_Off__brightness_2" event="switch"/>
+    <transition target="main_MotionSensing_Off__brightness_2" event="toggleMode"/>
+  </state>
+  <state id="main_Manual_On__brightness_3">
+    <transition target="main_Manual_On__brightness_2" event="changeBrightness"/>
+    <transition target="main_Manual_Off__brightness_3" event="switch"/>
+    <transition target="main_MotionSensing_Off__brightness_3" event="toggleMode"/>
+  </state>
+  <state id="main_Manual_On__brightness_4">
+    <transition target="main_Manual_On__brightness_3" event="changeBrightness"/>
+    <transition target="main_Manual_Off__brightness_4" event="switch"/>
+    <transition target="main_MotionSensing_Off__brightness_4" event="toggleMode"/>
+  </state>
+  <state id="main_Manual_On__brightness_5">
+    <transition target="main_Manual_On__brightness_4" event="changeBrightness"/>
+    <transition target="main_Manual_Off__brightness_5" event="switch"/>
+    <transition target="main_MotionSensing_Off__brightness_5" event="toggleMode"/>
+  </state>
+  <state id="main_Manual_On__brightness_6">
+    <transition target="main_Manual_On__brightness_5" event="changeBrightness"/>
+    <transition target="main_Manual_Off__brightness_6" event="switch"/>
+    <transition target="main_MotionSensing_Off__brightness_6" event="toggleMode"/>
+  </state>
+  <state id="main_Manual_On__brightness_7">
+    <transition target="main_Manual_On__brightness_6" event="changeBrightness"/>
+    <transition target="main_Manual_Off__brightness_7" event="switch"/>
+    <transition target="main_MotionSensing_Off__brightness_7" event="toggleMode"/>
+  </state>
+  <state id="main_Manual_On__brightness_8">
+    <transition target="main_Manual_On__brightness_7" event="changeBrightness"/>
+    <transition target="main_Manual_Off__brightness_8" event="switch"/>
+    <transition target="main_MotionSensing_Off__brightness_8" event="toggleMode"/>
+  </state>
+  <state id="main_Manual_On__brightness_9">
+    <transition target="main_Manual_On__brightness_8" event="changeBrightness"/>
+    <transition target="main_Manual_Off__brightness_9" event="switch"/>
+    <transition target="main_MotionSensing_Off__brightness_9" event="toggleMode"/>
+  </state>
+  <state id="main_MotionSensing_Off__brightness_0">
+    <transition target="main_MotionSensing_On__brightness_0" event="motionDetected"/>
+    <transition target="main_Manual_Off__brightness_0" event="toggleMode"/>
+  </state>
+  <state id="main_MotionSensing_Off__brightness_1">
+    <transition target="main_MotionSensing_On__brightness_1" event="motionDetected"/>
+    <transition target="main_Manual_Off__brightness_1" event="toggleMode"/>
+  </state>
+  <state id="main_MotionSensing_Off__brightness_10">
+    <transition target="main_MotionSensing_On__brightness_10" event="motionDetected"/>
+    <transition target="main_Manual_Off__brightness_10" event="toggleMode"/>
+  </state>
+  <state id="main_MotionSensing_Off__brightness_2">
+    <transition target="main_MotionSensing_On__brightness_2" event="motionDetected"/>
+    <transition target="main_Manual_Off__brightness_2" event="toggleMode"/>
+  </state>
+  <state id="main_MotionSensing_Off__brightness_3">
+    <transition target="main_MotionSensing_On__brightness_3" event="motionDetected"/>
+    <transition target="main_Manual_Off__brightness_3" event="toggleMode"/>
+  </state>
+  <state id="main_MotionSensing_Off__brightness_4">
+    <transition target="main_MotionSensing_On__brightness_4" event="motionDetected"/>
+    <transition target="main_Manual_Off__brightness_4" event="toggleMode"/>
+  </state>
+  <state id="main_MotionSensing_Off__brightness_5">
+    <transition target="main_MotionSensing_On__brightness_5" event="motionDetected"/>
+    <transition target="main_Manual_Off__brightness_5" event="toggleMode"/>
+  </state>
+  <state id="main_MotionSensing_Off__brightness_6">
+    <transition target="main_MotionSensing_On__brightness_6" event="motionDetected"/>
+    <transition target="main_Manual_Off__brightness_6" event="toggleMode"/>
+  </state>
+  <state id="main_MotionSensing_Off__brightness_7">
+    <transition target="main_MotionSensing_On__brightness_7" event="motionDetected"/>
+    <transition target="main_Manual_Off__brightness_7" event="toggleMode"/>
+  </state>
+  <state id="main_MotionSensing_Off__brightness_8">
+    <transition target="main_MotionSensing_On__brightness_8" event="motionDetected"/>
+    <transition target="main_Manual_Off__brightness_8" event="toggleMode"/>
+  </state>
+  <state id="main_MotionSensing_Off__brightness_9">
+    <transition target="main_MotionSensing_On__brightness_9" event="motionDetected"/>
+    <transition target="main_Manual_Off__brightness_9" event="toggleMode"/>
+  </state>
+  <state id="main_MotionSensing_On__brightness_0">
+    <transition target="main_MotionSensing_Off__brightness_0" event="On_t_0_timeEvent_0"/>
+    <transition target="main_MotionSensing_On__brightness_0" event="motionDetected"/>
+    <transition target="main_Manual_Off__brightness_0" event="toggleMode"/>
+  </state>
+  <state id="main_MotionSensing_On__brightness_1">
+    <transition target="main_MotionSensing_Off__brightness_1" event="On_t_0_timeEvent_0"/>
+    <transition target="main_MotionSensing_On__brightness_1" event="motionDetected"/>
+    <transition target="main_Manual_Off__brightness_1" event="toggleMode"/>
+  </state>
+  <state id="main_MotionSensing_On__brightness_10">
+    <transition target="main_MotionSensing_Off__brightness_10" event="On_t_0_timeEvent_0"/>
+    <transition target="main_MotionSensing_On__brightness_10" event="motionDetected"/>
+    <transition target="main_Manual_Off__brightness_10" event="toggleMode"/>
+  </state>
+  <state id="main_MotionSensing_On__brightness_2">
+    <transition target="main_MotionSensing_Off__brightness_2" event="On_t_0_timeEvent_0"/>
+    <transition target="main_MotionSensing_On__brightness_2" event="motionDetected"/>
+    <transition target="main_Manual_Off__brightness_2" event="toggleMode"/>
+  </state>
+  <state id="main_MotionSensing_On__brightness_3">
+    <transition target="main_MotionSensing_Off__brightness_3" event="On_t_0_timeEvent_0"/>
+    <transition target="main_MotionSensing_On__brightness_3" event="motionDetected"/>
+    <transition target="main_Manual_Off__brightness_3" event="toggleMode"/>
+  </state>
+  <state id="main_MotionSensing_On__brightness_4">
+    <transition target="main_MotionSensing_Off__brightness_4" event="On_t_0_timeEvent_0"/>
+    <transition target="main_MotionSensing_On__brightness_4" event="motionDetected"/>
+    <transition target="main_Manual_Off__brightness_4" event="toggleMode"/>
+  </state>
+  <state id="main_MotionSensing_On__brightness_5">
+    <transition target="main_MotionSensing_Off__brightness_5" event="On_t_0_timeEvent_0"/>
+    <transition target="main_MotionSensing_On__brightness_5" event="motionDetected"/>
+    <transition target="main_Manual_Off__brightness_5" event="toggleMode"/>
+  </state>
+  <state id="main_MotionSensing_On__brightness_6">
+    <transition target="main_MotionSensing_Off__brightness_6" event="On_t_0_timeEvent_0"/>
+    <transition target="main_MotionSensing_On__brightness_6" event="motionDetected"/>
+    <transition target="main_Manual_Off__brightness_6" event="toggleMode"/>
+  </state>
+  <state id="main_MotionSensing_On__brightness_7">
+    <transition target="main_MotionSensing_Off__brightness_7" event="On_t_0_timeEvent_0"/>
+    <transition target="main_MotionSensing_On__brightness_7" event="motionDetected"/>
+    <transition target="main_Manual_Off__brightness_7" event="toggleMode"/>
+  </state>
+  <state id="main_MotionSensing_On__brightness_8">
+    <transition target="main_MotionSensing_Off__brightness_8" event="On_t_0_timeEvent_0"/>
+    <transition target="main_MotionSensing_On__brightness_8" event="motionDetected"/>
+    <transition target="main_Manual_Off__brightness_8" event="toggleMode"/>
+  </state>
+  <state id="main_MotionSensing_On__brightness_9">
+    <transition target="main_MotionSensing_Off__brightness_9" event="On_t_0_timeEvent_0"/>
+    <transition target="main_MotionSensing_On__brightness_9" event="motionDetected"/>
+    <transition target="main_Manual_Off__brightness_9" event="toggleMode"/>
+  </state>
+</scxml>

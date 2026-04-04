@@ -1,0 +1,67 @@
+<?xml version="1.0"?><scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" datamodel="ecmascript" name="_03_MotionLightSwitch">
+	<datamodel>
+		<data expr="0" id="brightness"/>
+	</datamodel>
+	<state id="root_main">
+		<initial>
+			<transition target="root_main_MotionSensing" type="internal">
+			</transition>
+		</initial>
+		<state id="root_main_MotionSensing">
+			<initial>
+				<transition target="root_main_MotionSensing_Off" type="internal">
+				</transition>
+			</initial>
+			<state id="root_main_MotionSensing_Off">
+				<onentry>
+					 <assign location="brightness" expr="0"/>
+				</onentry>
+				<transition event="motionDetected" target="root_main_MotionSensing_On">
+				</transition>
+			</state>
+			<state id="root_main_MotionSensing_On">
+				<onentry>
+					<send event="On_t_0_timeEvent_0" delay="30s"/>
+				</onentry>
+				<onexit>
+					<cancel sendid="On_t_0_timeEvent_0"/>
+				</onexit>
+				<onentry>
+					 <assign location="brightness" expr="1"/>
+				</onentry>
+				<transition event="On_t_0_timeEvent_0" target="root_main_MotionSensing_Off">
+				</transition>
+				<transition event="motionDetected" target="root_main_MotionSensing_On">
+				</transition>
+			</state>
+			<transition event="toggleMode" target="root_main_Manual">
+			</transition>
+		</state>
+		<state id="root_main_Manual">
+			<initial>
+				<transition target="root_main_Manual_Off" type="internal">
+				</transition>
+			</initial>
+			<state id="root_main_Manual_Off">
+				<onentry>
+					 <assign location="brightness" expr="0"/>
+				</onentry>
+				<transition event="switch" target="root_main_Manual_On">
+					 <assign location="brightness" expr="10"/>
+				</transition>
+			</state>
+			<state id="root_main_Manual_On">
+				<transition event="changeBrightness" cond="brightness > 1" type="internal">
+					 <assign location="brightness" expr="brightness - 1"/>
+				</transition>
+				<transition event="changeBrightness" cond="brightness &lt;= 1" type="internal">
+					 <assign location="brightness" expr="10"/>
+				</transition>
+				<transition event="switch" target="root_main_Manual_Off">
+				</transition>
+			</state>
+			<transition event="toggleMode" target="root_main_MotionSensing">
+			</transition>
+		</state>
+	</state>
+</scxml>

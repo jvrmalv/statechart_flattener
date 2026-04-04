@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Simple Traffic Light - No guards, just state transitions -->
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" name="TrafficLight">
+	<state id="main">
+		<initial>
+			<transition target="Red" type="internal"/>
+		</initial>
+		<state id="Red">
+			<transition event="timer" target="Green"/>
+		</state>
+		<state id="Green">
+			<transition event="timer" target="Yellow"/>
+		</state>
+		<state id="Yellow">
+			<transition event="timer" target="Red"/>
+		</state>
+	</state>
+</scxml>

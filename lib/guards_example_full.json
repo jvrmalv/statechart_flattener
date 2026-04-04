@@ -1,0 +1,797 @@
+{
+  "initial": "main_MotionSensing_Off__brightness_0",
+  "states": [
+    {
+      "state": "main_Manual_Off__brightness_0",
+      "transitions": [
+        {
+          "input": "switch",
+          "output": [
+            "assign brightness=10"
+          ],
+          "target": "main_Manual_On__brightness_10"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_MotionSensing_Off__brightness_0"
+        }
+      ]
+    },
+    {
+      "state": "main_Manual_Off__brightness_1",
+      "transitions": [
+        {
+          "input": "switch",
+          "output": [
+            "assign brightness=10"
+          ],
+          "target": "main_Manual_On__brightness_10"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_MotionSensing_Off__brightness_1"
+        }
+      ]
+    },
+    {
+      "state": "main_Manual_Off__brightness_10",
+      "transitions": [
+        {
+          "input": "switch",
+          "output": [
+            "assign brightness=10"
+          ],
+          "target": "main_Manual_On__brightness_10"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_MotionSensing_Off__brightness_10"
+        }
+      ]
+    },
+    {
+      "state": "main_Manual_Off__brightness_2",
+      "transitions": [
+        {
+          "input": "switch",
+          "output": [
+            "assign brightness=10"
+          ],
+          "target": "main_Manual_On__brightness_10"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_MotionSensing_Off__brightness_2"
+        }
+      ]
+    },
+    {
+      "state": "main_Manual_Off__brightness_3",
+      "transitions": [
+        {
+          "input": "switch",
+          "output": [
+            "assign brightness=10"
+          ],
+          "target": "main_Manual_On__brightness_10"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_MotionSensing_Off__brightness_3"
+        }
+      ]
+    },
+    {
+      "state": "main_Manual_Off__brightness_4",
+      "transitions": [
+        {
+          "input": "switch",
+          "output": [
+            "assign brightness=10"
+          ],
+          "target": "main_Manual_On__brightness_10"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_MotionSensing_Off__brightness_4"
+        }
+      ]
+    },
+    {
+      "state": "main_Manual_Off__brightness_5",
+      "transitions": [
+        {
+          "input": "switch",
+          "output": [
+            "assign brightness=10"
+          ],
+          "target": "main_Manual_On__brightness_10"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_MotionSensing_Off__brightness_5"
+        }
+      ]
+    },
+    {
+      "state": "main_Manual_Off__brightness_6",
+      "transitions": [
+        {
+          "input": "switch",
+          "output": [
+            "assign brightness=10"
+          ],
+          "target": "main_Manual_On__brightness_10"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_MotionSensing_Off__brightness_6"
+        }
+      ]
+    },
+    {
+      "state": "main_Manual_Off__brightness_7",
+      "transitions": [
+        {
+          "input": "switch",
+          "output": [
+            "assign brightness=10"
+          ],
+          "target": "main_Manual_On__brightness_10"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_MotionSensing_Off__brightness_7"
+        }
+      ]
+    },
+    {
+      "state": "main_Manual_Off__brightness_8",
+      "transitions": [
+        {
+          "input": "switch",
+          "output": [
+            "assign brightness=10"
+          ],
+          "target": "main_Manual_On__brightness_10"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_MotionSensing_Off__brightness_8"
+        }
+      ]
+    },
+    {
+      "state": "main_Manual_Off__brightness_9",
+      "transitions": [
+        {
+          "input": "switch",
+          "output": [
+            "assign brightness=10"
+          ],
+          "target": "main_Manual_On__brightness_10"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_MotionSensing_Off__brightness_9"
+        }
+      ]
+    },
+    {
+      "state": "main_Manual_On__brightness_1",
+      "transitions": [
+        {
+          "input": "changeBrightness",
+          "output": [
+            "assign brightness=10"
+          ],
+          "target": "main_Manual_On__brightness_10"
+        },
+        {
+          "input": "switch",
+          "output": [],
+          "target": "main_Manual_Off__brightness_1"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_MotionSensing_Off__brightness_1"
+        }
+      ]
+    },
+    {
+      "state": "main_Manual_On__brightness_10",
+      "transitions": [
+        {
+          "input": "changeBrightness",
+          "output": [
+            "assign brightness=brightness - 1"
+          ],
+          "target": "main_Manual_On__brightness_9"
+        },
+        {
+          "input": "switch",
+          "output": [],
+          "target": "main_Manual_Off__brightness_10"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_MotionSensing_Off__brightness_10"
+        }
+      ]
+    },
+    {
+      "state": "main_Manual_On__brightness_2",
+      "transitions": [
+        {
+          "input": "changeBrightness",
+          "output": [
+            "assign brightness=brightness - 1"
+          ],
+          "target": "main_Manual_On__brightness_1"
+        },
+        {
+          "input": "switch",
+          "output": [],
+          "target": "main_Manual_Off__brightness_2"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_MotionSensing_Off__brightness_2"
+        }
+      ]
+    },
+    {
+      "state": "main_Manual_On__brightness_3",
+      "transitions": [
+        {
+          "input": "changeBrightness",
+          "output": [
+            "assign brightness=brightness - 1"
+          ],
+          "target": "main_Manual_On__brightness_2"
+        },
+        {
+          "input": "switch",
+          "output": [],
+          "target": "main_Manual_Off__brightness_3"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_MotionSensing_Off__brightness_3"
+        }
+      ]
+    },
+    {
+      "state": "main_Manual_On__brightness_4",
+      "transitions": [
+        {
+          "input": "changeBrightness",
+          "output": [
+            "assign brightness=brightness - 1"
+          ],
+          "target": "main_Manual_On__brightness_3"
+        },
+        {
+          "input": "switch",
+          "output": [],
+          "target": "main_Manual_Off__brightness_4"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_MotionSensing_Off__brightness_4"
+        }
+      ]
+    },
+    {
+      "state": "main_Manual_On__brightness_5",
+      "transitions": [
+        {
+          "input": "changeBrightness",
+          "output": [
+            "assign brightness=brightness - 1"
+          ],
+          "target": "main_Manual_On__brightness_4"
+        },
+        {
+          "input": "switch",
+          "output": [],
+          "target": "main_Manual_Off__brightness_5"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_MotionSensing_Off__brightness_5"
+        }
+      ]
+    },
+    {
+      "state": "main_Manual_On__brightness_6",
+      "transitions": [
+        {
+          "input": "changeBrightness",
+          "output": [
+            "assign brightness=brightness - 1"
+          ],
+          "target": "main_Manual_On__brightness_5"
+        },
+        {
+          "input": "switch",
+          "output": [],
+          "target": "main_Manual_Off__brightness_6"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_MotionSensing_Off__brightness_6"
+        }
+      ]
+    },
+    {
+      "state": "main_Manual_On__brightness_7",
+      "transitions": [
+        {
+          "input": "changeBrightness",
+          "output": [
+            "assign brightness=brightness - 1"
+          ],
+          "target": "main_Manual_On__brightness_6"
+        },
+        {
+          "input": "switch",
+          "output": [],
+          "target": "main_Manual_Off__brightness_7"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_MotionSensing_Off__brightness_7"
+        }
+      ]
+    },
+    {
+      "state": "main_Manual_On__brightness_8",
+      "transitions": [
+        {
+          "input": "changeBrightness",
+          "output": [
+            "assign brightness=brightness - 1"
+          ],
+          "target": "main_Manual_On__brightness_7"
+        },
+        {
+          "input": "switch",
+          "output": [],
+          "target": "main_Manual_Off__brightness_8"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_MotionSensing_Off__brightness_8"
+        }
+      ]
+    },
+    {
+      "state": "main_Manual_On__brightness_9",
+      "transitions": [
+        {
+          "input": "changeBrightness",
+          "output": [
+            "assign brightness=brightness - 1"
+          ],
+          "target": "main_Manual_On__brightness_8"
+        },
+        {
+          "input": "switch",
+          "output": [],
+          "target": "main_Manual_Off__brightness_9"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_MotionSensing_Off__brightness_9"
+        }
+      ]
+    },
+    {
+      "state": "main_MotionSensing_Off__brightness_0",
+      "transitions": [
+        {
+          "input": "motionDetected",
+          "output": [],
+          "target": "main_MotionSensing_On__brightness_0"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_Manual_Off__brightness_0"
+        }
+      ]
+    },
+    {
+      "state": "main_MotionSensing_Off__brightness_1",
+      "transitions": [
+        {
+          "input": "motionDetected",
+          "output": [],
+          "target": "main_MotionSensing_On__brightness_1"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_Manual_Off__brightness_1"
+        }
+      ]
+    },
+    {
+      "state": "main_MotionSensing_Off__brightness_10",
+      "transitions": [
+        {
+          "input": "motionDetected",
+          "output": [],
+          "target": "main_MotionSensing_On__brightness_10"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_Manual_Off__brightness_10"
+        }
+      ]
+    },
+    {
+      "state": "main_MotionSensing_Off__brightness_2",
+      "transitions": [
+        {
+          "input": "motionDetected",
+          "output": [],
+          "target": "main_MotionSensing_On__brightness_2"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_Manual_Off__brightness_2"
+        }
+      ]
+    },
+    {
+      "state": "main_MotionSensing_Off__brightness_3",
+      "transitions": [
+        {
+          "input": "motionDetected",
+          "output": [],
+          "target": "main_MotionSensing_On__brightness_3"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_Manual_Off__brightness_3"
+        }
+      ]
+    },
+    {
+      "state": "main_MotionSensing_Off__brightness_4",
+      "transitions": [
+        {
+          "input": "motionDetected",
+          "output": [],
+          "target": "main_MotionSensing_On__brightness_4"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_Manual_Off__brightness_4"
+        }
+      ]
+    },
+    {
+      "state": "main_MotionSensing_Off__brightness_5",
+      "transitions": [
+        {
+          "input": "motionDetected",
+          "output": [],
+          "target": "main_MotionSensing_On__brightness_5"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_Manual_Off__brightness_5"
+        }
+      ]
+    },
+    {
+      "state": "main_MotionSensing_Off__brightness_6",
+      "transitions": [
+        {
+          "input": "motionDetected",
+          "output": [],
+          "target": "main_MotionSensing_On__brightness_6"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_Manual_Off__brightness_6"
+        }
+      ]
+    },
+    {
+      "state": "main_MotionSensing_Off__brightness_7",
+      "transitions": [
+        {
+          "input": "motionDetected",
+          "output": [],
+          "target": "main_MotionSensing_On__brightness_7"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_Manual_Off__brightness_7"
+        }
+      ]
+    },
+    {
+      "state": "main_MotionSensing_Off__brightness_8",
+      "transitions": [
+        {
+          "input": "motionDetected",
+          "output": [],
+          "target": "main_MotionSensing_On__brightness_8"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_Manual_Off__brightness_8"
+        }
+      ]
+    },
+    {
+      "state": "main_MotionSensing_Off__brightness_9",
+      "transitions": [
+        {
+          "input": "motionDetected",
+          "output": [],
+          "target": "main_MotionSensing_On__brightness_9"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_Manual_Off__brightness_9"
+        }
+      ]
+    },
+    {
+      "state": "main_MotionSensing_On__brightness_0",
+      "transitions": [
+        {
+          "input": "On_t_0_timeEvent_0",
+          "output": [],
+          "target": "main_MotionSensing_Off__brightness_0"
+        },
+        {
+          "input": "motionDetected",
+          "output": [],
+          "target": "main_MotionSensing_On__brightness_0"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_Manual_Off__brightness_0"
+        }
+      ]
+    },
+    {
+      "state": "main_MotionSensing_On__brightness_1",
+      "transitions": [
+        {
+          "input": "On_t_0_timeEvent_0",
+          "output": [],
+          "target": "main_MotionSensing_Off__brightness_1"
+        },
+        {
+          "input": "motionDetected",
+          "output": [],
+          "target": "main_MotionSensing_On__brightness_1"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_Manual_Off__brightness_1"
+        }
+      ]
+    },
+    {
+      "state": "main_MotionSensing_On__brightness_10",
+      "transitions": [
+        {
+          "input": "On_t_0_timeEvent_0",
+          "output": [],
+          "target": "main_MotionSensing_Off__brightness_10"
+        },
+        {
+          "input": "motionDetected",
+          "output": [],
+          "target": "main_MotionSensing_On__brightness_10"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_Manual_Off__brightness_10"
+        }
+      ]
+    },
+    {
+      "state": "main_MotionSensing_On__brightness_2",
+      "transitions": [
+        {
+          "input": "On_t_0_timeEvent_0",
+          "output": [],
+          "target": "main_MotionSensing_Off__brightness_2"
+        },
+        {
+          "input": "motionDetected",
+          "output": [],
+          "target": "main_MotionSensing_On__brightness_2"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_Manual_Off__brightness_2"
+        }
+      ]
+    },
+    {
+      "state": "main_MotionSensing_On__brightness_3",
+      "transitions": [
+        {
+          "input": "On_t_0_timeEvent_0",
+          "output": [],
+          "target": "main_MotionSensing_Off__brightness_3"
+        },
+        {
+          "input": "motionDetected",
+          "output": [],
+          "target": "main_MotionSensing_On__brightness_3"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_Manual_Off__brightness_3"
+        }
+      ]
+    },
+    {
+      "state": "main_MotionSensing_On__brightness_4",
+      "transitions": [
+        {
+          "input": "On_t_0_timeEvent_0",
+          "output": [],
+          "target": "main_MotionSensing_Off__brightness_4"
+        },
+        {
+          "input": "motionDetected",
+          "output": [],
+          "target": "main_MotionSensing_On__brightness_4"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_Manual_Off__brightness_4"
+        }
+      ]
+    },
+    {
+      "state": "main_MotionSensing_On__brightness_5",
+      "transitions": [
+        {
+          "input": "On_t_0_timeEvent_0",
+          "output": [],
+          "target": "main_MotionSensing_Off__brightness_5"
+        },
+        {
+          "input": "motionDetected",
+          "output": [],
+          "target": "main_MotionSensing_On__brightness_5"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_Manual_Off__brightness_5"
+        }
+      ]
+    },
+    {
+      "state": "main_MotionSensing_On__brightness_6",
+      "transitions": [
+        {
+          "input": "On_t_0_timeEvent_0",
+          "output": [],
+          "target": "main_MotionSensing_Off__brightness_6"
+        },
+        {
+          "input": "motionDetected",
+          "output": [],
+          "target": "main_MotionSensing_On__brightness_6"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_Manual_Off__brightness_6"
+        }
+      ]
+    },
+    {
+      "state": "main_MotionSensing_On__brightness_7",
+      "transitions": [
+        {
+          "input": "On_t_0_timeEvent_0",
+          "output": [],
+          "target": "main_MotionSensing_Off__brightness_7"
+        },
+        {
+          "input": "motionDetected",
+          "output": [],
+          "target": "main_MotionSensing_On__brightness_7"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_Manual_Off__brightness_7"
+        }
+      ]
+    },
+    {
+      "state": "main_MotionSensing_On__brightness_8",
+      "transitions": [
+        {
+          "input": "On_t_0_timeEvent_0",
+          "output": [],
+          "target": "main_MotionSensing_Off__brightness_8"
+        },
+        {
+          "input": "motionDetected",
+          "output": [],
+          "target": "main_MotionSensing_On__brightness_8"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_Manual_Off__brightness_8"
+        }
+      ]
+    },
+    {
+      "state": "main_MotionSensing_On__brightness_9",
+      "transitions": [
+        {
+          "input": "On_t_0_timeEvent_0",
+          "output": [],
+          "target": "main_MotionSensing_Off__brightness_9"
+        },
+        {
+          "input": "motionDetected",
+          "output": [],
+          "target": "main_MotionSensing_On__brightness_9"
+        },
+        {
+          "input": "toggleMode",
+          "output": [],
+          "target": "main_Manual_Off__brightness_9"
+        }
+      ]
+    }
+  ]
+}

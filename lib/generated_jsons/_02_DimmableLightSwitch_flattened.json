@@ -1,0 +1,307 @@
+{
+  "initial": "main_Off__brightness_0",
+  "states": [
+    {
+      "state": "main_Off__brightness_0",
+      "transitions": [
+        {
+          "input": "switch",
+          "output": [
+            "assign brightness=10"
+          ],
+          "target": "main_On__brightness_10"
+        }
+      ]
+    },
+    {
+      "state": "main_Off__brightness_1",
+      "transitions": [
+        {
+          "input": "switch",
+          "output": [
+            "assign brightness=10"
+          ],
+          "target": "main_On__brightness_10"
+        }
+      ]
+    },
+    {
+      "state": "main_Off__brightness_10",
+      "transitions": [
+        {
+          "input": "switch",
+          "output": [
+            "assign brightness=10"
+          ],
+          "target": "main_On__brightness_10"
+        }
+      ]
+    },
+    {
+      "state": "main_Off__brightness_2",
+      "transitions": [
+        {
+          "input": "switch",
+          "output": [
+            "assign brightness=10"
+          ],
+          "target": "main_On__brightness_10"
+        }
+      ]
+    },
+    {
+      "state": "main_Off__brightness_3",
+      "transitions": [
+        {
+          "input": "switch",
+          "output": [
+            "assign brightness=10"
+          ],
+          "target": "main_On__brightness_10"
+        }
+      ]
+    },
+    {
+      "state": "main_Off__brightness_4",
+      "transitions": [
+        {
+          "input": "switch",
+          "output": [
+            "assign brightness=10"
+          ],
+          "target": "main_On__brightness_10"
+        }
+      ]
+    },
+    {
+      "state": "main_Off__brightness_5",
+      "transitions": [
+        {
+          "input": "switch",
+          "output": [
+            "assign brightness=10"
+          ],
+          "target": "main_On__brightness_10"
+        }
+      ]
+    },
+    {
+      "state": "main_Off__brightness_6",
+      "transitions": [
+        {
+          "input": "switch",
+          "output": [
+            "assign brightness=10"
+          ],
+          "target": "main_On__brightness_10"
+        }
+      ]
+    },
+    {
+      "state": "main_Off__brightness_7",
+      "transitions": [
+        {
+          "input": "switch",
+          "output": [
+            "assign brightness=10"
+          ],
+          "target": "main_On__brightness_10"
+        }
+      ]
+    },
+    {
+      "state": "main_Off__brightness_8",
+      "transitions": [
+        {
+          "input": "switch",
+          "output": [
+            "assign brightness=10"
+          ],
+          "target": "main_On__brightness_10"
+        }
+      ]
+    },
+    {
+      "state": "main_Off__brightness_9",
+      "transitions": [
+        {
+          "input": "switch",
+          "output": [
+            "assign brightness=10"
+          ],
+          "target": "main_On__brightness_10"
+        }
+      ]
+    },
+    {
+      "state": "main_On__brightness_1",
+      "transitions": [
+        {
+          "input": "changeBrightness",
+          "output": [
+            "assign brightness=10"
+          ],
+          "target": "main_On__brightness_10"
+        },
+        {
+          "input": "switch",
+          "output": [],
+          "target": "main_Off__brightness_1"
+        }
+      ]
+    },
+    {
+      "state": "main_On__brightness_10",
+      "transitions": [
+        {
+          "input": "changeBrightness",
+          "output": [
+            "assign brightness=brightness - 1"
+          ],
+          "target": "main_On__brightness_9"
+        },
+        {
+          "input": "switch",
+          "output": [],
+          "target": "main_Off__brightness_10"
+        }
+      ]
+    },
+    {
+      "state": "main_On__brightness_2",
+      "transitions": [
+        {
+          "input": "changeBrightness",
+          "output": [
+            "assign brightness=brightness - 1"
+          ],
+          "target": "main_On__brightness_1"
+        },
+        {
+          "input": "switch",
+          "output": [],
+          "target": "main_Off__brightness_2"
+        }
+      ]
+    },
+    {
+      "state": "main_On__brightness_3",
+      "transitions": [
+        {
+          "input": "changeBrightness",
+          "output": [
+            "assign brightness=brightness - 1"
+          ],
+          "target": "main_On__brightness_2"
+        },
+        {
+          "input": "switch",
+          "output": [],
+          "target": "main_Off__brightness_3"
+        }
+      ]
+    },
+    {
+      "state": "main_On__brightness_4",
+      "transitions": [
+        {
+          "input": "changeBrightness",
+          "output": [
+            "assign brightness=brightness - 1"
+          ],
+          "target": "main_On__brightness_3"
+        },
+        {
+          "input": "switch",
+          "output": [],
+          "target": "main_Off__brightness_4"
+        }
+      ]
+    },
+    {
+      "state": "main_On__brightness_5",
+      "transitions": [
+        {
+          "input": "changeBrightness",
+          "output": [
+            "assign brightness=brightness - 1"
+          ],
+          "target": "main_On__brightness_4"
+        },
+        {
+          "input": "switch",
+          "output": [],
+          "target": "main_Off__brightness_5"
+        }
+      ]
+    },
+    {
+      "state": "main_On__brightness_6",
+      "transitions": [
+        {
+          "input": "changeBrightness",
+          "output": [
+            "assign brightness=brightness - 1"
+          ],
+          "target": "main_On__brightness_5"
+        },
+        {
+          "input": "switch",
+          "output": [],
+          "target": "main_Off__brightness_6"
+        }
+      ]
+    },
+    {
+      "state": "main_On__brightness_7",
+      "transitions": [
+        {
+          "input": "changeBrightness",
+          "output": [
+            "assign brightness=brightness - 1"
+          ],
+          "target": "main_On__brightness_6"
+        },
+        {
+          "input": "switch",
+          "output": [],
+          "target": "main_Off__brightness_7"
+        }
+      ]
+    },
+    {
+      "state": "main_On__brightness_8",
+      "transitions": [
+        {
+          "input": "changeBrightness",
+          "output": [
+            "assign brightness=brightness - 1"
+          ],
+          "target": "main_On__brightness_7"
+        },
+        {
+          "input": "switch",
+          "output": [],
+          "target": "main_Off__brightness_8"
+        }
+      ]
+    },
+    {
+      "state": "main_On__brightness_9",
+      "transitions": [
+        {
+          "input": "changeBrightness",
+          "output": [
+            "assign brightness=brightness - 1"
+          ],
+          "target": "main_On__brightness_8"
+        },
+        {
+          "input": "switch",
+          "output": [],
+          "target": "main_Off__brightness_9"
+        }
+      ]
+    }
+  ]
+}

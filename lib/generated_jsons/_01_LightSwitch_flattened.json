@@ -1,0 +1,25 @@
+{
+  "initial": "main_Off__",
+  "states": [
+    {
+      "state": "main_Off__",
+      "transitions": [
+        {
+          "input": "switch",
+          "output": [],
+          "target": "main_On__"
+        }
+      ]
+    },
+    {
+      "state": "main_On__",
+      "transitions": [
+        {
+          "input": "switch",
+          "output": [],
+          "target": "main_Off__"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,465 @@
+{
+  "initial": "elevator_Operational_Stopped_DoorsOpen__floor_0",
+  "states": [
+    {
+      "state": "elevator_Emergency__floor_0",
+      "transitions": [
+        {
+          "input": "reset",
+          "output": [],
+          "target": "elevator_Operational_Stopped_DoorsOpen__floor_0"
+        }
+      ]
+    },
+    {
+      "state": "elevator_Emergency__floor_1",
+      "transitions": [
+        {
+          "input": "reset",
+          "output": [],
+          "target": "elevator_Operational_Stopped_DoorsOpen__floor_1"
+        }
+      ]
+    },
+    {
+      "state": "elevator_Emergency__floor_2",
+      "transitions": [
+        {
+          "input": "reset",
+          "output": [],
+          "target": "elevator_Operational_Stopped_DoorsOpen__floor_2"
+        }
+      ]
+    },
+    {
+      "state": "elevator_Emergency__floor_3",
+      "transitions": [
+        {
+          "input": "reset",
+          "output": [],
+          "target": "elevator_Operational_Stopped_DoorsOpen__floor_3"
+        }
+      ]
+    },
+    {
+      "state": "elevator_Emergency__floor_4",
+      "transitions": [
+        {
+          "input": "reset",
+          "output": [],
+          "target": "elevator_Operational_Stopped_DoorsOpen__floor_4"
+        }
+      ]
+    },
+    {
+      "state": "elevator_Emergency__floor_5",
+      "transitions": [
+        {
+          "input": "reset",
+          "output": [],
+          "target": "elevator_Operational_Stopped_DoorsOpen__floor_5"
+        }
+      ]
+    },
+    {
+      "state": "elevator_Operational_MovingDown__floor_0",
+      "transitions": [
+        {
+          "input": "arrived",
+          "output": [],
+          "target": "elevator_Operational_Stopped_DoorsOpen__floor_0"
+        },
+        {
+          "input": "emergency",
+          "output": [],
+          "target": "elevator_Emergency__floor_0"
+        }
+      ]
+    },
+    {
+      "state": "elevator_Operational_MovingDown__floor_1",
+      "transitions": [
+        {
+          "input": "arrived",
+          "output": [],
+          "target": "elevator_Operational_Stopped_DoorsOpen__floor_1"
+        },
+        {
+          "input": "emergency",
+          "output": [],
+          "target": "elevator_Emergency__floor_1"
+        }
+      ]
+    },
+    {
+      "state": "elevator_Operational_MovingDown__floor_2",
+      "transitions": [
+        {
+          "input": "arrived",
+          "output": [],
+          "target": "elevator_Operational_Stopped_DoorsOpen__floor_2"
+        },
+        {
+          "input": "emergency",
+          "output": [],
+          "target": "elevator_Emergency__floor_2"
+        }
+      ]
+    },
+    {
+      "state": "elevator_Operational_MovingDown__floor_3",
+      "transitions": [
+        {
+          "input": "arrived",
+          "output": [],
+          "target": "elevator_Operational_Stopped_DoorsOpen__floor_3"
+        },
+        {
+          "input": "emergency",
+          "output": [],
+          "target": "elevator_Emergency__floor_3"
+        }
+      ]
+    },
+    {
+      "state": "elevator_Operational_MovingDown__floor_4",
+      "transitions": [
+        {
+          "input": "arrived",
+          "output": [],
+          "target": "elevator_Operational_Stopped_DoorsOpen__floor_4"
+        },
+        {
+          "input": "emergency",
+          "output": [],
+          "target": "elevator_Emergency__floor_4"
+        }
+      ]
+    },
+    {
+      "state": "elevator_Operational_MovingUp__floor_1",
+      "transitions": [
+        {
+          "input": "arrived",
+          "output": [],
+          "target": "elevator_Operational_Stopped_DoorsOpen__floor_1"
+        },
+        {
+          "input": "emergency",
+          "output": [],
+          "target": "elevator_Emergency__floor_1"
+        }
+      ]
+    },
+    {
+      "state": "elevator_Operational_MovingUp__floor_2",
+      "transitions": [
+        {
+          "input": "arrived",
+          "output": [],
+          "target": "elevator_Operational_Stopped_DoorsOpen__floor_2"
+        },
+        {
+          "input": "emergency",
+          "output": [],
+          "target": "elevator_Emergency__floor_2"
+        }
+      ]
+    },
+    {
+      "state": "elevator_Operational_MovingUp__floor_3",
+      "transitions": [
+        {
+          "input": "arrived",
+          "output": [],
+          "target": "elevator_Operational_Stopped_DoorsOpen__floor_3"
+        },
+        {
+          "input": "emergency",
+          "output": [],
+          "target": "elevator_Emergency__floor_3"
+        }
+      ]
+    },
+    {
+      "state": "elevator_Operational_MovingUp__floor_4",
+      "transitions": [
+        {
+          "input": "arrived",
+          "output": [],
+          "target": "elevator_Operational_Stopped_DoorsOpen__floor_4"
+        },
+        {
+          "input": "emergency",
+          "output": [],
+          "target": "elevator_Emergency__floor_4"
+        }
+      ]
+    },
+    {
+      "state": "elevator_Operational_MovingUp__floor_5",
+      "transitions": [
+        {
+          "input": "arrived",
+          "output": [],
+          "target": "elevator_Operational_Stopped_DoorsOpen__floor_5"
+        },
+        {
+          "input": "emergency",
+          "output": [],
+          "target": "elevator_Emergency__floor_5"
+        }
+      ]
+    },
+    {
+      "state": "elevator_Operational_Stopped_DoorsClosed__floor_0",
+      "transitions": [
+        {
+          "input": "emergency",
+          "output": [],
+          "target": "elevator_Emergency__floor_0"
+        },
+        {
+          "input": "goUp",
+          "output": [
+            "assign floor=floor + 1"
+          ],
+          "target": "elevator_Operational_MovingUp__floor_1"
+        },
+        {
+          "input": "openDoors",
+          "output": [],
+          "target": "elevator_Operational_Stopped_DoorsOpen__floor_0"
+        }
+      ]
+    },
+    {
+      "state": "elevator_Operational_Stopped_DoorsClosed__floor_1",
+      "transitions": [
+        {
+          "input": "emergency",
+          "output": [],
+          "target": "elevator_Emergency__floor_1"
+        },
+        {
+          "input": "goDown",
+          "output": [
+            "assign floor=floor - 1"
+          ],
+          "target": "elevator_Operational_MovingDown__floor_0"
+        },
+        {
+          "input": "goUp",
+          "output": [
+            "assign floor=floor + 1"
+          ],
+          "target": "elevator_Operational_MovingUp__floor_2"
+        },
+        {
+          "input": "openDoors",
+          "output": [],
+          "target": "elevator_Operational_Stopped_DoorsOpen__floor_1"
+        }
+      ]
+    },
+    {
+      "state": "elevator_Operational_Stopped_DoorsClosed__floor_2",
+      "transitions": [
+        {
+          "input": "emergency",
+          "output": [],
+          "target": "elevator_Emergency__floor_2"
+        },
+        {
+          "input": "goDown",
+          "output": [
+            "assign floor=floor - 1"
+          ],
+          "target": "elevator_Operational_MovingDown__floor_1"
+        },
+        {
+          "input": "goUp",
+          "output": [
+            "assign floor=floor + 1"
+          ],
+          "target": "elevator_Operational_MovingUp__floor_3"
+        },
+        {
+          "input": "openDoors",
+          "output": [],
+          "target": "elevator_Operational_Stopped_DoorsOpen__floor_2"
+        }
+      ]
+    },
+    {
+      "state": "elevator_Operational_Stopped_DoorsClosed__floor_3",
+      "transitions": [
+        {
+          "input": "emergency",
+          "output": [],
+          "target": "elevator_Emergency__floor_3"
+        },
+        {
+          "input": "goDown",
+          "output": [
+            "assign floor=floor - 1"
+          ],
+          "target": "elevator_Operational_MovingDown__floor_2"
+        },
+        {
+          "input": "goUp",
+          "output": [
+            "assign floor=floor + 1"
+          ],
+          "target": "elevator_Operational_MovingUp__floor_4"
+        },
+        {
+          "input": "openDoors",
+          "output": [],
+          "target": "elevator_Operational_Stopped_DoorsOpen__floor_3"
+        }
+      ]
+    },
+    {
+      "state": "elevator_Operational_Stopped_DoorsClosed__floor_4",
+      "transitions": [
+        {
+          "input": "emergency",
+          "output": [],
+          "target": "elevator_Emergency__floor_4"
+        },
+        {
+          "input": "goDown",
+          "output": [
+            "assign floor=floor - 1"
+          ],
+          "target": "elevator_Operational_MovingDown__floor_3"
+        },
+        {
+          "input": "goUp",
+          "output": [
+            "assign floor=floor + 1"
+          ],
+          "target": "elevator_Operational_MovingUp__floor_5"
+        },
+        {
+          "input": "openDoors",
+          "output": [],
+          "target": "elevator_Operational_Stopped_DoorsOpen__floor_4"
+        }
+      ]
+    },
+    {
+      "state": "elevator_Operational_Stopped_DoorsClosed__floor_5",
+      "transitions": [
+        {
+          "input": "emergency",
+          "output": [],
+          "target": "elevator_Emergency__floor_5"
+        },
+        {
+          "input": "goDown",
+          "output": [
+            "assign floor=floor - 1"
+          ],
+          "target": "elevator_Operational_MovingDown__floor_4"
+        },
+        {
+          "input": "openDoors",
+          "output": [],
+          "target": "elevator_Operational_Stopped_DoorsOpen__floor_5"
+        }
+      ]
+    },
+    {
+      "state": "elevator_Operational_Stopped_DoorsOpen__floor_0",
+      "transitions": [
+        {
+          "input": "closeDoors",
+          "output": [],
+          "target": "elevator_Operational_Stopped_DoorsClosed__floor_0"
+        },
+        {
+          "input": "emergency",
+          "output": [],
+          "target": "elevator_Emergency__floor_0"
+        }
+      ]
+    },
+    {
+      "state": "elevator_Operational_Stopped_DoorsOpen__floor_1",
+      "transitions": [
+        {
+          "input": "closeDoors",
+          "output": [],
+          "target": "elevator_Operational_Stopped_DoorsClosed__floor_1"
+        },
+        {
+          "input": "emergency",
+          "output": [],
+          "target": "elevator_Emergency__floor_1"
+        }
+      ]
+    },
+    {
+      "state": "elevator_Operational_Stopped_DoorsOpen__floor_2",
+      "transitions": [
+        {
+          "input": "closeDoors",
+          "output": [],
+          "target": "elevator_Operational_Stopped_DoorsClosed__floor_2"
+        },
+        {
+          "input": "emergency",
+          "output": [],
+          "target": "elevator_Emergency__floor_2"
+        }
+      ]
+    },
+    {
+      "state": "elevator_Operational_Stopped_DoorsOpen__floor_3",
+      "transitions": [
+        {
+          "input": "closeDoors",
+          "output": [],
+          "target": "elevator_Operational_Stopped_DoorsClosed__floor_3"
+        },
+        {
+          "input": "emergency",
+          "output": [],
+          "target": "elevator_Emergency__floor_3"
+        }
+      ]
+    },
+    {
+      "state": "elevator_Operational_Stopped_DoorsOpen__floor_4",
+      "transitions": [
+        {
+          "input": "closeDoors",
+          "output": [],
+          "target": "elevator_Operational_Stopped_DoorsClosed__floor_4"
+        },
+        {
+          "input": "emergency",
+          "output": [],
+          "target": "elevator_Emergency__floor_4"
+        }
+      ]
+    },
+    {
+      "state": "elevator_Operational_Stopped_DoorsOpen__floor_5",
+      "transitions": [
+        {
+          "input": "closeDoors",
+          "output": [],
+          "target": "elevator_Operational_Stopped_DoorsClosed__floor_5"
+        },
+        {
+          "input": "emergency",
+          "output": [],
+          "target": "elevator_Emergency__floor_5"
+        }
+      ]
+    }
+  ]
+}

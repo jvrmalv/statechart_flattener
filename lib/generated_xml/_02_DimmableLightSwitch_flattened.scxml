@@ -1,0 +1,75 @@
+<scxml version="1.0" initial="main_Off__brightness_0" xmlns="http://www.w3.org/2005/07/scxml">
+  <state id="main_Off__brightness_0">
+    <transition target="main_On__brightness_10" event="switch"/>
+  </state>
+  <state id="main_Off__brightness_1">
+    <transition target="main_On__brightness_10" event="switch"/>
+  </state>
+  <state id="main_Off__brightness_10">
+    <transition target="main_On__brightness_10" event="switch"/>
+  </state>
+  <state id="main_Off__brightness_2">
+    <transition target="main_On__brightness_10" event="switch"/>
+  </state>
+  <state id="main_Off__brightness_3">
+    <transition target="main_On__brightness_10" event="switch"/>
+  </state>
+  <state id="main_Off__brightness_4">
+    <transition target="main_On__brightness_10" event="switch"/>
+  </state>
+  <state id="main_Off__brightness_5">
+    <transition target="main_On__brightness_10" event="switch"/>
+  </state>
+  <state id="main_Off__brightness_6">
+    <transition target="main_On__brightness_10" event="switch"/>
+  </state>
+  <state id="main_Off__brightness_7">
+    <transition target="main_On__brightness_10" event="switch"/>
+  </state>
+  <state id="main_Off__brightness_8">
+    <transition target="main_On__brightness_10" event="switch"/>
+  </state>
+  <state id="main_Off__brightness_9">
+    <transition target="main_On__brightness_10" event="switch"/>
+  </state>
+  <state id="main_On__brightness_1">
+    <transition target="main_On__brightness_10" event="changeBrightness"/>
+    <transition target="main_Off__brightness_1" event="switch"/>
+  </state>
+  <state id="main_On__brightness_10">
+    <transition target="main_On__brightness_9" event="changeBrightness"/>
+    <transition target="main_Off__brightness_10" event="switch"/>
+  </state>
+  <state id="main_On__brightness_2">
+    <transition target="main_On__brightness_1" event="changeBrightness"/>
+    <transition target="main_Off__brightness_2" event="switch"/>
+  </state>
+  <state id="main_On__brightness_3">
+    <transition target="main_On__brightness_2" event="changeBrightness"/>
+    <transition target="main_Off__brightness_3" event="switch"/>
+  </state>
+  <state id="main_On__brightness_4">
+    <transition target="main_On__brightness_3" event="changeBrightness"/>
+    <transition target="main_Off__brightness_4" event="switch"/>
+  </state>
+  <state id="main_On__brightness_5">
+    <transition target="main_On__brightness_4" event="changeBrightness"/>
+    <transition target="main_Off__brightness_5" event="switch"/>
+  </state>
+  <state id="main_On__brightness_6">
+    <transition target="main_On__brightness_5" event="changeBrightness"/>
+    <transition target="main_Off__brightness_6" event="switch"/>
+  </state>
+  <state id="main_On__brightness_7">
+    <transition target="main_On__brightness_6" event="changeBrightness"/>
+    <transition target="main_Off__brightness_7" event="switch"/>
+  </state>
+  <state id="main_On__brightness_8">
+    <transition target="main_On__brightness_7" event="changeBrightness"/>
+    <transition target="main_Off__brightness_8" event="switch"/>
+  </state>
+  <state id="main_On__brightness_9">
+    <transition target="main_On__brightness_8" event="changeBrightness"/>
+    <transition target="main_Off__brightness_9" event="switch"/>
+  </state>
+</scxml>

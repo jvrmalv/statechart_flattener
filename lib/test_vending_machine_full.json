@@ -1,0 +1,225 @@
+{
+  "initial": "machine_Idle__coins_0__hasProduct_false",
+  "states": [
+    {
+      "state": "machine_Accepting__coins_1__hasProduct_false",
+      "transitions": [
+        {
+          "input": "cancel",
+          "output": [],
+          "target": "machine_Idle__coins_1__hasProduct_false"
+        },
+        {
+          "input": "insertCoin",
+          "output": [
+            "assign coins=coins + 1"
+          ],
+          "target": "machine_Accepting__coins_2__hasProduct_false"
+        }
+      ]
+    },
+    {
+      "state": "machine_Accepting__coins_1__hasProduct_true",
+      "transitions": [
+        {
+          "input": "cancel",
+          "output": [],
+          "target": "machine_Idle__coins_1__hasProduct_true"
+        },
+        {
+          "input": "insertCoin",
+          "output": [
+            "assign coins=coins + 1"
+          ],
+          "target": "machine_Accepting__coins_2__hasProduct_true"
+        }
+      ]
+    },
+    {
+      "state": "machine_Accepting__coins_2__hasProduct_false",
+      "transitions": [
+        {
+          "input": "cancel",
+          "output": [],
+          "target": "machine_Idle__coins_2__hasProduct_false"
+        },
+        {
+          "input": "insertCoin",
+          "output": [
+            "assign coins=coins + 1"
+          ],
+          "target": "machine_Accepting__coins_3__hasProduct_false"
+        },
+        {
+          "input": "select",
+          "output": [
+            "assign hasProduct=true"
+          ],
+          "target": "machine_Dispensing__coins_2__hasProduct_true"
+        }
+      ]
+    },
+    {
+      "state": "machine_Accepting__coins_2__hasProduct_true",
+      "transitions": [
+        {
+          "input": "cancel",
+          "output": [],
+          "target": "machine_Idle__coins_2__hasProduct_true"
+        },
+        {
+          "input": "insertCoin",
+          "output": [
+            "assign coins=coins + 1"
+          ],
+          "target": "machine_Accepting__coins_3__hasProduct_true"
+        },
+        {
+          "input": "select",
+          "output": [
+            "assign hasProduct=true"
+          ],
+          "target": "machine_Dispensing__coins_2__hasProduct_true"
+        }
+      ]
+    },
+    {
+      "state": "machine_Accepting__coins_3__hasProduct_false",
+      "transitions": [
+        {
+          "input": "cancel",
+          "output": [],
+          "target": "machine_Idle__coins_3__hasProduct_false"
+        },
+        {
+          "input": "select",
+          "output": [
+            "assign hasProduct=true"
+          ],
+          "target": "machine_Dispensing__coins_3__hasProduct_true"
+        }
+      ]
+    },
+    {
+      "state": "machine_Accepting__coins_3__hasProduct_true",
+      "transitions": [
+        {
+          "input": "cancel",
+          "output": [],
+          "target": "machine_Idle__coins_3__hasProduct_true"
+        },
+        {
+          "input": "select",
+          "output": [
+            "assign hasProduct=true"
+          ],
+          "target": "machine_Dispensing__coins_3__hasProduct_true"
+        }
+      ]
+    },
+    {
+      "state": "machine_Dispensing__coins_2__hasProduct_true",
+      "transitions": [
+        {
+          "input": "take",
+          "output": [],
+          "target": "machine_Idle__coins_2__hasProduct_true"
+        }
+      ]
+    },
+    {
+      "state": "machine_Dispensing__coins_3__hasProduct_true",
+      "transitions": [
+        {
+          "input": "take",
+          "output": [],
+          "target": "machine_Idle__coins_3__hasProduct_true"
+        }
+      ]
+    },
+    {
+      "state": "machine_Idle__coins_0__hasProduct_false",
+      "transitions": [
+        {
+          "input": "insertCoin",
+          "output": [
+            "assign coins=1"
+          ],
+          "target": "machine_Accepting__coins_1__hasProduct_false"
+        }
+      ]
+    },
+    {
+      "state": "machine_Idle__coins_1__hasProduct_false",
+      "transitions": [
+        {
+          "input": "insertCoin",
+          "output": [
+            "assign coins=1"
+          ],
+          "target": "machine_Accepting__coins_1__hasProduct_false"
+        }
+      ]
+    },
+    {
+      "state": "machine_Idle__coins_1__hasProduct_true",
+      "transitions": [
+        {
+          "input": "insertCoin",
+          "output": [
+            "assign coins=1"
+          ],
+          "target": "machine_Accepting__coins_1__hasProduct_true"
+        }
+      ]
+    },
+    {
+      "state": "machine_Idle__coins_2__hasProduct_false",
+      "transitions": [
+        {
+          "input": "insertCoin",
+          "output": [
+            "assign coins=1"
+          ],
+          "target": "machine_Accepting__coins_1__hasProduct_false"
+        }
+      ]
+    },
+    {
+      "state": "machine_Idle__coins_2__hasProduct_true",
+      "transitions": [
+        {
+          "input": "insertCoin",
+          "output": [
+            "assign coins=1"
+          ],
+          "target": "machine_Accepting__coins_1__hasProduct_true"
+        }
+      ]
+    },
+    {
+      "state": "machine_Idle__coins_3__hasProduct_false",
+      "transitions": [
+        {
+          "input": "insertCoin",
+          "output": [
+            "assign coins=1"
+          ],
+          "target": "machine_Accepting__coins_1__hasProduct_false"
+        }
+      ]
+    },
+    {
+      "state": "machine_Idle__coins_3__hasProduct_true",
+      "transitions": [
+        {
+          "input": "insertCoin",
+          "output": [
+            "assign coins=1"
+          ],
+          "target": "machine_Accepting__coins_1__hasProduct_true"
+        }
+      ]
+    }
+  ]
+}

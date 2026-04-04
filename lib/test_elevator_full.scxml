@@ -1,0 +1,18 @@
+<scxml version="1.0" initial="elevator_Operational_Stopped_DoorsOpen__floor_0" xmlns="http://www.w3.org/2005/07/scxml">
+  <state id="elevator_Emergency__floor_0">
+    <transition target="elevator_Operational_Stopped_DoorsOpen__floor_0" event="reset"/>
+  </state>
+  <state id="elevator_Operational_MovingUp__floor_0">
+    <transition target="elevator_Operational_Stopped_DoorsOpen__floor_0" event="arrived"/>
+    <transition target="elevator_Emergency__floor_0" event="emergency"/>
+  </state>
+  <state id="elevator_Operational_Stopped_DoorsClosed__floor_0">
+    <transition target="elevator_Emergency__floor_0" event="emergency"/>
+    <transition target="elevator_Operational_MovingUp__floor_0" event="goUp"/>
+    <transition target="elevator_Operational_Stopped_DoorsOpen__floor_0" event="openDoors"/>
+  </state>
+  <state id="elevator_Operational_Stopped_DoorsOpen__floor_0">
+    <transition target="elevator_Operational_Stopped_DoorsClosed__floor_0" event="closeDoors"/>
+    <transition target="elevator_Emergency__floor_0" event="emergency"/>
+  </state>
+</scxml>

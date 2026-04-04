@@ -1,0 +1,118 @@
+<scxml version="1.0" initial="elevator_Operational_Stopped_DoorsOpen__floor_0" xmlns="http://www.w3.org/2005/07/scxml">
+  <state id="elevator_Emergency__floor_0">
+    <transition target="elevator_Operational_Stopped_DoorsOpen__floor_0" event="reset"/>
+  </state>
+  <state id="elevator_Emergency__floor_1">
+    <transition target="elevator_Operational_Stopped_DoorsOpen__floor_1" event="reset"/>
+  </state>
+  <state id="elevator_Emergency__floor_2">
+    <transition target="elevator_Operational_Stopped_DoorsOpen__floor_2" event="reset"/>
+  </state>
+  <state id="elevator_Emergency__floor_3">
+    <transition target="elevator_Operational_Stopped_DoorsOpen__floor_3" event="reset"/>
+  </state>
+  <state id="elevator_Emergency__floor_4">
+    <transition target="elevator_Operational_Stopped_DoorsOpen__floor_4" event="reset"/>
+  </state>
+  <state id="elevator_Emergency__floor_5">
+    <transition target="elevator_Operational_Stopped_DoorsOpen__floor_5" event="reset"/>
+  </state>
+  <state id="elevator_Operational_MovingDown__floor_0">
+    <transition target="elevator_Operational_Stopped_DoorsOpen__floor_0" event="arrived"/>
+    <transition target="elevator_Emergency__floor_0" event="emergency"/>
+  </state>
+  <state id="elevator_Operational_MovingDown__floor_1">
+    <transition target="elevator_Operational_Stopped_DoorsOpen__floor_1" event="arrived"/>
+    <transition target="elevator_Emergency__floor_1" event="emergency"/>
+  </state>
+  <state id="elevator_Operational_MovingDown__floor_2">
+    <transition target="elevator_Operational_Stopped_DoorsOpen__floor_2" event="arrived"/>
+    <transition target="elevator_Emergency__floor_2" event="emergency"/>
+  </state>
+  <state id="elevator_Operational_MovingDown__floor_3">
+    <transition target="elevator_Operational_Stopped_DoorsOpen__floor_3" event="arrived"/>
+    <transition target="elevator_Emergency__floor_3" event="emergency"/>
+  </state>
+  <state id="elevator_Operational_MovingDown__floor_4">
+    <transition target="elevator_Operational_Stopped_DoorsOpen__floor_4" event="arrived"/>
+    <transition target="elevator_Emergency__floor_4" event="emergency"/>
+  </state>
+  <state id="elevator_Operational_MovingUp__floor_1">
+    <transition target="elevator_Operational_Stopped_DoorsOpen__floor_1" event="arrived"/>
+    <transition target="elevator_Emergency__floor_1" event="emergency"/>
+  </state>
+  <state id="elevator_Operational_MovingUp__floor_2">
+    <transition target="elevator_Operational_Stopped_DoorsOpen__floor_2" event="arrived"/>
+    <transition target="elevator_Emergency__floor_2" event="emergency"/>
+  </state>
+  <state id="elevator_Operational_MovingUp__floor_3">
+    <transition target="elevator_Operational_Stopped_DoorsOpen__floor_3" event="arrived"/>
+    <transition target="elevator_Emergency__floor_3" event="emergency"/>
+  </state>
+  <state id="elevator_Operational_MovingUp__floor_4">
+    <transition target="elevator_Operational_Stopped_DoorsOpen__floor_4" event="arrived"/>
+    <transition target="elevator_Emergency__floor_4" event="emergency"/>
+  </state>
+  <state id="elevator_Operational_MovingUp__floor_5">
+    <transition target="elevator_Operational_Stopped_DoorsOpen__floor_5" event="arrived"/>
+    <transition target="elevator_Emergency__floor_5" event="emergency"/>
+  </state>
+  <state id="elevator_Operational_Stopped_DoorsClosed__floor_0">
+    <transition target="elevator_Emergency__floor_0" event="emergency"/>
+    <transition target="elevator_Operational_MovingUp__floor_1" event="goUp"/>
+    <transition target="elevator_Operational_Stopped_DoorsOpen__floor_0" event="openDoors"/>
+  </state>
+  <state id="elevator_Operational_Stopped_DoorsClosed__floor_1">
+    <transition target="elevator_Emergency__floor_1" event="emergency"/>
+    <transition target="elevator_Operational_MovingDown__floor_0" event="goDown"/>
+    <transition target="elevator_Operational_MovingUp__floor_2" event="goUp"/>
+    <transition target="elevator_Operational_Stopped_DoorsOpen__floor_1" event="openDoors"/>
+  </state>
+  <state id="elevator_Operational_Stopped_DoorsClosed__floor_2">
+    <transition target="elevator_Emergency__floor_2" event="emergency"/>
+    <transition target="elevator_Operational_MovingDown__floor_1" event="goDown"/>
+    <transition target="elevator_Operational_MovingUp__floor_3" event="goUp"/>
+    <transition target="elevator_Operational_Stopped_DoorsOpen__floor_2" event="openDoors"/>
+  </state>
+  <state id="elevator_Operational_Stopped_DoorsClosed__floor_3">
+    <transition target="elevator_Emergency__floor_3" event="emergency"/>
+    <transition target="elevator_Operational_MovingDown__floor_2" event="goDown"/>
+    <transition target="elevator_Operational_MovingUp__floor_4" event="goUp"/>
+    <transition target="elevator_Operational_Stopped_DoorsOpen__floor_3" event="openDoors"/>
+  </state>
+  <state id="elevator_Operational_Stopped_DoorsClosed__floor_4">
+    <transition target="elevator_Emergency__floor_4" event="emergency"/>
+    <transition target="elevator_Operational_MovingDown__floor_3" event="goDown"/>
+    <transition target="elevator_Operational_MovingUp__floor_5" event="goUp"/>
+    <transition target="elevator_Operational_Stopped_DoorsOpen__floor_4" event="openDoors"/>
+  </state>
+  <state id="elevator_Operational_Stopped_DoorsClosed__floor_5">
+    <transition target="elevator_Emergency__floor_5" event="emergency"/>
+    <transition target="elevator_Operational_MovingDown__floor_4" event="goDown"/>
+    <transition target="elevator_Operational_Stopped_DoorsOpen__floor_5" event="openDoors"/>
+  </state>
+  <state id="elevator_Operational_Stopped_DoorsOpen__floor_0">
+    <transition target="elevator_Operational_Stopped_DoorsClosed__floor_0" event="closeDoors"/>
+    <transition target="elevator_Emergency__floor_0" event="emergency"/>
+  </state>
+  <state id="elevator_Operational_Stopped_DoorsOpen__floor_1">
+    <transition target="elevator_Operational_Stopped_DoorsClosed__floor_1" event="closeDoors"/>
+    <transition target="elevator_Emergency__floor_1" event="emergency"/>
+  </state>
+  <state id="elevator_Operational_Stopped_DoorsOpen__floor_2">
+    <transition target="elevator_Operational_Stopped_DoorsClosed__floor_2" event="closeDoors"/>
+    <transition target="elevator_Emergency__floor_2" event="emergency"/>
+  </state>
+  <state id="elevator_Operational_Stopped_DoorsOpen__floor_3">
+    <transition target="elevator_Operational_Stopped_DoorsClosed__floor_3" event="closeDoors"/>
+    <transition target="elevator_Emergency__floor_3" event="emergency"/>
+  </state>
+  <state id="elevator_Operational_Stopped_DoorsOpen__floor_4">
+    <transition target="elevator_Operational_Stopped_DoorsClosed__floor_4" event="closeDoors"/>
+    <transition target="elevator_Emergency__floor_4" event="emergency"/>
+  </state>
+  <state id="elevator_Operational_Stopped_DoorsOpen__floor_5">
+    <transition target="elevator_Operational_Stopped_DoorsClosed__floor_5" event="closeDoors"/>
+    <transition target="elevator_Emergency__floor_5" event="emergency"/>
+  </state>
+</scxml>

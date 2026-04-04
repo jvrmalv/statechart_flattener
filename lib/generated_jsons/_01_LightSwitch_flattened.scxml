@@ -1,0 +1,8 @@
+<scxml version="1.0" initial="main_Off__" xmlns="http://www.w3.org/2005/07/scxml">
+  <state id="main_Off__">
+    <transition target="main_On__" event="switch"/>
+  </state>
+  <state id="main_On__">
+    <transition target="main_Off__" event="switch"/>
+  </state>
+</scxml>
