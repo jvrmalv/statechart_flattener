@@ -5,19 +5,19 @@ Mix.install([
 ])
 
 defmodule ScxmlCompiler do
-  def run(file_path) do
+  def run(file_path, output_path) do
     xml_content = File.read!(file_path)
 
     case Statifier.parse(xml_content, validate: false) do
       {:ok, doc, _} ->
-        process_doc(doc, xml_content, file_path)
+        process_doc(doc, xml_content, file_path, output_path)
 
       {:error, reason} ->
         IO.puts(:stderr, "❌ Parse Failed: #{inspect(reason)}")
     end
   end
 
-  defp process_doc(doc, xml_raw, path) do
+  defp process_doc(doc, xml_raw, path, output_path) do
     # 1. EXTRACT VARIABLES
     initial_context = DataModel.extract_variables(doc, xml_raw)
     domain = DataModel.generate_domains(initial_context, xml_raw)
@@ -65,7 +65,7 @@ defmodule ScxmlCompiler do
     resolved_fsm = resolve_history_markers(reachable_fsm, initial_history)
 
     # 8. OUTPUT
-    output_files(path, resolved_fsm, start_id)
+    output_files(output_path, resolved_fsm, start_id)
   end
 
   # Resolve _HISTORY_ markers in transition targets to their default values
@@ -103,15 +103,15 @@ defmodule ScxmlCompiler do
     sorted_fsm = Enum.sort_by(fsm, & &1["state"])
 
     File.write!(
-      "#{base}_full.json",
+      "#{base}_flattened.json",
       Jason.encode!(%{"initial" => initial, "states" => sorted_fsm}, pretty: true)
     )
 
-    File.write!("#{base}_full.scxml", ScxmlGenerator.generate(sorted_fsm, initial))
+    File.write!("#{base}_flattened.scxml", ScxmlGenerator.generate(sorted_fsm, initial))
 
     IO.puts("✅ Success!")
-    IO.puts("   JSON:  #{base}_full.json")
-    IO.puts("   SCXML: #{base}_full.scxml")
+    IO.puts("   JSON:  #{base}_flattened.json")
+    IO.puts("   SCXML: #{base}_flatenned.scxml")
   end
 end
 
@@ -309,8 +309,12 @@ defmodule ReachabilityAnalyzer do
   end
 
   defp resolve_history_in_target(target, history_ctx) do
+    # Sort by key length descending to match longer patterns first
+    # This ensures _HISTORY_modes_Automatic_Light_Sensing is matched before _HISTORY_modes_Automatic
+    sorted_history = Enum.sort_by(history_ctx, fn {k, _} -> -String.length(k) end)
+
     # Check if any part of target contains a history reference
-    Enum.reduce(history_ctx, target, fn {parent_id, history_value}, acc ->
+    Enum.reduce(sorted_history, target, fn {parent_id, history_value}, acc ->
       history_marker = "_HISTORY_#{parent_id}"
 
       if String.contains?(acc, history_marker) do
@@ -545,7 +549,7 @@ defmodule LogicEngine do
       {res, _} = Code.eval_string(str, binds)
       res
     rescue
-      _ -> false
+      _ -> :error
     end
   end
 
@@ -810,8 +814,10 @@ defmodule Flatten do
 
       actions = get_transition_actions(t)
 
-      Map.put_new(acc, "#{t.event}|#{t.cond}", %{
-        "event" => t.event,
+      event_name = t.event || "_auto"
+
+      Map.put_new(acc, "#{event_name}|#{t.cond}", %{
+        "event" => event_name,
         "cond" => t.cond,
         "target" => tgt_id,
         "actions" => actions
@@ -855,8 +861,10 @@ defmodule Flatten do
 
       actions = get_transition_actions(t)
 
-      Map.put_new(acc, "#{t.event}|#{t.cond}", %{
-        "event" => t.event,
+      event_name = t.event || "_auto"
+
+      Map.put_new(acc, "#{event_name}|#{t.cond}", %{
+        "event" => event_name,
         "cond" => t.cond,
         "target" => tgt_id,
         "actions" => actions
@@ -1114,9 +1122,20 @@ defmodule Expander do
       case Regex.run(~r/assign ([^=]+)=(.+)/, act) do
         [_, var, expr] ->
           new = LogicEngine.eval(expr, ctx)
-          # For time variables, allow values up to 23
-          max_val = if is_time_variable?(var), do: 23, else: 10
-          Map.put(ctx, var, if(is_integer(new), do: max(0, min(max_val, new)), else: new))
+
+          case new do
+            :error ->
+              # Expression failed (e.g. JS function like get_hour()) — keep current value
+              ctx
+
+            val when is_integer(val) ->
+              # Clamp to valid range
+              max_val = if is_time_variable?(var), do: 23, else: 10
+              Map.put(ctx, var, max(0, min(max_val, val)))
+
+            val ->
+              Map.put(ctx, var, val)
+          end
 
         _ ->
           ctx
@@ -1126,5 +1145,5 @@ defmodule Expander do
   end
 end
 
-[file] = System.argv()
-ScxmlCompiler.run(file)
+[file, output] = System.argv()
+ScxmlCompiler.run(file, output)
