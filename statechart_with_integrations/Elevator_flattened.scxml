@@ -1,0 +1,12 @@
+<scxml version="1.0" initial="main_Idle__currentFloor_0__destination_0" xmlns="http://www.w3.org/2005/07/scxml">
+  <state id="main_Idle__currentFloor_0__destination_0">
+    <transition target="main_Moving_MovingDown__currentFloor_0__destination_0" event="floor"/>
+    <transition target="main_Moving_MovingUp__currentFloor_0__destination_0" event="floor"/>
+  </state>
+  <state id="main_Moving_MovingDown__currentFloor_0__destination_0">
+    <transition target="main_Idle__currentFloor_0__destination_0" event="_auto"/>
+  </state>
+  <state id="main_Moving_MovingUp__currentFloor_0__destination_0">
+    <transition target="main_Idle__currentFloor_0__destination_0" event="_auto"/>
+  </state>
+</scxml>

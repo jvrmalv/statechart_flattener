@@ -1,0 +1,873 @@
+{
+  "initial": "main_off__",
+  "states": [
+    {
+      "state": "main_main__main_main_trafficlight_interrupted_Black__main_main_timer_disabled__",
+      "transitions": [
+        {
+          "input": "Black_t_0_timeEvent_0",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_disabled__"
+        },
+        {
+          "input": "enableTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_interrupted_Black__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "police_interrupt",
+          "output": [
+            "send enableTimer"
+          ],
+          "target": "main_main__main_main_trafficlight_normal_hist__main_main_timer_disabled__"
+        },
+        {
+          "input": "toggle",
+          "output": [],
+          "target": "main_off__"
+        }
+      ]
+    },
+    {
+      "state": "main_main__main_main_trafficlight_interrupted_Black__main_main_timer_running_Green__",
+      "transitions": [
+        {
+          "input": "Black_t_0_timeEvent_0",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_Green__"
+        },
+        {
+          "input": "Green_t_0_timeEvent_0",
+          "output": [
+            "assign counter=counter - 1"
+          ],
+          "target": "main_main__main_main_trafficlight_interrupted_Black__main_main_timer_running_Green__"
+        },
+        {
+          "input": "disableTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_interrupted_Black__main_main_timer_disabled__"
+        },
+        {
+          "input": "police_interrupt",
+          "output": [
+            "send enableTimer"
+          ],
+          "target": "main_main__main_main_trafficlight_normal_hist__main_main_timer_running_Green__"
+        },
+        {
+          "input": "resetTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_interrupted_Black__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "toggle",
+          "output": [],
+          "target": "main_off__"
+        }
+      ]
+    },
+    {
+      "state": "main_main__main_main_trafficlight_interrupted_Black__main_main_timer_running_Red__",
+      "transitions": [
+        {
+          "input": "Black_t_0_timeEvent_0",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_Red__"
+        },
+        {
+          "input": "Red_t_0_timeEvent_0",
+          "output": [
+            "assign counter=counter - 1"
+          ],
+          "target": "main_main__main_main_trafficlight_interrupted_Black__main_main_timer_running_Red__"
+        },
+        {
+          "input": "disableTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_interrupted_Black__main_main_timer_disabled__"
+        },
+        {
+          "input": "police_interrupt",
+          "output": [
+            "send enableTimer"
+          ],
+          "target": "main_main__main_main_trafficlight_normal_hist__main_main_timer_running_Red__"
+        },
+        {
+          "input": "resetTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_interrupted_Black__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "toggle",
+          "output": [],
+          "target": "main_off__"
+        }
+      ]
+    },
+    {
+      "state": "main_main__main_main_trafficlight_interrupted_Black__main_main_timer_running_running.choice_0__",
+      "transitions": [
+        {
+          "input": "Black_t_0_timeEvent_0",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "_auto",
+          "output": [
+            "send Timer.updateTimerColour"
+          ],
+          "target": "main_main__main_main_trafficlight_interrupted_Black__main_main_timer_running_Red__"
+        },
+        {
+          "input": "disableTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_interrupted_Black__main_main_timer_disabled__"
+        },
+        {
+          "input": "police_interrupt",
+          "output": [
+            "send enableTimer"
+          ],
+          "target": "main_main__main_main_trafficlight_normal_hist__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "resetTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_interrupted_Black__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "toggle",
+          "output": [],
+          "target": "main_off__"
+        }
+      ]
+    },
+    {
+      "state": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_disabled__",
+      "transitions": [
+        {
+          "input": "Yellow_t_0_timeEvent_0",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_interrupted_Black__main_main_timer_disabled__"
+        },
+        {
+          "input": "enableTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "police_interrupt",
+          "output": [
+            "send enableTimer"
+          ],
+          "target": "main_main__main_main_trafficlight_normal_hist__main_main_timer_disabled__"
+        },
+        {
+          "input": "toggle",
+          "output": [],
+          "target": "main_off__"
+        }
+      ]
+    },
+    {
+      "state": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_Green__",
+      "transitions": [
+        {
+          "input": "Green_t_0_timeEvent_0",
+          "output": [
+            "assign counter=counter - 1"
+          ],
+          "target": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_Green__"
+        },
+        {
+          "input": "Yellow_t_0_timeEvent_0",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_interrupted_Black__main_main_timer_running_Green__"
+        },
+        {
+          "input": "disableTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_disabled__"
+        },
+        {
+          "input": "police_interrupt",
+          "output": [
+            "send enableTimer"
+          ],
+          "target": "main_main__main_main_trafficlight_normal_hist__main_main_timer_running_Green__"
+        },
+        {
+          "input": "resetTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "toggle",
+          "output": [],
+          "target": "main_off__"
+        }
+      ]
+    },
+    {
+      "state": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_Red__",
+      "transitions": [
+        {
+          "input": "Red_t_0_timeEvent_0",
+          "output": [
+            "assign counter=counter - 1"
+          ],
+          "target": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_Red__"
+        },
+        {
+          "input": "Yellow_t_0_timeEvent_0",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_interrupted_Black__main_main_timer_running_Red__"
+        },
+        {
+          "input": "disableTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_disabled__"
+        },
+        {
+          "input": "police_interrupt",
+          "output": [
+            "send enableTimer"
+          ],
+          "target": "main_main__main_main_trafficlight_normal_hist__main_main_timer_running_Red__"
+        },
+        {
+          "input": "resetTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "toggle",
+          "output": [],
+          "target": "main_off__"
+        }
+      ]
+    },
+    {
+      "state": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_running.choice_0__",
+      "transitions": [
+        {
+          "input": "Yellow_t_0_timeEvent_0",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_interrupted_Black__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "_auto",
+          "output": [
+            "send Timer.updateTimerColour"
+          ],
+          "target": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_Red__"
+        },
+        {
+          "input": "disableTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_disabled__"
+        },
+        {
+          "input": "police_interrupt",
+          "output": [
+            "send enableTimer"
+          ],
+          "target": "main_main__main_main_trafficlight_normal_hist__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "resetTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "toggle",
+          "output": [],
+          "target": "main_off__"
+        }
+      ]
+    },
+    {
+      "state": "main_main__main_main_trafficlight_normal_Green__main_main_timer_disabled__",
+      "transitions": [
+        {
+          "input": "Green_t_0_timeEvent_0",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Yellow__main_main_timer_disabled__"
+        },
+        {
+          "input": "enableTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Green__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "police_interrupt",
+          "output": [
+            "send disableTimer"
+          ],
+          "target": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_disabled__"
+        },
+        {
+          "input": "toggle",
+          "output": [],
+          "target": "main_off__"
+        }
+      ]
+    },
+    {
+      "state": "main_main__main_main_trafficlight_normal_Green__main_main_timer_running_Green__",
+      "transitions": [
+        {
+          "input": "Green_t_0_timeEvent_0",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Yellow__main_main_timer_running_Green__"
+        },
+        {
+          "input": "disableTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Green__main_main_timer_disabled__"
+        },
+        {
+          "input": "police_interrupt",
+          "output": [
+            "send disableTimer"
+          ],
+          "target": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_Green__"
+        },
+        {
+          "input": "resetTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Green__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "toggle",
+          "output": [],
+          "target": "main_off__"
+        }
+      ]
+    },
+    {
+      "state": "main_main__main_main_trafficlight_normal_Green__main_main_timer_running_Red__",
+      "transitions": [
+        {
+          "input": "Green_t_0_timeEvent_0",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Yellow__main_main_timer_running_Red__"
+        },
+        {
+          "input": "Red_t_0_timeEvent_0",
+          "output": [
+            "assign counter=counter - 1"
+          ],
+          "target": "main_main__main_main_trafficlight_normal_Green__main_main_timer_running_Red__"
+        },
+        {
+          "input": "disableTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Green__main_main_timer_disabled__"
+        },
+        {
+          "input": "police_interrupt",
+          "output": [
+            "send disableTimer"
+          ],
+          "target": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_Red__"
+        },
+        {
+          "input": "resetTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Green__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "toggle",
+          "output": [],
+          "target": "main_off__"
+        }
+      ]
+    },
+    {
+      "state": "main_main__main_main_trafficlight_normal_Green__main_main_timer_running_running.choice_0__",
+      "transitions": [
+        {
+          "input": "Green_t_0_timeEvent_0",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Yellow__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "_auto",
+          "output": [
+            "send Timer.updateTimerColour"
+          ],
+          "target": "main_main__main_main_trafficlight_normal_Green__main_main_timer_running_Red__"
+        },
+        {
+          "input": "_auto",
+          "output": [
+            "send Timer.updateTimerColour"
+          ],
+          "target": "main_main__main_main_trafficlight_normal_Green__main_main_timer_running_Green__"
+        },
+        {
+          "input": "disableTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Green__main_main_timer_disabled__"
+        },
+        {
+          "input": "police_interrupt",
+          "output": [
+            "send disableTimer"
+          ],
+          "target": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "resetTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Green__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "toggle",
+          "output": [],
+          "target": "main_off__"
+        }
+      ]
+    },
+    {
+      "state": "main_main__main_main_trafficlight_normal_Red__main_main_timer_disabled__",
+      "transitions": [
+        {
+          "input": "Red_t_0_timeEvent_0",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Green__main_main_timer_disabled__"
+        },
+        {
+          "input": "enableTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Red__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "police_interrupt",
+          "output": [
+            "send disableTimer"
+          ],
+          "target": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_disabled__"
+        },
+        {
+          "input": "toggle",
+          "output": [],
+          "target": "main_off__"
+        }
+      ]
+    },
+    {
+      "state": "main_main__main_main_trafficlight_normal_Red__main_main_timer_running_Green__",
+      "transitions": [
+        {
+          "input": "Green_t_0_timeEvent_0",
+          "output": [
+            "assign counter=counter - 1"
+          ],
+          "target": "main_main__main_main_trafficlight_normal_Red__main_main_timer_running_Green__"
+        },
+        {
+          "input": "Red_t_0_timeEvent_0",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Green__main_main_timer_running_Green__"
+        },
+        {
+          "input": "disableTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Red__main_main_timer_disabled__"
+        },
+        {
+          "input": "police_interrupt",
+          "output": [
+            "send disableTimer"
+          ],
+          "target": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_Green__"
+        },
+        {
+          "input": "resetTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Red__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "toggle",
+          "output": [],
+          "target": "main_off__"
+        }
+      ]
+    },
+    {
+      "state": "main_main__main_main_trafficlight_normal_Red__main_main_timer_running_Red__",
+      "transitions": [
+        {
+          "input": "Red_t_0_timeEvent_0",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Green__main_main_timer_running_Red__"
+        },
+        {
+          "input": "disableTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Red__main_main_timer_disabled__"
+        },
+        {
+          "input": "police_interrupt",
+          "output": [
+            "send disableTimer"
+          ],
+          "target": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_Red__"
+        },
+        {
+          "input": "resetTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Red__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "toggle",
+          "output": [],
+          "target": "main_off__"
+        }
+      ]
+    },
+    {
+      "state": "main_main__main_main_trafficlight_normal_Red__main_main_timer_running_running.choice_0__",
+      "transitions": [
+        {
+          "input": "Red_t_0_timeEvent_0",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Green__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "_auto",
+          "output": [
+            "send Timer.updateTimerColour"
+          ],
+          "target": "main_main__main_main_trafficlight_normal_Red__main_main_timer_running_Red__"
+        },
+        {
+          "input": "disableTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Red__main_main_timer_disabled__"
+        },
+        {
+          "input": "police_interrupt",
+          "output": [
+            "send disableTimer"
+          ],
+          "target": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "resetTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Red__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "toggle",
+          "output": [],
+          "target": "main_off__"
+        }
+      ]
+    },
+    {
+      "state": "main_main__main_main_trafficlight_normal_Yellow__main_main_timer_disabled__",
+      "transitions": [
+        {
+          "input": "Yellow_t_0_timeEvent_0",
+          "output": [
+            "send enableTimer"
+          ],
+          "target": "main_main__main_main_trafficlight_normal_Red__main_main_timer_disabled__"
+        },
+        {
+          "input": "enableTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Yellow__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "police_interrupt",
+          "output": [
+            "send disableTimer"
+          ],
+          "target": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_disabled__"
+        },
+        {
+          "input": "toggle",
+          "output": [],
+          "target": "main_off__"
+        }
+      ]
+    },
+    {
+      "state": "main_main__main_main_trafficlight_normal_Yellow__main_main_timer_running_Green__",
+      "transitions": [
+        {
+          "input": "Green_t_0_timeEvent_0",
+          "output": [
+            "assign counter=counter - 1"
+          ],
+          "target": "main_main__main_main_trafficlight_normal_Yellow__main_main_timer_running_Green__"
+        },
+        {
+          "input": "Yellow_t_0_timeEvent_0",
+          "output": [
+            "send enableTimer"
+          ],
+          "target": "main_main__main_main_trafficlight_normal_Red__main_main_timer_running_Green__"
+        },
+        {
+          "input": "disableTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Yellow__main_main_timer_disabled__"
+        },
+        {
+          "input": "police_interrupt",
+          "output": [
+            "send disableTimer"
+          ],
+          "target": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_Green__"
+        },
+        {
+          "input": "resetTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Yellow__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "toggle",
+          "output": [],
+          "target": "main_off__"
+        }
+      ]
+    },
+    {
+      "state": "main_main__main_main_trafficlight_normal_Yellow__main_main_timer_running_Red__",
+      "transitions": [
+        {
+          "input": "Red_t_0_timeEvent_0",
+          "output": [
+            "assign counter=counter - 1"
+          ],
+          "target": "main_main__main_main_trafficlight_normal_Yellow__main_main_timer_running_Red__"
+        },
+        {
+          "input": "Yellow_t_0_timeEvent_0",
+          "output": [
+            "send enableTimer"
+          ],
+          "target": "main_main__main_main_trafficlight_normal_Red__main_main_timer_running_Red__"
+        },
+        {
+          "input": "disableTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Yellow__main_main_timer_disabled__"
+        },
+        {
+          "input": "police_interrupt",
+          "output": [
+            "send disableTimer"
+          ],
+          "target": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_Red__"
+        },
+        {
+          "input": "resetTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Yellow__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "toggle",
+          "output": [],
+          "target": "main_off__"
+        }
+      ]
+    },
+    {
+      "state": "main_main__main_main_trafficlight_normal_Yellow__main_main_timer_running_running.choice_0__",
+      "transitions": [
+        {
+          "input": "Yellow_t_0_timeEvent_0",
+          "output": [
+            "send enableTimer"
+          ],
+          "target": "main_main__main_main_trafficlight_normal_Red__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "_auto",
+          "output": [
+            "send Timer.updateTimerColour"
+          ],
+          "target": "main_main__main_main_trafficlight_normal_Yellow__main_main_timer_running_Red__"
+        },
+        {
+          "input": "disableTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Yellow__main_main_timer_disabled__"
+        },
+        {
+          "input": "police_interrupt",
+          "output": [
+            "send disableTimer"
+          ],
+          "target": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "resetTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Yellow__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "toggle",
+          "output": [],
+          "target": "main_off__"
+        }
+      ]
+    },
+    {
+      "state": "main_main__main_main_trafficlight_normal_hist__main_main_timer_disabled__",
+      "transitions": [
+        {
+          "input": "_auto",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Red__main_main_timer_disabled__"
+        },
+        {
+          "input": "enableTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_hist__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "police_interrupt",
+          "output": [
+            "send disableTimer"
+          ],
+          "target": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_disabled__"
+        },
+        {
+          "input": "toggle",
+          "output": [],
+          "target": "main_off__"
+        }
+      ]
+    },
+    {
+      "state": "main_main__main_main_trafficlight_normal_hist__main_main_timer_running_Green__",
+      "transitions": [
+        {
+          "input": "Green_t_0_timeEvent_0",
+          "output": [
+            "assign counter=counter - 1"
+          ],
+          "target": "main_main__main_main_trafficlight_normal_hist__main_main_timer_running_Green__"
+        },
+        {
+          "input": "_auto",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Red__main_main_timer_running_Green__"
+        },
+        {
+          "input": "disableTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_hist__main_main_timer_disabled__"
+        },
+        {
+          "input": "police_interrupt",
+          "output": [
+            "send disableTimer"
+          ],
+          "target": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_Green__"
+        },
+        {
+          "input": "resetTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_hist__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "toggle",
+          "output": [],
+          "target": "main_off__"
+        }
+      ]
+    },
+    {
+      "state": "main_main__main_main_trafficlight_normal_hist__main_main_timer_running_Red__",
+      "transitions": [
+        {
+          "input": "Red_t_0_timeEvent_0",
+          "output": [
+            "assign counter=counter - 1"
+          ],
+          "target": "main_main__main_main_trafficlight_normal_hist__main_main_timer_running_Red__"
+        },
+        {
+          "input": "_auto",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Red__main_main_timer_running_Red__"
+        },
+        {
+          "input": "disableTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_hist__main_main_timer_disabled__"
+        },
+        {
+          "input": "police_interrupt",
+          "output": [
+            "send disableTimer"
+          ],
+          "target": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_Red__"
+        },
+        {
+          "input": "resetTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_hist__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "toggle",
+          "output": [],
+          "target": "main_off__"
+        }
+      ]
+    },
+    {
+      "state": "main_main__main_main_trafficlight_normal_hist__main_main_timer_running_running.choice_0__",
+      "transitions": [
+        {
+          "input": "_auto",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Red__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "disableTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_hist__main_main_timer_disabled__"
+        },
+        {
+          "input": "police_interrupt",
+          "output": [
+            "send disableTimer"
+          ],
+          "target": "main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "resetTimer",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_hist__main_main_timer_running_running.choice_0__"
+        },
+        {
+          "input": "toggle",
+          "output": [],
+          "target": "main_off__"
+        }
+      ]
+    },
+    {
+      "state": "main_off__",
+      "transitions": [
+        {
+          "input": "toggle",
+          "output": [],
+          "target": "main_main__main_main_trafficlight_normal_Red__main_main_timer_running_running.choice_0__"
+        }
+      ]
+    }
+  ]
+}

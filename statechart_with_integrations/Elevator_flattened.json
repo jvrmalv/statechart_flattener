@@ -1,0 +1,44 @@
+{
+  "initial": "main_Idle__currentFloor_0__destination_0",
+  "states": [
+    {
+      "state": "main_Idle__currentFloor_0__destination_0",
+      "transitions": [
+        {
+          "input": "floor",
+          "output": [
+            "assign destination=_event.data"
+          ],
+          "target": "main_Moving_MovingDown__currentFloor_0__destination_0"
+        },
+        {
+          "input": "floor",
+          "output": [
+            "assign destination=_event.data"
+          ],
+          "target": "main_Moving_MovingUp__currentFloor_0__destination_0"
+        }
+      ]
+    },
+    {
+      "state": "main_Moving_MovingDown__currentFloor_0__destination_0",
+      "transitions": [
+        {
+          "input": "_auto",
+          "output": [],
+          "target": "main_Idle__currentFloor_0__destination_0"
+        }
+      ]
+    },
+    {
+      "state": "main_Moving_MovingUp__currentFloor_0__destination_0",
+      "transitions": [
+        {
+          "input": "_auto",
+          "output": [],
+          "target": "main_Idle__currentFloor_0__destination_0"
+        }
+      ]
+    }
+  ]
+}
