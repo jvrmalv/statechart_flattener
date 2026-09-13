@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" datamodel="ecmascript" name="_05_PresenceSimulationLightSwitch">
+	<datamodel>
+		<data expr="0" id="brightness" />
+		<data expr="5" id="simulation_WAIT_MIN" />
+		<data expr="1200" id="simulation_WAIT_MAX" />
+		<data expr="2" id="simulation_UPDATE_PERIOD" />
+		<data expr="0" id="wait_time" />
+		<data expr="0" id="hour" />
+	</datamodel>
+	<state id="main">
+		<initial>
+			<transition target="Manual" type="internal">
+			</transition>
+		</initial>
+		<state id="Presence_Simulation">
+			<onentry>
+				<send event="Presence Simulation_timeEvent_0" delayexpr="simulation_UPDATE_PERIOD * 1000"/>
+			</onentry>
+			<transition event="Presence Simulation_timeEvent_0"  type="internal">
+				 <assign location="hour" expr="get_hour();"/>
+				<send event="Presence Simulation_timeEvent_0" delay="simulation_UPDATE_PERIODs"/>
+			</transition>
+			<onexit>
+				<cancel sendid="Presence Simulation_timeEvent_0" />
+			</onexit>
+			<initial>
+				<transition target="Idle" type="internal">
+				</transition>
+			</initial>
+			<state id="Idle">
+				<onentry>
+					 <assign location="brightness" expr="0"/>
+				</onentry>
+				<transition cond="hour &gt; 17 || (hour &gt; 7 &amp;&amp; hour &lt; 10)" type="internal" >
+					<send event="startSimulation">
+					</send>
+				</transition>
+				<transition event="startSimulation"  target="Active">
+				</transition>
+			</state>
+			<parallel id="Active">
+				<state id="schedule">
+					<initial>
+						<transition target="Waiting" type="internal">
+						</transition>
+					</initial>
+					<state id="Waiting">
+						<onentry>
+							 <assign location="wait_time" expr="Math.floor((simulation_WAIT_MIN + get_rand(); * (simulation_WAIT_MAX - simulation_WAIT_MIN)))"/>
+						</onentry>
+						<transition cond="!(hour &gt; 17 || (hour &gt; 7 &amp;&amp; hour &lt; 10))" type="internal" >
+							<send event="stopSimulation">
+							</send>
+						</transition>
+						<onentry>
+							<send event="Waiting_timeEvent_0" delayexpr="wait_time * 1000"/>
+						</onentry>
+						<transition event="Waiting_timeEvent_0"  type="internal">
+							<send event="changePresence">
+							</send>
+						</transition>
+						<onexit>
+							<cancel sendid="Waiting_timeEvent_0" />
+						</onexit>
+						<transition event="changePresence"  target="Waiting">
+						</transition>
+					</state>
+				</state>
+				<state id="presence">
+					<initial>
+						<transition target="Active.presence.entry_0" type="internal">
+						</transition>
+					</initial>
+					<state id="Present">
+						<onentry>
+							 <assign location="brightness" expr="10"/>
+						</onentry>
+						<transition event="changePresence"  target="Absent">
+						</transition>
+					</state>
+					<state id="Absent">
+						<onentry>
+							 <assign location="brightness" expr="0"/>
+						</onentry>
+						<transition event="changePresence"  target="Present">
+						</transition>
+					</state>
+					<history type = "shallow" id="Active.presence.entry_0">
+						<transition   target="Absent">
+						</transition>
+					</history>
+				</state>
+				<transition event="stopSimulation"  target="Idle">
+				</transition>
+			</parallel>
+			<transition event="hmi.toggleMode"  target="Manual">
+			</transition>
+		</state>
+		<state id="Manual">
+			<initial>
+				<transition target="Off" type="internal">
+				</transition>
+			</initial>
+			<state id="Off">
+				<onentry>
+					 <assign location="brightness" expr="0"/>
+				</onentry>
+				<transition event="hmi.switch"  target="On">
+					 <assign location="brightness" expr="10"/>
+				</transition>
+			</state>
+			<state id="On">
+				<transition event ="hmi.changeBrightness" cond="brightness &gt; 1" type="internal" >
+					 <assign location="brightness" expr="brightness - 1"/>
+				</transition>
+				<transition event ="hmi.changeBrightness" cond="brightness &lt;= 1" type="internal" >
+					 <assign location="brightness" expr="10"/>
+				</transition>
+				<transition event="hmi.switch"  target="Off">
+				</transition>
+			</state>
+			<transition event="hmi.toggleMode"  target="Presence_Simulation">
+			</transition>
+		</state>
+	</state>
+</scxml>

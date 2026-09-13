@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" datamodel="ecmascript" name="Elevator">
+	<datamodel>
+		<data expr="0" id="currentFloor" />
+		<data expr="0" id="destination" />
+	</datamodel>
+	<state id="main">
+		<initial>
+			<transition target="Idle" type="internal">
+			</transition>
+		</initial>
+		<state id="Idle">
+			<onentry>
+				<send event="Idle_t_1_timeEvent_0" delay="5s"/>
+			</onentry>
+			<onexit>
+				<cancel sendid="Idle_t_1_timeEvent_0" />
+			</onexit>
+			<transition event="floor" cond="_event.data &lt; currentFloor &amp;&amp; _event.data &gt;= 0" target="MovingDown">
+				 <assign location="destination" expr="_event.data"/>
+			</transition>
+			<transition event="Idle_t_1_timeEvent_0" cond="currentFloor &gt; 0" target="MovingDown">
+				 <assign location="destination" expr="0"/>
+			</transition>
+			<transition event="floor" cond="_event.data &gt; currentFloor" target="MovingUp">
+				 <assign location="destination" expr="_event.data"/>
+			</transition>
+		</state>
+		<state id="Moving">
+			<initial>
+				<transition target="MovingUp" type="internal">
+				</transition>
+			</initial>
+			<state id="MovingUp">
+				<onentry>
+					 <assign location="currentFloor" expr="currentFloor + 1"/>
+				</onentry>
+				<transition  cond="currentFloor &lt; destination" target="MovingUp">
+				</transition>
+			</state>
+			<state id="MovingDown">
+				<onentry>
+					 <assign location="currentFloor" expr="currentFloor - 1"/>
+				</onentry>
+				<transition  cond="currentFloor &gt; destination" target="MovingDown">
+				</transition>
+			</state>
+			<transition  cond="destination == currentFloor" target="Idle">
+			</transition>
+		</state>
+	</state>
+</scxml>

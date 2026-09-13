@@ -1,0 +1,248 @@
+<scxml version="1.0" initial="main_off__" xmlns="http://www.w3.org/2005/07/scxml">
+  <state id="main_main__main_main_trafficlight_interrupted_Black__main_main_timer_disabled__">
+    <transition target="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_disabled__" event="Black_t_0_timeEvent_0"/>
+    <transition target="main_main__main_main_trafficlight_normal_hist__main_main_timer_disabled__" event="police_interrupt">
+      <send event="enableTimer"/>
+    </transition>
+    <transition target="main_off__" event="toggle"/>
+    <transition target="main_main__main_main_trafficlight_interrupted_Black__main_main_timer_running_running.choice_0__" event="enableTimer"/>
+  </state>
+  <state id="main_main__main_main_trafficlight_interrupted_Black__main_main_timer_running_Green__">
+    <transition target="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_Green__" event="Black_t_0_timeEvent_0"/>
+    <transition target="main_main__main_main_trafficlight_normal_hist__main_main_timer_running_Green__" event="police_interrupt">
+      <send event="enableTimer"/>
+    </transition>
+    <transition target="main_off__" event="toggle"/>
+    <transition target="main_main__main_main_trafficlight_interrupted_Black__main_main_timer_running_Green__" event="Green_t_0_timeEvent_0"/>
+    <transition target="main_main__main_main_trafficlight_interrupted_Black__main_main_timer_disabled__" event="disableTimer"/>
+    <transition target="main_main__main_main_trafficlight_interrupted_Black__main_main_timer_running_running.choice_0__" event="resetTimer"/>
+  </state>
+  <state id="main_main__main_main_trafficlight_interrupted_Black__main_main_timer_running_Red__">
+    <transition target="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_Red__" event="Black_t_0_timeEvent_0"/>
+    <transition target="main_main__main_main_trafficlight_normal_hist__main_main_timer_running_Red__" event="police_interrupt">
+      <send event="enableTimer"/>
+    </transition>
+    <transition target="main_off__" event="toggle"/>
+    <transition target="main_main__main_main_trafficlight_interrupted_Black__main_main_timer_running_Red__" event="Red_t_0_timeEvent_0"/>
+    <transition target="main_main__main_main_trafficlight_interrupted_Black__main_main_timer_disabled__" event="disableTimer"/>
+    <transition target="main_main__main_main_trafficlight_interrupted_Black__main_main_timer_running_running.choice_0__" event="resetTimer"/>
+  </state>
+  <state id="main_main__main_main_trafficlight_interrupted_Black__main_main_timer_running_running.choice_0__">
+    <transition target="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_running.choice_0__" event="Black_t_0_timeEvent_0"/>
+    <transition target="main_main__main_main_trafficlight_normal_hist__main_main_timer_running_running.choice_0__" event="police_interrupt">
+      <send event="enableTimer"/>
+    </transition>
+    <transition target="main_off__" event="toggle"/>
+    <transition target="main_main__main_main_trafficlight_interrupted_Black__main_main_timer_running_Red__" event="_auto">
+      <send event="Timer.updateTimerColour"/>
+    </transition>
+    <transition target="main_main__main_main_trafficlight_interrupted_Black__main_main_timer_disabled__" event="disableTimer"/>
+    <transition target="main_main__main_main_trafficlight_interrupted_Black__main_main_timer_running_running.choice_0__" event="resetTimer"/>
+  </state>
+  <state id="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_disabled__">
+    <transition target="main_main__main_main_trafficlight_interrupted_Black__main_main_timer_disabled__" event="Yellow_t_0_timeEvent_0"/>
+    <transition target="main_main__main_main_trafficlight_normal_hist__main_main_timer_disabled__" event="police_interrupt">
+      <send event="enableTimer"/>
+    </transition>
+    <transition target="main_off__" event="toggle"/>
+    <transition target="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_running.choice_0__" event="enableTimer"/>
+  </state>
+  <state id="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_Green__">
+    <transition target="main_main__main_main_trafficlight_interrupted_Black__main_main_timer_running_Green__" event="Yellow_t_0_timeEvent_0"/>
+    <transition target="main_main__main_main_trafficlight_normal_hist__main_main_timer_running_Green__" event="police_interrupt">
+      <send event="enableTimer"/>
+    </transition>
+    <transition target="main_off__" event="toggle"/>
+    <transition target="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_Green__" event="Green_t_0_timeEvent_0"/>
+    <transition target="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_disabled__" event="disableTimer"/>
+    <transition target="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_running.choice_0__" event="resetTimer"/>
+  </state>
+  <state id="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_Red__">
+    <transition target="main_main__main_main_trafficlight_interrupted_Black__main_main_timer_running_Red__" event="Yellow_t_0_timeEvent_0"/>
+    <transition target="main_main__main_main_trafficlight_normal_hist__main_main_timer_running_Red__" event="police_interrupt">
+      <send event="enableTimer"/>
+    </transition>
+    <transition target="main_off__" event="toggle"/>
+    <transition target="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_Red__" event="Red_t_0_timeEvent_0"/>
+    <transition target="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_disabled__" event="disableTimer"/>
+    <transition target="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_running.choice_0__" event="resetTimer"/>
+  </state>
+  <state id="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_running.choice_0__">
+    <transition target="main_main__main_main_trafficlight_interrupted_Black__main_main_timer_running_running.choice_0__" event="Yellow_t_0_timeEvent_0"/>
+    <transition target="main_main__main_main_trafficlight_normal_hist__main_main_timer_running_running.choice_0__" event="police_interrupt">
+      <send event="enableTimer"/>
+    </transition>
+    <transition target="main_off__" event="toggle"/>
+    <transition target="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_Red__" event="_auto">
+      <send event="Timer.updateTimerColour"/>
+    </transition>
+    <transition target="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_disabled__" event="disableTimer"/>
+    <transition target="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_running.choice_0__" event="resetTimer"/>
+  </state>
+  <state id="main_main__main_main_trafficlight_normal_Green__main_main_timer_disabled__">
+    <transition target="main_main__main_main_trafficlight_normal_Yellow__main_main_timer_disabled__" event="Green_t_0_timeEvent_0"/>
+    <transition target="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_disabled__" event="police_interrupt">
+      <send event="disableTimer"/>
+    </transition>
+    <transition target="main_off__" event="toggle"/>
+    <transition target="main_main__main_main_trafficlight_normal_Green__main_main_timer_running_running.choice_0__" event="enableTimer"/>
+  </state>
+  <state id="main_main__main_main_trafficlight_normal_Green__main_main_timer_running_Green__">
+    <transition target="main_main__main_main_trafficlight_normal_Yellow__main_main_timer_running_Green__" event="Green_t_0_timeEvent_0"/>
+    <transition target="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_Green__" event="police_interrupt">
+      <send event="disableTimer"/>
+    </transition>
+    <transition target="main_off__" event="toggle"/>
+    <transition target="main_main__main_main_trafficlight_normal_Green__main_main_timer_disabled__" event="disableTimer"/>
+    <transition target="main_main__main_main_trafficlight_normal_Green__main_main_timer_running_running.choice_0__" event="resetTimer"/>
+  </state>
+  <state id="main_main__main_main_trafficlight_normal_Green__main_main_timer_running_Red__">
+    <transition target="main_main__main_main_trafficlight_normal_Yellow__main_main_timer_running_Red__" event="Green_t_0_timeEvent_0"/>
+    <transition target="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_Red__" event="police_interrupt">
+      <send event="disableTimer"/>
+    </transition>
+    <transition target="main_off__" event="toggle"/>
+    <transition target="main_main__main_main_trafficlight_normal_Green__main_main_timer_running_Red__" event="Red_t_0_timeEvent_0"/>
+    <transition target="main_main__main_main_trafficlight_normal_Green__main_main_timer_disabled__" event="disableTimer"/>
+    <transition target="main_main__main_main_trafficlight_normal_Green__main_main_timer_running_running.choice_0__" event="resetTimer"/>
+  </state>
+  <state id="main_main__main_main_trafficlight_normal_Green__main_main_timer_running_running.choice_0__">
+    <transition target="main_main__main_main_trafficlight_normal_Yellow__main_main_timer_running_running.choice_0__" event="Green_t_0_timeEvent_0"/>
+    <transition target="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_running.choice_0__" event="police_interrupt">
+      <send event="disableTimer"/>
+    </transition>
+    <transition target="main_off__" event="toggle"/>
+    <transition target="main_main__main_main_trafficlight_normal_Green__main_main_timer_running_Green__" event="_auto">
+      <send event="Timer.updateTimerColour"/>
+    </transition>
+    <transition target="main_main__main_main_trafficlight_normal_Green__main_main_timer_disabled__" event="disableTimer"/>
+    <transition target="main_main__main_main_trafficlight_normal_Green__main_main_timer_running_running.choice_0__" event="resetTimer"/>
+  </state>
+  <state id="main_main__main_main_trafficlight_normal_Red__main_main_timer_disabled__">
+    <transition target="main_main__main_main_trafficlight_normal_Green__main_main_timer_disabled__" event="Red_t_0_timeEvent_0"/>
+    <transition target="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_disabled__" event="police_interrupt">
+      <send event="disableTimer"/>
+    </transition>
+    <transition target="main_off__" event="toggle"/>
+    <transition target="main_main__main_main_trafficlight_normal_Red__main_main_timer_running_running.choice_0__" event="enableTimer"/>
+  </state>
+  <state id="main_main__main_main_trafficlight_normal_Red__main_main_timer_running_Green__">
+    <transition target="main_main__main_main_trafficlight_normal_Green__main_main_timer_running_Green__" event="Red_t_0_timeEvent_0"/>
+    <transition target="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_Green__" event="police_interrupt">
+      <send event="disableTimer"/>
+    </transition>
+    <transition target="main_off__" event="toggle"/>
+    <transition target="main_main__main_main_trafficlight_normal_Red__main_main_timer_running_Green__" event="Green_t_0_timeEvent_0"/>
+    <transition target="main_main__main_main_trafficlight_normal_Red__main_main_timer_disabled__" event="disableTimer"/>
+    <transition target="main_main__main_main_trafficlight_normal_Red__main_main_timer_running_running.choice_0__" event="resetTimer"/>
+  </state>
+  <state id="main_main__main_main_trafficlight_normal_Red__main_main_timer_running_Red__">
+    <transition target="main_main__main_main_trafficlight_normal_Green__main_main_timer_running_Red__" event="Red_t_0_timeEvent_0"/>
+    <transition target="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_Red__" event="police_interrupt">
+      <send event="disableTimer"/>
+    </transition>
+    <transition target="main_off__" event="toggle"/>
+    <transition target="main_main__main_main_trafficlight_normal_Red__main_main_timer_disabled__" event="disableTimer"/>
+    <transition target="main_main__main_main_trafficlight_normal_Red__main_main_timer_running_running.choice_0__" event="resetTimer"/>
+  </state>
+  <state id="main_main__main_main_trafficlight_normal_Red__main_main_timer_running_running.choice_0__">
+    <transition target="main_main__main_main_trafficlight_normal_Green__main_main_timer_running_running.choice_0__" event="Red_t_0_timeEvent_0"/>
+    <transition target="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_running.choice_0__" event="police_interrupt">
+      <send event="disableTimer"/>
+    </transition>
+    <transition target="main_off__" event="toggle"/>
+    <transition target="main_main__main_main_trafficlight_normal_Red__main_main_timer_running_Red__" event="_auto">
+      <send event="Timer.updateTimerColour"/>
+    </transition>
+    <transition target="main_main__main_main_trafficlight_normal_Red__main_main_timer_disabled__" event="disableTimer"/>
+    <transition target="main_main__main_main_trafficlight_normal_Red__main_main_timer_running_running.choice_0__" event="resetTimer"/>
+  </state>
+  <state id="main_main__main_main_trafficlight_normal_Yellow__main_main_timer_disabled__">
+    <transition target="main_main__main_main_trafficlight_normal_Red__main_main_timer_disabled__" event="Yellow_t_0_timeEvent_0">
+      <send event="enableTimer"/>
+    </transition>
+    <transition target="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_disabled__" event="police_interrupt">
+      <send event="disableTimer"/>
+    </transition>
+    <transition target="main_off__" event="toggle"/>
+    <transition target="main_main__main_main_trafficlight_normal_Yellow__main_main_timer_running_running.choice_0__" event="enableTimer"/>
+  </state>
+  <state id="main_main__main_main_trafficlight_normal_Yellow__main_main_timer_running_Green__">
+    <transition target="main_main__main_main_trafficlight_normal_Red__main_main_timer_running_Green__" event="Yellow_t_0_timeEvent_0">
+      <send event="enableTimer"/>
+    </transition>
+    <transition target="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_Green__" event="police_interrupt">
+      <send event="disableTimer"/>
+    </transition>
+    <transition target="main_off__" event="toggle"/>
+    <transition target="main_main__main_main_trafficlight_normal_Yellow__main_main_timer_running_Green__" event="Green_t_0_timeEvent_0"/>
+    <transition target="main_main__main_main_trafficlight_normal_Yellow__main_main_timer_disabled__" event="disableTimer"/>
+    <transition target="main_main__main_main_trafficlight_normal_Yellow__main_main_timer_running_running.choice_0__" event="resetTimer"/>
+  </state>
+  <state id="main_main__main_main_trafficlight_normal_Yellow__main_main_timer_running_Red__">
+    <transition target="main_main__main_main_trafficlight_normal_Red__main_main_timer_running_Red__" event="Yellow_t_0_timeEvent_0">
+      <send event="enableTimer"/>
+    </transition>
+    <transition target="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_Red__" event="police_interrupt">
+      <send event="disableTimer"/>
+    </transition>
+    <transition target="main_off__" event="toggle"/>
+    <transition target="main_main__main_main_trafficlight_normal_Yellow__main_main_timer_running_Red__" event="Red_t_0_timeEvent_0"/>
+    <transition target="main_main__main_main_trafficlight_normal_Yellow__main_main_timer_disabled__" event="disableTimer"/>
+    <transition target="main_main__main_main_trafficlight_normal_Yellow__main_main_timer_running_running.choice_0__" event="resetTimer"/>
+  </state>
+  <state id="main_main__main_main_trafficlight_normal_Yellow__main_main_timer_running_running.choice_0__">
+    <transition target="main_main__main_main_trafficlight_normal_Red__main_main_timer_running_running.choice_0__" event="Yellow_t_0_timeEvent_0">
+      <send event="enableTimer"/>
+    </transition>
+    <transition target="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_running.choice_0__" event="police_interrupt">
+      <send event="disableTimer"/>
+    </transition>
+    <transition target="main_off__" event="toggle"/>
+    <transition target="main_main__main_main_trafficlight_normal_Yellow__main_main_timer_running_Red__" event="_auto">
+      <send event="Timer.updateTimerColour"/>
+    </transition>
+    <transition target="main_main__main_main_trafficlight_normal_Yellow__main_main_timer_disabled__" event="disableTimer"/>
+    <transition target="main_main__main_main_trafficlight_normal_Yellow__main_main_timer_running_running.choice_0__" event="resetTimer"/>
+  </state>
+  <state id="main_main__main_main_trafficlight_normal_hist__main_main_timer_disabled__">
+    <transition target="main_main__main_main_trafficlight_normal_Red__main_main_timer_disabled__" event="_auto"/>
+    <transition target="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_disabled__" event="police_interrupt">
+      <send event="disableTimer"/>
+    </transition>
+    <transition target="main_off__" event="toggle"/>
+    <transition target="main_main__main_main_trafficlight_normal_hist__main_main_timer_running_running.choice_0__" event="enableTimer"/>
+  </state>
+  <state id="main_main__main_main_trafficlight_normal_hist__main_main_timer_running_Green__">
+    <transition target="main_main__main_main_trafficlight_normal_Red__main_main_timer_running_Green__" event="_auto"/>
+    <transition target="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_Green__" event="police_interrupt">
+      <send event="disableTimer"/>
+    </transition>
+    <transition target="main_off__" event="toggle"/>
+    <transition target="main_main__main_main_trafficlight_normal_hist__main_main_timer_running_Green__" event="Green_t_0_timeEvent_0"/>
+    <transition target="main_main__main_main_trafficlight_normal_hist__main_main_timer_disabled__" event="disableTimer"/>
+    <transition target="main_main__main_main_trafficlight_normal_hist__main_main_timer_running_running.choice_0__" event="resetTimer"/>
+  </state>
+  <state id="main_main__main_main_trafficlight_normal_hist__main_main_timer_running_Red__">
+    <transition target="main_main__main_main_trafficlight_normal_Red__main_main_timer_running_Red__" event="_auto"/>
+    <transition target="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_Red__" event="police_interrupt">
+      <send event="disableTimer"/>
+    </transition>
+    <transition target="main_off__" event="toggle"/>
+    <transition target="main_main__main_main_trafficlight_normal_hist__main_main_timer_running_Red__" event="Red_t_0_timeEvent_0"/>
+    <transition target="main_main__main_main_trafficlight_normal_hist__main_main_timer_disabled__" event="disableTimer"/>
+    <transition target="main_main__main_main_trafficlight_normal_hist__main_main_timer_running_running.choice_0__" event="resetTimer"/>
+  </state>
+  <state id="main_main__main_main_trafficlight_normal_hist__main_main_timer_running_running.choice_0__">
+    <transition target="main_main__main_main_trafficlight_normal_Red__main_main_timer_running_running.choice_0__" event="_auto"/>
+    <transition target="main_main__main_main_trafficlight_interrupted_Yellow__main_main_timer_running_running.choice_0__" event="police_interrupt">
+      <send event="disableTimer"/>
+    </transition>
+    <transition target="main_off__" event="toggle"/>
+    <transition target="main_main__main_main_trafficlight_normal_hist__main_main_timer_disabled__" event="disableTimer"/>
+    <transition target="main_main__main_main_trafficlight_normal_hist__main_main_timer_running_running.choice_0__" event="resetTimer"/>
+  </state>
+  <state id="main_off__">
+    <transition target="main_main__main_main_trafficlight_normal_Red__main_main_timer_running_running.choice_0__" event="toggle"/>
+  </state>
+</scxml>

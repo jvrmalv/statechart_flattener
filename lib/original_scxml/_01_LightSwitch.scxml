@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" datamodel="ecmascript" name="_01_LightSwitch">
+	<state id="main">
+		<initial>
+			<transition target="Off" type="internal">
+			</transition>
+		</initial>
+		<state id="Off">
+			<transition event="switch"  target="On">
+			</transition>
+		</state>
+		<state id="On">
+			<transition event="switch"  target="Off">
+			</transition>
+		</state>
+	</state>
+</scxml>

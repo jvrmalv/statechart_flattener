@@ -5,26 +5,28 @@ Mix.install([
 ])
 
 defmodule ScxmlCompiler do
-  def run(file_path) do
+  def run(file_path, output_path) do
     xml_content = File.read!(file_path)
 
     case Statifier.parse(xml_content, validate: false) do
       {:ok, doc, _} ->
-        process_doc(doc, xml_content, file_path)
+        process_doc(doc, xml_content, file_path, output_path)
 
       {:error, reason} ->
         IO.puts(:stderr, "❌ Parse Failed: #{inspect(reason)}")
     end
   end
 
-  defp process_doc(doc, xml_raw, path) do
+  defp process_doc(doc, xml_raw, _path, output_path) do
     # 1. EXTRACT VARIABLES
     initial_context = DataModel.extract_variables(doc, xml_raw)
-    domain = DataModel.generate_domains(initial_context, xml_raw)
+    {guard_domains, display_vars} = DataModel.generate_domains(initial_context, xml_raw)
     IO.puts("ℹ️  Variables: #{inspect(Map.keys(initial_context))}")
+    IO.puts("ℹ️  Guard-relevant vars: #{inspect(Map.keys(guard_domains))}")
+    IO.puts("ℹ️  Display-only vars: #{inspect(display_vars)}")
 
     IO.puts(
-      "ℹ️  Mutable domains: #{inspect(Enum.filter(domain, fn {_, v} -> not is_list(v) or length(v) > 1 end) |> Enum.map(fn {k, _} -> k end))}"
+      "ℹ️  Mutable domains: #{inspect(Enum.filter(guard_domains, fn {_, v} -> not is_list(v) or length(v) > 1 end) |> Enum.map(fn {k, _} -> k end))}"
     )
 
     # 2. NORMALIZE IDs (with history and parallel detection)
@@ -42,13 +44,14 @@ defmodule ScxmlCompiler do
     flat_fsm = Flatten.run(normalized, history_info, parallel_info)
     IO.puts("ℹ️  Flat states (before expansion): #{length(flat_fsm)}")
 
-    # 4. EXPAND STATE SPACE (variable expansion only, history tracked during reachability)
-    expanded_fsm = Expander.run(flat_fsm, domain, history_info)
+    # 4. EXPAND STATE SPACE (only guard-relevant variables, history tracked during reachability)
+    expanded_fsm = Expander.run(flat_fsm, guard_domains, history_info)
     IO.puts("ℹ️  Expanded states: #{length(expanded_fsm)}")
 
     # 5. RESOLVE INITIAL STATE (use history defaults for starting point)
     start_leaf = HistoryTracker.resolve_to_leaf_public(root_id, normalized)
-    start_id = Expander.generate_id(start_leaf, initial_context)
+    guard_initial = Map.take(initial_context, Map.keys(guard_domains))
+    start_id = Expander.generate_id(start_leaf, guard_initial)
     IO.puts("ℹ️  Initial state: #{start_id}")
 
     # Initialize history context with defaults
@@ -65,7 +68,7 @@ defmodule ScxmlCompiler do
     resolved_fsm = resolve_history_markers(reachable_fsm, initial_history)
 
     # 8. OUTPUT
-    output_files(path, resolved_fsm, start_id)
+    output_files(output_path, resolved_fsm, start_id)
   end
 
   # Resolve _HISTORY_ markers in transition targets to their default values
@@ -103,15 +106,15 @@ defmodule ScxmlCompiler do
     sorted_fsm = Enum.sort_by(fsm, & &1["state"])
 
     File.write!(
-      "#{base}_full.json",
+      "#{base}_flattened.json",
       Jason.encode!(%{"initial" => initial, "states" => sorted_fsm}, pretty: true)
     )
 
-    File.write!("#{base}_full.scxml", ScxmlGenerator.generate(sorted_fsm, initial))
+    File.write!("#{base}_flattened.scxml", ScxmlGenerator.generate(sorted_fsm, initial))
 
     IO.puts("✅ Success!")
-    IO.puts("   JSON:  #{base}_full.json")
-    IO.puts("   SCXML: #{base}_full.scxml")
+    IO.puts("   JSON:  #{base}_flattened.json")
+    IO.puts("   SCXML: #{base}_flatenned.scxml")
   end
 end
 
@@ -169,42 +172,55 @@ defmodule HistoryTracker do
         id
 
       s ->
-        children = Map.get(s, :states, [])
+        # Check if this is a parallel state - build composite from all regions
+        if Map.get(s, :is_parallel, false) == true do
+          regions = Map.get(s, :states, [])
 
-        if Enum.empty?(children) do
-          if is_pseudo_state?(id) do
-            # Follow pseudo-state transition
-            case Map.get(s, :transitions, []) do
-              [first | _] ->
-                case List.first(first.targets) do
-                  nil ->
-                    id
+          region_leaves =
+            Enum.map(regions, fn region ->
+              region_fq = "#{id}_#{region.id}"
+              resolve_to_leaf(region_fq, states)
+            end)
 
-                  target ->
-                    parent = get_parent(id)
-                    fq = if parent, do: "#{parent}_#{target}", else: target
-                    fq = if Map.has_key?(states, fq), do: fq, else: target
-                    resolve_to_leaf(fq, states)
-                end
+          "#{id}__" <> Enum.join(region_leaves, "__")
+        else
+          children = Map.get(s, :states, [])
 
-              [] ->
-                id
+          if Enum.empty?(children) do
+            if is_pseudo_state?(id) do
+              # Follow pseudo-state transition
+              case Map.get(s, :transitions, []) do
+                [first | _] ->
+                  case List.first(first.targets) do
+                    nil ->
+                      id
+
+                    target ->
+                      parent = get_parent(id)
+                      fq = if parent, do: "#{parent}_#{target}", else: target
+                      fq = if Map.has_key?(states, fq), do: fq, else: target
+                      resolve_to_leaf(fq, states)
+                  end
+
+                [] ->
+                  id
+              end
+            else
+              id
             end
           else
-            id
+            initial = List.first(s.initial)
+
+            next =
+              if initial do
+                fq = "#{id}_#{initial}"
+                if Map.has_key?(states, fq), do: fq, else: "#{id}_#{List.first(children).id}"
+              else
+                "#{id}_#{List.first(children).id}"
+              end
+
+            resolve_to_leaf(next, states)
           end
-        else
-          initial = List.first(s.initial)
-
-          next =
-            if initial do
-              fq = "#{id}_#{initial}"
-              if Map.has_key?(states, fq), do: fq, else: "#{id}_#{List.first(children).id}"
-            else
-              "#{id}_#{List.first(children).id}"
-            end
-
-          resolve_to_leaf(next, states)
         end
     end
   end
@@ -309,8 +325,12 @@ defmodule ReachabilityAnalyzer do
   end
 
   defp resolve_history_in_target(target, history_ctx) do
+    # Sort by key length descending to match longer patterns first
+    # This ensures _HISTORY_modes_Automatic_Light_Sensing is matched before _HISTORY_modes_Automatic
+    sorted_history = Enum.sort_by(history_ctx, fn {k, _} -> -String.length(k) end)
+
     # Check if any part of target contains a history reference
-    Enum.reduce(history_ctx, target, fn {parent_id, history_value}, acc ->
+    Enum.reduce(sorted_history, target, fn {parent_id, history_value}, acc ->
       history_marker = "_HISTORY_#{parent_id}"
 
       if String.contains?(acc, history_marker) do
@@ -403,11 +423,50 @@ defmodule DataModel do
   defp extract(s, k), do: (Regex.run(~r/#{k}="([^"]+)"/, s) || [nil, nil]) |> Enum.at(1)
 
   @doc """
-  Generate domains only for variables that are actually mutated in the statechart.
-  - Detects hour/time variables and uses 0-23 domain
-  - Extracts guard boundaries to create minimal relevant value sets
+  Classify variables into guard-relevant vs display-only.
+  Guard-relevant: appear in any `cond` attribute (control transition routing).
+  Display-only: only appear in `assign`/`onentry` expressions (outputs only).
+  Returns {guard_vars_set, display_vars_list}
+  """
+  def classify_variables(ctx, xml) do
+    all_vars = MapSet.new(Map.keys(ctx))
+
+    # Extract all variable names referenced in cond attributes
+    guard_vars =
+      if xml do
+        guards =
+          Regex.scan(~r/cond="([^"]+)"/, xml)
+          |> Enum.map(fn [_, cond] -> HtmlEntities.decode(cond) end)
+
+        # Extract variable references from guards (word tokens that are known variable names)
+        Enum.reduce(guards, MapSet.new(), fn guard, acc ->
+          # Find all word tokens in the guard expression
+          tokens =
+            Regex.scan(~r/[a-zA-Z_]\w*/, guard)
+            |> Enum.map(fn [tok] -> tok end)
+            |> Enum.filter(&MapSet.member?(all_vars, &1))
+
+          Enum.reduce(tokens, acc, &MapSet.put(&2, &1))
+        end)
+      else
+        all_vars
+      end
+
+    display_vars =
+      MapSet.difference(all_vars, guard_vars)
+      |> MapSet.to_list()
+
+    {guard_vars, display_vars}
+  end
+
+  @doc """
+  Generate domains for guard-relevant variables only.
+  Returns {guard_domains, display_vars_list}.
+  Guard-relevant variables get expanded domains; display-only are excluded.
   """
   def generate_domains(ctx, xml \\ nil) do
+    {guard_vars, display_vars} = classify_variables(ctx, xml)
+
     # Find variables that are actually assigned (mutated)
     mutable_vars =
       if xml do
@@ -422,33 +481,135 @@ defmodule DataModel do
     # Extract relevant boundaries from guards for each variable
     guard_boundaries = if xml, do: extract_guard_boundaries(xml), else: %{}
 
-    Map.new(ctx, fn {k, v} ->
-      if MapSet.member?(mutable_vars, k) do
-        cond do
-          # Hour/time variable detection - use boundary-based domain
-          is_time_variable?(k) ->
-            boundaries = Map.get(guard_boundaries, k, [])
-            domain = generate_time_domain(boundaries)
-            {k, domain}
+    # Analyze guard usage to determine minimal domains per variable
+    guard_usage = if xml, do: analyze_guard_usage(xml), else: %{}
 
-          # Regular integer variable - use full range
-          is_integer(v) ->
-            {k, 0..10}
+    # Only generate domains for guard-relevant variables
+    guard_domains =
+      ctx
+      |> Enum.filter(fn {k, _} -> MapSet.member?(guard_vars, k) end)
+      |> Map.new(fn {k, v} ->
+        if MapSet.member?(mutable_vars, k) do
+          usage = Map.get(guard_usage, k, :unknown)
 
-          # Boolean variable
-          true ->
-            {k, [true, false]}
+          cond do
+            # Boolean variable
+            is_boolean(v) ->
+              {k, [true, false]}
+
+            # Time variable — check usage pattern
+            is_time_variable?(k) ->
+              case usage do
+                :only_gt_zero ->
+                  # Variable only compared with > 0: just needs [0, 1]
+                  {k, [0, 1]}
+
+                :only_equality ->
+                  # Variable only in equality with other vars: just needs [0, 1]
+                  {k, [0, 1]}
+
+                _ ->
+                  # Variable has numeric boundary or modular comparisons
+                  boundaries = Map.get(guard_boundaries, k, [])
+                  domain = generate_time_domain(boundaries)
+                  {k, domain}
+              end
+
+            # Regular integer variable
+            is_integer(v) ->
+              boundaries = Map.get(guard_boundaries, k, [])
+
+              if Enum.empty?(boundaries) do
+                {k, 0..10}
+              else
+                {k, generate_boundary_domain(boundaries, 0, 10)}
+              end
+
+            # String variable in guard
+            is_binary(v) ->
+              string_domain = extract_string_domain(k, xml)
+              {k, string_domain}
+
+            true ->
+              {k, [v]}
+          end
+        else
+          # Constant - keep as singleton value
+          {k, [v]}
         end
-      else
-        # Constant - keep as singleton value
-        {k, [v]}
-      end
-    end)
+      end)
+
+    {guard_domains, display_vars}
   end
 
   @doc """
-  Detect if a variable name suggests it's a time/hour variable.
+  Analyze how each variable is used in guard conditions.
+  Returns a map of variable_name => usage_type where usage_type is:
+  - :only_gt_zero — only appears in `var > 0` patterns
+  - :only_equality — only appears in `var == other_var` patterns (no literals)
+  - :has_boundaries — appears with literal numeric comparisons/modular ops
+  - :unknown — appears but usage pattern unclear
   """
+  defp analyze_guard_usage(xml) do
+    guards =
+      Regex.scan(~r/cond="([^"]+)"/, xml)
+      |> Enum.map(fn [_, cond] -> HtmlEntities.decode(cond) end)
+
+    Enum.reduce(guards, %{}, fn guard, acc ->
+      # Find all variable usage patterns in this guard
+      # Pattern 1: var > 0 or var >= 1
+      gt_zero_vars =
+        Regex.scan(~r/(\w+)\s*>\s*0/, guard)
+        |> Enum.map(fn [_, var] -> var end)
+
+      # Pattern 2: var == other_var (not a literal number)
+      eq_var_vars =
+        Regex.scan(~r/(\w+)\s*==\s*([a-zA-Z_]\w*)/, guard)
+        |> Enum.flat_map(fn [_, v1, v2] -> [v1, v2] end)
+
+      # Pattern 3: var with modular (%) or numeric literal comparisons
+      modular_vars =
+        Regex.scan(~r/(\w+)\s*%\s*\d+/, guard)
+        |> Enum.map(fn [_, var] -> var end)
+
+      # Pattern 4: var compared with literal > 0 (e.g., var >= 864000)
+      boundary_vars =
+        Regex.scan(~r/(\w+)\s*[<>=!]+\s*(\d+)/, guard)
+        |> Enum.filter(fn [_, _, num] -> String.to_integer(num) > 1 end)
+        |> Enum.map(fn [_, var, _] -> var end)
+
+      all_complex = MapSet.new(modular_vars ++ boundary_vars)
+
+      # Update accumulator with usage info
+      acc = Enum.reduce(gt_zero_vars, acc, fn var, a ->
+        if MapSet.member?(all_complex, var) do
+          Map.put(a, var, :has_boundaries)
+        else
+          Map.update(a, var, :only_gt_zero, fn
+            :only_gt_zero -> :only_gt_zero
+            _ -> :has_boundaries
+          end)
+        end
+      end)
+
+      acc = Enum.reduce(eq_var_vars, acc, fn var, a ->
+        if MapSet.member?(all_complex, var) do
+          Map.put(a, var, :has_boundaries)
+        else
+          Map.update(a, var, :only_equality, fn
+            :only_equality -> :only_equality
+            :only_gt_zero -> :only_gt_zero
+            _ -> :has_boundaries
+          end)
+        end
+      end)
+
+      Enum.reduce(MapSet.to_list(all_complex), acc, fn var, a ->
+        Map.put(a, var, :has_boundaries)
+      end)
+    end)
+  end
+
   defp is_time_variable?(name) do
     name_lower = String.downcase(name)
 
@@ -458,10 +619,6 @@ defmodule DataModel do
       (String.contains?(name_lower, "second") && !String.contains?(name_lower, "per_second"))
   end
 
-  @doc """
-  Extract boundary values from guard conditions in the XML.
-  Returns a map of variable_name => list of boundary values.
-  """
   defp extract_guard_boundaries(xml) do
     # Find all cond attributes
     guards =
@@ -483,9 +640,6 @@ defmodule DataModel do
     end)
   end
 
-  @doc """
-  Generate a domain for time variables (0-23) focusing on boundary values.
-  """
   defp generate_time_domain(boundaries) do
     if Enum.empty?(boundaries) do
       # Default time checkpoints: midnight, morning, noon, evening, night
@@ -505,9 +659,6 @@ defmodule DataModel do
     end
   end
 
-  @doc """
-  Generate a domain for integer variables focusing on boundary values.
-  """
   defp generate_boundary_domain(boundaries, min_val, max_val) do
     # Include boundary values and values just before/after
     expanded =
@@ -520,6 +671,24 @@ defmodule DataModel do
     |> Enum.uniq()
     |> Enum.sort()
     |> Enum.filter(&(&1 >= min_val and &1 <= max_val))
+  end
+
+  @doc """
+  Extract string domain for a variable from all assign expressions in the XML.
+  """
+  defp extract_string_domain(var_name, xml) do
+    if xml do
+      Regex.scan(~r/<assign\s+location="#{Regex.escape(var_name)}"\s+expr="([^"]+)"/, xml)
+      |> Enum.map(fn [_, expr] -> LogicEngine.eval(expr, %{}) end)
+      |> Enum.reject(&(&1 == :error))
+      |> Enum.uniq()
+      |> case do
+        [] -> [""]
+        vals -> vals
+      end
+    else
+      [""]
+    end
   end
 end
 
@@ -545,11 +714,32 @@ defmodule LogicEngine do
       {res, _} = Code.eval_string(str, binds)
       res
     rescue
-      _ -> false
+      _ -> :error
     end
   end
 
   def eval(_, _), do: true
+
+  @doc """
+  Resolve In('stateName') predicates in a guard expression.
+  Replaces each In('x') with true if x is a suffix of any active component ID, false otherwise.
+  `active_ids` is a list of fully-qualified state IDs currently active.
+  """
+  def resolve_in_predicates(guard_str, active_ids) when is_binary(guard_str) do
+    Regex.replace(~r/In\(\s*'([^']+)'\s*\)/, guard_str, fn _, state_name ->
+      is_active =
+        Enum.any?(active_ids, fn id ->
+          # Match if the state_name is the ID itself or a suffix after underscore
+          id == state_name ||
+            String.ends_with?(id, "_#{state_name}")
+        end)
+
+      if is_active, do: "true", else: "false"
+    end)
+  end
+
+  def resolve_in_predicates(nil, _active_ids), do: nil
+  def resolve_in_predicates(guard_str, _active_ids), do: guard_str
 end
 
 # ==========================================
@@ -574,7 +764,10 @@ defmodule Normalize do
   defp discover([], _, acc), do: acc
 
   defp discover([s | t], p, acc) do
-    full = if p, do: "#{p}_#{s.id}", else: s.id
+    # Handle anonymous/unnamed states (e.g., top-level <parallel> with no id)
+    state_id = s.id
+    state_id = if is_nil(state_id) or state_id == "" or state_id == nil, do: "_root", else: state_id
+    full = if p, do: "#{p}_#{state_id}", else: state_id
     children = Map.get(s, :states, [])
 
     state_with_meta = %{s | parent: p}
@@ -644,11 +837,26 @@ defmodule Normalize do
   defp find(tgt, scope, reg) do
     case Enum.find(gen_scope(scope, tgt), &Map.has_key?(reg, &1)) do
       nil ->
-        if scope do
-          parent = get_parent(scope)
-          if parent, do: "#{parent}_#{tgt}", else: tgt
+        # Fallback: global search for any state whose ID ends with this target
+        # This handles inter-level transitions across sibling subtrees
+        global_match =
+          reg
+          |> Map.keys()
+          |> Enum.filter(fn id ->
+            id == tgt || String.ends_with?(id, "_#{tgt}")
+          end)
+          |> Enum.sort_by(&String.length/1)
+          |> List.first()
+
+        if global_match do
+          global_match
         else
-          tgt
+          if scope do
+            parent = get_parent(scope)
+            if parent, do: "#{parent}_#{tgt}", else: tgt
+          else
+            tgt
+          end
         end
 
       found ->
@@ -713,49 +921,95 @@ defmodule Flatten do
   end
 
   defp create_parallel_composites(parallel_info, states) do
-    Enum.flat_map(parallel_info, fn {parallel_id, info} ->
-      regions = info.regions
+    # Sort parallels from deepest to shallowest (bottom-up processing)
+    sorted_parallels =
+      Enum.sort_by(parallel_info, fn {id, _} -> -String.length(id) end)
 
-      region_leaves =
-        Enum.map(regions, fn region_id ->
-          region_fq = "#{parallel_id}_#{region_id}"
-          get_region_leaves(region_fq, states)
-        end)
+    # Process bottom-up, storing composites for nested parallels
+    {all_composites, composite_map} =
+      Enum.reduce(sorted_parallels, {[], %{}}, fn {parallel_id, info}, {acc, cmap} ->
+        regions = info.regions
 
-      cartesian_product(region_leaves)
-      |> Enum.map(fn combo ->
-        composite_id = "#{parallel_id}__" <> Enum.join(Enum.map(combo, & &1.id), "__")
+        region_leaves =
+          Enum.map(regions, fn region_id ->
+            region_fq = "#{parallel_id}_#{region_id}"
+            get_region_leaves(region_fq, states, cmap)
+          end)
 
-        %{
-          id: composite_id,
-          parent: parallel_id,
-          is_parallel_composite: true,
-          component_ids: Enum.map(combo, & &1.id),
-          components: combo,
-          transitions: [],
-          states: [],
-          onexit_actions: [],
-          onentry_actions: []
-        }
+        composites =
+          cartesian_product(region_leaves)
+          |> Enum.map(fn combo ->
+            # Collect all component IDs (flatten nested composites)
+            all_component_ids =
+              Enum.flat_map(combo, fn c ->
+                if Map.get(c, :is_parallel_composite) do
+                  c.component_ids
+                else
+                  [c.id]
+                end
+              end)
+
+            composite_id = "#{parallel_id}__" <> Enum.join(Enum.map(combo, & &1.id), "__")
+
+            %{
+              id: composite_id,
+              parent: parallel_id,
+              is_parallel_composite: true,
+              component_ids: all_component_ids,
+              components: combo,
+              transitions: [],
+              states: [],
+              onexit_actions: [],
+              onentry_actions: []
+            }
+          end)
+
+        {acc ++ composites, Map.put(cmap, parallel_id, composites)}
       end)
+
+    # Only return top-level composites (those not nested inside another parallel's region)
+    # plus nested composites that aren't subsumed by parent composites
+    nested_parallel_ids = MapSet.new(Map.keys(parallel_info))
+
+    # Find which parallels are nested inside others
+    top_level_parallel_ids =
+      Enum.reject(Map.keys(parallel_info), fn pid ->
+        Enum.any?(Map.keys(parallel_info) -- [pid], fn other_pid ->
+          String.starts_with?(pid, other_pid <> "_")
+        end)
+      end)
+      |> MapSet.new()
+
+    # Return only top-level composites
+    Enum.filter(all_composites, fn c ->
+      MapSet.member?(top_level_parallel_ids, c.parent)
     end)
   end
 
-  defp get_region_leaves(region_id, states) do
+  defp get_region_leaves(region_id, states, composite_map) do
     case Map.get(states, region_id) do
       nil ->
         []
 
       s ->
-        children = Map.get(s, :states, [])
-
-        if Enum.empty?(children) do
-          if is_pseudo_state?(s.id), do: [], else: [s]
+        # Check if this state is a nested parallel
+        if Map.get(s, :is_parallel, false) == true do
+          # Use pre-computed composites for this nested parallel
+          case Map.get(composite_map, region_id) do
+            nil -> []
+            composites -> composites
+          end
         else
-          Enum.flat_map(children, fn child ->
-            child_fq = "#{region_id}_#{child.id}"
-            get_region_leaves(child_fq, states)
-          end)
+          children = Map.get(s, :states, [])
+
+          if Enum.empty?(children) do
+            if is_pseudo_state?(s.id), do: [], else: [s]
+          else
+            Enum.flat_map(children, fn child ->
+              child_fq = "#{region_id}_#{child.id}"
+              get_region_leaves(child_fq, states, composite_map)
+            end)
+          end
         end
     end
   end
@@ -798,7 +1052,13 @@ defmodule Flatten do
 
     all_transitions = component_transitions ++ parallel_transitions
 
-    Enum.reduce(all_transitions, %{}, fn {t, src, affected_component}, acc ->
+    # Resolve In() predicates against this composite's active component IDs
+    active_component_ids = composite.component_ids
+
+    Enum.reduce(all_transitions, [], fn {t, _src, affected_component}, acc ->
+      # Resolve In() predicates in the guard condition
+      resolved_cond = LogicEngine.resolve_in_predicates(t.cond, active_component_ids)
+
       tgt_ref = List.first(t.targets)
 
       tgt_id =
@@ -810,44 +1070,80 @@ defmodule Flatten do
 
       actions = get_transition_actions(t)
 
-      Map.put_new(acc, "#{t.event}|#{t.cond}", %{
-        "event" => t.event,
-        "cond" => t.cond,
+      event_name = t.event || "_auto"
+
+      acc ++ [%{
+        "event" => event_name,
+        "cond" => resolved_cond,
         "target" => tgt_id,
         "actions" => actions
-      })
+      }]
     end)
-    |> Map.values()
+    |> Enum.uniq_by(fn t -> "#{t["event"]}|#{t["cond"]}" end)
   end
 
   defp resolve_parallel_target(tgt_ref, composite, affected_component, states, history_info) do
     parallel_id = composite.parent
     resolved_target = resolve_initial_to_leaf(tgt_ref, states, history_info)
 
-    if String.starts_with?(resolved_target, parallel_id) do
-      if affected_component do
-        new_components =
-          Enum.map(composite.components, fn comp ->
-            if comp.id == affected_component.id do
-              %{comp | id: resolved_target}
-            else
-              comp
-            end
-          end)
+    cond do
+      # Target is within the same parallel region — update the affected component
+      String.starts_with?(resolved_target, parallel_id) ->
+        if affected_component do
+          replace_component_in_composite(composite, affected_component, resolved_target, parallel_id)
+        else
+          resolved_target
+        end
 
-        "#{parallel_id}__" <> Enum.join(Enum.map(new_components, & &1.id), "__")
-      else
+      # Target is a history marker — wrap it in the composite, replacing the affected component
+      String.starts_with?(resolved_target, "_HISTORY_") ->
+        if affected_component do
+          replace_component_in_composite(composite, affected_component, resolved_target, parallel_id)
+        else
+          # History marker from the parallel element itself — replace the affected region
+          # Try to determine which region the history parent belongs to
+          "#{parallel_id}__" <> Enum.join(
+            Enum.map(composite.components, fn comp ->
+              # Check if this component is within the history parent
+              history_parent = String.replace_prefix(resolved_target, "_HISTORY_", "")
+              if String.starts_with?(comp.id, history_parent <> "_") || comp.id == history_parent do
+                resolved_target
+              else
+                comp.id
+              end
+            end),
+            "__"
+          )
+        end
+
+      # Target exits the parallel — return as-is (cross-hierarchy transition)
+      true ->
         resolved_target
-      end
-    else
-      resolved_target
     end
   end
 
+  defp replace_component_in_composite(composite, affected_component, new_target, parallel_id) do
+    new_components =
+      Enum.map(composite.components, fn comp ->
+        if comp.id == affected_component.id do
+          %{comp | id: new_target}
+        else
+          comp
+        end
+      end)
+
+    "#{parallel_id}__" <> Enum.join(Enum.map(new_components, & &1.id), "__")
+  end
+
   defp get_regular_trans(leaf, states, history_info) do
-    get_ancestry(leaf, states)
+    ancestry = get_ancestry(leaf, states)
+    active_component_ids = Enum.map(ancestry, & &1.id)
+
+    ancestry
     |> Enum.flat_map(fn s -> Map.get(s, :transitions, []) |> Enum.map(&{&1, s}) end)
-    |> Enum.reduce(%{}, fn {t, src}, acc ->
+    |> Enum.reduce([], fn {t, src}, acc ->
+      resolved_cond = LogicEngine.resolve_in_predicates(t.cond, active_component_ids)
+
       tgt_ref = List.first(t.targets)
 
       tgt_id =
@@ -855,14 +1151,16 @@ defmodule Flatten do
 
       actions = get_transition_actions(t)
 
-      Map.put_new(acc, "#{t.event}|#{t.cond}", %{
-        "event" => t.event,
-        "cond" => t.cond,
+      event_name = t.event || "_auto"
+
+      acc ++ [%{
+        "event" => event_name,
+        "cond" => resolved_cond,
         "target" => tgt_id,
         "actions" => actions
-      })
+      }]
     end)
-    |> Map.values()
+    |> Enum.uniq_by(fn t -> "#{t["event"]}|#{t["cond"]}" end)
   end
 
   defp get_transition_actions(t) do
@@ -1015,6 +1313,9 @@ defmodule Expander do
       Enum.filter(domains, fn {k, _} -> is_time_variable?(k) end)
       |> Map.new()
 
+    # Track which variables are guard-relevant (present in domains)
+    guard_var_names = MapSet.new(Map.keys(domains))
+
     Enum.flat_map(flat, fn s ->
       Enum.map(scenarios, fn ctx ->
         id = generate_id(s["id"], ctx)
@@ -1022,19 +1323,41 @@ defmodule Expander do
         # Regular transitions from the statechart
         valid =
           s["transitions"]
-          |> Enum.filter(fn t -> LogicEngine.eval(t["cond"], ctx) end)
+          |> Enum.reduce([], fn t, acc ->
+            result = LogicEngine.eval(t["cond"], ctx)
+
+            if result == true or result == :error do
+              is_shadowed = Enum.any?(acc, fn accepted ->
+                accepted["event"] == t["event"] and accepted["eval_result"] == true
+              end)
+
+              if is_shadowed do
+                acc
+              else
+                acc ++ [Map.put(t, "eval_result", result)]
+              end
+            else
+              acc
+            end
+          end)
           |> Enum.map(fn t ->
-            next_ctx = apply_actions(t["actions"], ctx)
+            next_ctx = apply_actions(t["actions"], ctx, guard_var_names, domains)
+
+            event_output = if t["eval_result"] == :error and not is_nil(t["cond"]) and t["cond"] != "" do
+              "#{t["event"]} [#{t["cond"]}]"
+            else
+              t["event"]
+            end
 
             %{
-              "input" => t["event"],
+              "input" => event_output,
               "target" => generate_id(t["target"], next_ctx),
               "output" => t["actions"]
             }
           end)
 
         # Add time progression transitions
-        time_transitions = generate_time_transitions(s["id"], ctx, time_vars, domains)
+        time_transitions = generate_time_transitions(s["id"], ctx, time_vars)
 
         %{"state" => id, "transitions" => valid ++ time_transitions}
       end)
@@ -1045,7 +1368,7 @@ defmodule Expander do
   Generate transitions for time progression.
   For each time variable, add a transition to jump to the next relevant time value.
   """
-  defp generate_time_transitions(base_state, ctx, time_vars, domains) do
+  defp generate_time_transitions(base_state, ctx, time_vars) do
     Enum.flat_map(time_vars, fn {var_name, time_domain} ->
       current_val = Map.get(ctx, var_name, 0)
       sorted_domain = Enum.sort(time_domain)
@@ -1107,24 +1430,62 @@ defmodule Expander do
   defp cartesian([]), do: [[]]
   defp cartesian([h | t]), do: for(i <- h, j <- cartesian(t), do: [i | j])
 
-  defp apply_actions([], ctx), do: ctx
+  defp apply_actions([], ctx, _guard_vars, _domains), do: ctx
 
-  defp apply_actions([act | t], ctx) do
+  defp apply_actions([act | t], ctx, guard_vars, domains) do
     new_ctx =
       case Regex.run(~r/assign ([^=]+)=(.+)/, act) do
         [_, var, expr] ->
-          new = LogicEngine.eval(expr, ctx)
-          # For time variables, allow values up to 23
-          max_val = if is_time_variable?(var), do: 23, else: 10
-          Map.put(ctx, var, if(is_integer(new), do: max(0, min(max_val, new)), else: new))
+          # Only update guard-relevant variables; skip display-only ones
+          if MapSet.member?(guard_vars, var) do
+            new = LogicEngine.eval(expr, ctx)
+
+            case new do
+              :error ->
+                # Expression failed (e.g. JS function or references display var) — keep current
+                ctx
+
+              val when is_integer(val) ->
+                # Snap to nearest valid domain value
+                snapped = snap_to_domain(var, val, domains)
+                Map.put(ctx, var, snapped)
+
+              val when is_boolean(val) ->
+                Map.put(ctx, var, val)
+
+              val ->
+                Map.put(ctx, var, val)
+            end
+          else
+            # Display-only variable — skip, don't add to context
+            ctx
+          end
 
         _ ->
           ctx
       end
 
-    apply_actions(t, new_ctx)
+    apply_actions(t, new_ctx, guard_vars, domains)
+  end
+
+  @doc """
+  Snap a value to the nearest valid domain point for a variable.
+  If the value equals a domain point, use it. Otherwise find the nearest.
+  """
+  defp snap_to_domain(var, val, domains) do
+    case Map.get(domains, var) do
+      nil -> val
+      domain ->
+        domain_list = if is_struct(domain, Range), do: Enum.to_list(domain), else: domain
+        if val in domain_list do
+          val
+        else
+          # Find nearest domain value
+          Enum.min_by(domain_list, &abs(&1 - val))
+        end
+    end
   end
 end
 
-[file] = System.argv()
-ScxmlCompiler.run(file)
+[file, output] = System.argv()
+ScxmlCompiler.run(file, output)

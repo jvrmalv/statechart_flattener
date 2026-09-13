@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" datamodel="ecmascript" name="watch">
+	<datamodel>
+		<data expr="0" id="time" />
+		<data expr="0" id="alarm_1_time" />
+		<data expr="false" id="alarm_1_enabled" />
+		<data expr="0" id="alarm_2_time" />
+		<data expr="false" id="alarm_2_enabled" />
+		<data expr="false" id="chime_enabled" />
+		<data expr="0" id="stop_time" />
+		<data expr="0" id="stop_lap_time" />
+		<data expr="0" id="stop_display_time" />
+		<data expr="0" id="time_set" />
+		<data expr="0" id="display_first" />
+		<data expr="0" id="display_second" />
+		<data expr="0" id="display_third" />
+		<data expr="" id="display_text" />
+	</datamodel>
+	<parallel>
+	<state id="modes">
+		<initial>
+			<transition target="Regular" type="internal">
+			</transition>
+		</initial>
+		<state id="Regular">
+			<transition  type="internal" >
+				 <assign location="time_set" expr="0"/>
+			</transition>
+			<initial>
+				<transition target="Clock" type="internal">
+				</transition>
+			</initial>
+			<history type="deep" id="deep_entry">
+				<transition target="Clock">
+				</transition>
+			</history>
+			<state id="Clock">
+				<onentry>
+					<if cond="time_set &gt; 0">
+					 <assign location="time" expr="time_set"/>
+					</if>
+				</onentry>
+				<transition cond="time % 10 == 0" type="internal" >
+					 <assign location="display_first" expr="(time / 36000) % 24"/>
+					 <assign location="display_second" expr="(time / 600) % 60"/>
+					 <assign location="display_third" expr="(time / 10) % 60"/>
+					 <assign location="display_text" expr="''"/>
+				</transition>
+				<initial>
+					<transition target="normal" type="internal">
+					</transition>
+				</initial>
+				<state id="wait_set">
+					<onentry>
+						<send event="wait_set_t_0_timeEvent_0" delay="2s"/>
+					</onentry>
+					<onexit>
+						<cancel sendid="wait_set_t_0_timeEvent_0" />
+					</onexit>
+					<transition event="wait_set_t_0_timeEvent_0"  target="normal">
+					</transition>
+					<transition event="button.set"  target="SetTime">
+						 <assign location="time_set" expr="time"/>
+					</transition>
+				</state>
+				<state id="normal">
+					<transition event="button.set"  target="wait_set">
+					</transition>
+				</state>
+				<transition event="button.onoff"  target="Date">
+				</transition>
+				<transition event="button.mode"  target="Alarm_1">
+				</transition>
+			</state>
+			<state id="Date">
+				<onentry>
+					<send event="Date_t_1_timeEvent_0" delay="120s"/>
+				</onentry>
+				<onexit>
+					<cancel sendid="Date_t_1_timeEvent_0" />
+				</onexit>
+				<onentry>
+					 <assign location="display_first" expr="24"/>
+					 <assign location="display_second" expr="12"/>
+					 <assign location="display_third" expr="2005"/>
+					 <assign location="display_text" expr="'Date'"/>
+				</onentry>
+				<transition event="button.onoff"  target="Clock">
+				</transition>
+				<transition event="Date_t_1_timeEvent_0"  target="Clock">
+				</transition>
+			</state>
+			<history type = "shallow" id="time_set">
+				<transition target="Clock">
+				</transition>
+			</history>
+			<state id="Alarm_1">
+				<onentry>
+					<if cond="time_set &gt; 0">
+					 <assign location="alarm_1_time" expr="time_set"/>
+					</if>
+				</onentry>
+				<transition  type="internal" >
+					 <assign location="display_first" expr="(alarm_1_time / 36000) % 24"/>
+					 <assign location="display_second" expr="(alarm_1_time / 600) % 60"/>
+					 <assign location="display_third" expr="(alarm_1_time / 10) % 60"/>
+					 <assign location="display_text" expr="(alarm_1_enabled) ? 'Alarm 1 ON' : 'Alarm 1 OFF'"/>
+				</transition>
+				<transition event ="button.onoff"  type="internal" >
+					 <assign location="alarm_1_enabled" expr="!alarm_1_enabled"/>
+				</transition>
+				<transition event="button.set"  target="SetTime">
+					 <assign location="time_set" expr="alarm_1_time"/>
+				</transition>
+				<transition event="button.mode"  target="Alarm_2">
+				</transition>
+			</state>
+			<state id="Alarm_2">
+				<onentry>
+					<if cond="time_set &gt; 0">
+					 <assign location="alarm_2_time" expr="time_set"/>
+					</if>
+				</onentry>
+				<transition  type="internal" >
+					 <assign location="display_first" expr="(alarm_2_time / 36000) % 24"/>
+					 <assign location="display_second" expr="(alarm_2_time / 600) % 60"/>
+					 <assign location="display_third" expr="(alarm_2_time / 10) % 60"/>
+					 <assign location="display_text" expr="(alarm_2_enabled) ? 'Alarm 2 ON' : 'Alarm 2 OFF'"/>
+				</transition>
+				<transition event ="button.onoff"  type="internal" >
+					 <assign location="alarm_2_enabled" expr="!alarm_2_enabled"/>
+				</transition>
+				<transition event="button.set"  target="SetTime">
+					 <assign location="time_set" expr="alarm_2_time"/>
+				</transition>
+				<transition event="button.mode"  target="Set_Chime">
+				</transition>
+			</state>
+			<state id="Stop_Watch">
+				<transition  type="internal" >
+					 <assign location="display_first" expr="(alarm_2_time / 600) % 60"/>
+					 <assign location="display_second" expr="(stop_display_time / 10) % 60"/>
+					 <assign location="display_third" expr="(stop_display_time) % 10"/>
+					 <assign location="display_text" expr="'Stop'"/>
+				</transition>
+				<initial>
+					<transition target="Stop_Watch.entry_0" type="internal">
+					</transition>
+				</initial>
+				<state id="Zero">
+					<onentry>
+						 <assign location="stop_time" expr="0"/>
+						 <assign location="stop_lap_time" expr="0"/>
+					</onentry>
+					<transition event="button.light"  target="Operation">
+					</transition>
+				</state>
+				<parallel id="Operation">
+					<state id="display">
+						<initial>
+							<transition target="regular" type="internal">
+							</transition>
+						</initial>
+						<state id="regular">
+							<transition  type="internal" >
+								 <assign location="stop_display_time" expr="stop_time"/>
+							</transition>
+							<transition event="button.onoff"  target="lap">
+							</transition>
+						</state>
+						<state id="lap">
+							<onentry>
+								 <assign location="stop_lap_time" expr="stop_time - stop_lap_time"/>
+								 <assign location="stop_display_time" expr="stop_lap_time"/>
+							</onentry>
+							<transition event="button.onoff"  target="regular">
+							</transition>
+						</state>
+					</state>
+					<state id="run">
+						<initial>
+							<transition target="count" type="internal">
+							</transition>
+						</initial>
+						<state id="count">
+							<transition  type="internal" >
+								 <assign location="stop_time" expr="stop_time + 1"/>
+							</transition>
+							<transition event="button.light"  target="pause">
+							</transition>
+						</state>
+						<state id="pause">
+							<transition event="button.light"  target="count">
+							</transition>
+						</state>
+					</state>
+					<transition  cond="In('pause') &amp;&amp; In('regular')" target="Zero">
+					</transition>
+					<transition event="button.onoff" cond="In('pause') &amp;&amp; In('regular')" target="Zero">
+					</transition>
+				</parallel>
+				<history type="deep" id="Stop_Watch.entry_0">
+					<transition   target="Zero">
+					</transition>
+				</history>
+				<transition event="button.mode"  target="Clock">
+				</transition>
+			</state>
+			<state id="Set_Chime">
+				<onentry>
+					 <assign location="display_text" expr="(chime_enabled) ? 'Chime ON' : 'Chime OFF'"/>
+				</onentry>
+				<transition event="button.mode"  target="Stop_Watch">
+				</transition>
+				<transition event="button.onoff"  target="Set_Chime">
+					 <assign location="chime_enabled" expr="!chime_enabled"/>
+				</transition>
+			</state>
+			<transition  cond="time == alarm_1_time &amp;&amp; alarm_1_enabled" target="alarm_1_beeps">
+			</transition>
+			<transition  cond="time == alarm_2_time &amp;&amp; alarm_2_enabled" target="alarm_2_beeps">
+			</transition>
+		</state>
+		<state id="Alarm">
+			<onentry>
+				<send event="Alarm_t_0_timeEvent_0" delay="30s"/>
+			</onentry>
+			<onexit>
+				<cancel sendid="Alarm_t_0_timeEvent_0" />
+			</onexit>
+			<initial>
+				<transition target="alarm_1_beeps" type="internal">
+				</transition>
+			</initial>
+			<state id="alarm_1_beeps">
+			</state>
+			<state id="alarm_2_beeps">
+			</state>
+			<transition event="Alarm_t_0_timeEvent_0"  target="deep_entry">
+			</transition>
+			<transition event="button.mode"  target="deep_entry">
+			</transition>
+			<transition event="button.light"  target="deep_entry">
+			</transition>
+			<transition event="button.set"  target="deep_entry">
+			</transition>
+			<transition event="button.onoff"  target="deep_entry">
+			</transition>
+		</state>
+		<state id="SetTime">
+			<onentry>
+				<send event="SetTime_t_1_timeEvent_0" delay="120s"/>
+			</onentry>
+			<onexit>
+				<cancel sendid="SetTime_t_1_timeEvent_0" />
+			</onexit>
+			<onentry>
+				 <assign location="display_first" expr="(time_set / 36000) % 24"/>
+				 <assign location="display_second" expr="(time_set / 600) % 60"/>
+				 <assign location="display_third" expr="(time_set / 10) % 60"/>
+			</onentry>
+			<initial>
+				<transition target="hr" type="internal">
+				</transition>
+			</initial>
+			<state id="sec">
+				<transition event ="button.onoff"  type="internal" >
+					 <assign location="display_third" expr="(display_third + 1) % 60"/>
+				</transition>
+				<transition event="button.set"  target="time_set">
+					 <assign location="time_set" expr="(3600 * display_first + 60 * display_second + display_third) * 10"/>
+				</transition>
+			</state>
+			<state id="min">
+				<transition event ="button.onoff"  type="internal" >
+					 <assign location="display_second" expr="((display_second + 1) % 60)"/>
+				</transition>
+				<transition event="button.set"  target="sec">
+				</transition>
+			</state>
+			<state id="hr">
+				<transition event ="button.onoff"  type="internal" >
+					 <assign location="display_first" expr="((display_first + 1) % 24)"/>
+				</transition>
+				<transition event="button.set"  target="min">
+				</transition>
+			</state>
+			<transition event="button.light"  target="time_set">
+			</transition>
+			<transition event="SetTime_t_1_timeEvent_0"  target="time_set">
+			</transition>
+		</state>
+		<transition  type="internal" >
+			 <assign location="time" expr="time + 1"/>
+		</transition>
+		<transition cond="time &gt;= 864000" type="internal" >
+			 <assign location="time" expr="0"/>
+		</transition>
+	</state>
+	<state id="chime">
+		<initial>
+			<transition target="quiet" type="internal">
+			</transition>
+		</initial>
+		<state id="quiet">
+			<transition  cond="chime_enabled &amp;&amp; time % 36000 == 0" target="beep">
+			</transition>
+		</state>
+		<state id="beep">
+			<onentry>
+				<send event="beep_t_0_timeEvent_0" delay="2s"/>
+			</onentry>
+			<onexit>
+				<cancel sendid="beep_t_0_timeEvent_0" />
+			</onexit>
+			<transition event="beep_t_0_timeEvent_0"  target="quiet">
+			</transition>
+		</state>
+	</state>
+	<state id="light">
+		<initial>
+			<transition target="off" type="internal">
+			</transition>
+		</initial>
+		<state id="off">
+			<transition event="button.light"  target="on">
+			</transition>
+		</state>
+		<state id="on">
+			<transition event="button.light_r"  target="off">
+			</transition>
+		</state>
+	</state>
+	</parallel>
+</scxml>

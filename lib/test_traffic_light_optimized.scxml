@@ -1,0 +1,11 @@
+<scxml version="1.0" initial="main_Red__" xmlns="http://www.w3.org/2005/07/scxml">
+  <state id="main_Green__">
+    <transition target="main_Yellow__" event="timer"/>
+  </state>
+  <state id="main_Red__">
+    <transition target="main_Green__" event="timer"/>
+  </state>
+  <state id="main_Yellow__">
+    <transition target="main_Red__" event="timer"/>
+  </state>
+</scxml>

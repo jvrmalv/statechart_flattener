@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" datamodel="ecmascript" name="TrafficLightCtrl">
+	<datamodel>
+		<data expr="12" id="redPeriod" />
+		<data expr="8" id="greenPeriod" />
+		<data expr="3" id="yellowPeriod" />
+		<data expr="-1" id="Timer_OFF" />
+		<data expr="0" id="counter" />
+	</datamodel>
+	<state id="main">
+		<initial>
+			<transition target="off" type="internal">
+			</transition>
+		</initial>
+		<parallel id="main">
+			<onexit>
+				<send event="TrafficLight.displayNone">
+				</send>
+			</onexit>
+			<state id="trafficlight">
+				<initial>
+					<transition target="main.trafficlight.entry_0" type="internal">
+					</transition>
+				</initial>
+				<state id="interrupted">
+					<initial>
+						<transition target="Yellow" type="internal">
+						</transition>
+					</initial>
+					<state id="Black">
+						<onentry>
+							<send event="Black_t_0_timeEvent_0" delay="500ms"/>
+						</onentry>
+						<onexit>
+							<cancel sendid="Black_t_0_timeEvent_0" />
+						</onexit>
+						<onentry>
+							<send event="TrafficLight.displayNone">
+							</send>
+						</onentry>
+						<transition event="Black_t_0_timeEvent_0"  target="Yellow">
+						</transition>
+					</state>
+					<state id="Yellow">
+						<onentry>
+							<send event="Yellow_t_0_timeEvent_0" delay="500ms"/>
+						</onentry>
+						<onexit>
+							<cancel sendid="Yellow_t_0_timeEvent_0" />
+						</onexit>
+						<onentry>
+							<send event="TrafficLight.displayYellow">
+							</send>
+						</onentry>
+						<transition event="Yellow_t_0_timeEvent_0"  target="Black">
+						</transition>
+					</state>
+					<transition event="police_interrupt"  target="hist">
+						<send event="enableTimer">
+						</send>
+					</transition>
+				</state>
+				<state id="normal">
+					<initial>
+						<transition target="Red" type="internal">
+						</transition>
+					</initial>
+					<state id="Red">
+						<onentry>
+							<send event="Red_t_0_timeEvent_0" delayexpr="redPeriod * 1000"/>
+						</onentry>
+						<onexit>
+							<cancel sendid="Red_t_0_timeEvent_0" />
+						</onexit>
+						<onentry>
+							<send event="TrafficLight.displayRed">
+							</send>
+							 <assign location="counter" expr="redPeriod"/>
+							<send event="resetTimer">
+							</send>
+						</onentry>
+						<transition event="Red_t_0_timeEvent_0"  target="Green">
+						</transition>
+					</state>
+					<state id="Yellow">
+						<onentry>
+							<send event="Yellow_t_0_timeEvent_0" delayexpr="yellowPeriod * 1000"/>
+						</onentry>
+						<onexit>
+							<cancel sendid="Yellow_t_0_timeEvent_0" />
+						</onexit>
+						<onentry>
+							<send event="TrafficLight.displayYellow">
+							</send>
+							<send event="disableTimer">
+							</send>
+						</onentry>
+						<transition event="Yellow_t_0_timeEvent_0"  target="Red">
+							<send event="enableTimer">
+							</send>
+						</transition>
+					</state>
+					<state id="Green">
+						<onentry>
+							<send event="Green_t_0_timeEvent_0" delayexpr="greenPeriod * 1000"/>
+						</onentry>
+						<onexit>
+							<cancel sendid="Green_t_0_timeEvent_0" />
+						</onexit>
+						<onentry>
+							<send event="TrafficLight.displayGreen">
+							</send>
+							 <assign location="counter" expr="greenPeriod"/>
+							<send event="resetTimer">
+							</send>
+						</onentry>
+						<transition event="Green_t_0_timeEvent_0"  target="Yellow">
+						</transition>
+					</state>
+					<history type = "shallow" id="hist">
+						<transition target="Red">
+						</transition>
+					</history>
+					<transition event="police_interrupt"  target="interrupted">
+						<send event="disableTimer">
+						</send>
+					</transition>
+				</state>
+				<history type="deep" id="main.trafficlight.entry_0">
+					<transition   target="normal">
+					</transition>
+				</history>
+			</state>
+			<state id="timer">
+				<initial>
+					<transition target="main.timer.entry_0" type="internal">
+					</transition>
+				</initial>
+				<state id="disabled">
+					<transition event="enableTimer"  target="running">
+					</transition>
+				</state>
+				<state id="running">
+					<onexit>
+						<send event="Timer.updateTimerValue">
+						<content expr="Timer_OFF" />
+						</send>
+					</onexit>
+					<initial>
+						<transition target="running.choice_0" type="internal">
+						</transition>
+					</initial>
+					<state id="Green">
+						<onentry>
+							<send event="Green_t_0_timeEvent_0" delay="1s"/>
+						</onentry>
+						<onexit>
+							<cancel sendid="Green_t_0_timeEvent_0" />
+						</onexit>
+						<onentry>
+							<send event="Timer.updateTimerValue">
+							<content expr="counter" />
+							</send>
+						</onentry>
+						<transition event="Green_t_0_timeEvent_0"  target="Green">
+							 <assign location="counter" expr="counter - 1"/>
+						</transition>
+					</state>
+					<state id="Red">
+						<onentry>
+							<send event="Red_t_0_timeEvent_0" delay="1s"/>
+						</onentry>
+						<onexit>
+							<cancel sendid="Red_t_0_timeEvent_0" />
+						</onexit>
+						<onentry>
+							<send event="Timer.updateTimerValue">
+							<content expr="counter" />
+							</send>
+						</onentry>
+						<transition event="Red_t_0_timeEvent_0"  target="Red">
+							 <assign location="counter" expr="counter - 1"/>
+						</transition>
+					</state>
+					<state id="running.choice_0">
+						<transition  cond="In('Green')" target="Green">
+							<send event="Timer.updateTimerColour">
+							<content expr="'Green'" />
+							</send>
+						</transition>
+						<transition   target="Red">
+							<send event="Timer.updateTimerColour">
+							<content expr="'Red'" />
+							</send>
+						</transition>
+					</state>
+					<transition event="disableTimer"  target="disabled">
+					</transition>
+					<transition event="resetTimer"  target="running">
+					</transition>
+				</state>
+				<history type="deep" id="main.timer.entry_0">
+					<transition   target="running">
+					</transition>
+				</history>
+			</state>
+			<transition event="toggle"  target="off">
+			</transition>
+		</parallel>
+		<state id="off">
+			<transition event="toggle"  target="main">
+			</transition>
+		</state>
+	</state>
+</scxml>
