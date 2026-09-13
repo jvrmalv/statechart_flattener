@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" datamodel="ecmascript" name="_03_MotionLightSwitch">
+	<datamodel>
+		<data expr="0" id="brightness" />
+	</datamodel>
+	<state id="main">
+		<initial>
+			<transition target="MotionSensing" type="internal">
+			</transition>
+		</initial>
+		<state id="MotionSensing">
+			<initial>
+				<transition target="Off" type="internal">
+				</transition>
+			</initial>
+			<state id="Off">
+				<onentry>
+					 <assign location="brightness" expr="0"/>
+				</onentry>
+				<transition event="motionDetected"  target="On">
+				</transition>
+			</state>
+			<state id="On">
+				<onentry>
+					<send event="On_t_0_timeEvent_0" delay="30s"/>
+				</onentry>
+				<onexit>
+					<cancel sendid="On_t_0_timeEvent_0" />
+				</onexit>
+				<onentry>
+					 <assign location="brightness" expr="1"/>
+				</onentry>
+				<transition event="On_t_0_timeEvent_0"  target="Off">
+				</transition>
+				<transition event="motionDetected"  target="On">
+				</transition>
+			</state>
+			<transition event="toggleMode"  target="Manual">
+			</transition>
+		</state>
+		<state id="Manual">
+			<initial>
+				<transition target="Off" type="internal">
+				</transition>
+			</initial>
+			<state id="Off">
+				<onentry>
+					 <assign location="brightness" expr="0"/>
+				</onentry>
+				<transition event="switch"  target="On">
+					 <assign location="brightness" expr="10"/>
+				</transition>
+			</state>
+			<state id="On">
+				<transition event ="changeBrightness" cond="brightness &gt; 1" type="internal" >
+					 <assign location="brightness" expr="brightness - 1"/>
+				</transition>
+				<transition event ="changeBrightness" cond="brightness &lt;= 1" type="internal" >
+					 <assign location="brightness" expr="10"/>
+				</transition>
+				<transition event="switch"  target="Off">
+				</transition>
+			</state>
+			<transition event="toggleMode"  target="MotionSensing">
+			</transition>
+		</state>
+	</state>
+</scxml>

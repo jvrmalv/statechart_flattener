@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" datamodel="ecmascript" name="_04_LightAndMotionSensingLightSwitch">
+	<datamodel>
+		<data expr="0" id="brightness" />
+		<data expr="30" id="motion_timeout" />
+		<data expr="10" id="luminosity_delay" />
+	</datamodel>
+	<state id="modes">
+		<initial>
+			<transition target="Manual" type="internal">
+			</transition>
+		</initial>
+		<state id="Automatic">
+			<initial>
+				<transition target="Automatic.entry_0" type="internal">
+				</transition>
+			</initial>
+			<state id="Motion_Sensing">
+				<initial>
+					<transition target="Motion_Sensing.entry_0" type="internal">
+					</transition>
+				</initial>
+				<state id="Still">
+					<onentry>
+						 <assign location="brightness" expr="0"/>
+					</onentry>
+					<transition event="motion.detected"  target="Motion">
+					</transition>
+				</state>
+				<history type = "shallow" id="Motion_Sensing.entry_0">
+					<transition   target="Still">
+					</transition>
+				</history>
+				<state id="Motion">
+					<onentry>
+						<send event="Motion_t_0_timeEvent_0" delayexpr="motion_timeout * 1000"/>
+					</onentry>
+					<onexit>
+						<cancel sendid="Motion_t_0_timeEvent_0" />
+					</onexit>
+					<onentry>
+						 <assign location="brightness" expr="10"/>
+					</onentry>
+					<transition event="Motion_t_0_timeEvent_0"  target="Still">
+					</transition>
+					<transition event="motion.detected"  target="Motion">
+					</transition>
+				</state>
+				<transition event="hmi.toggleMode"  target="Light_Sensing">
+				</transition>
+			</state>
+			<state id="Light_Sensing">
+				<initial>
+					<transition target="Light_Sensing.entry_0" type="internal">
+					</transition>
+				</initial>
+				<state id="Bright">
+					<onentry>
+						 <assign location="brightness" expr="0"/>
+					</onentry>
+					<transition event="luminosity.dark"  target="Getting_Dark">
+					</transition>
+				</state>
+				<state id="Dark">
+					<onentry>
+						 <assign location="brightness" expr="10"/>
+					</onentry>
+					<transition event="luminosity.bright"  target="Getting_Bright">
+					</transition>
+				</state>
+				<state id="Getting_Dark">
+					<onentry>
+						<send event="Getting Dark_t_1_timeEvent_0" delayexpr="luminosity_delay * 1000"/>
+					</onentry>
+					<onexit>
+						<cancel sendid="Getting Dark_t_1_timeEvent_0" />
+					</onexit>
+					<transition event="luminosity.bright"  target="Bright">
+					</transition>
+					<transition event="Getting Dark_t_1_timeEvent_0"  target="Dark">
+					</transition>
+				</state>
+				<state id="Getting_Bright">
+					<onentry>
+						<send event="Getting Bright_t_1_timeEvent_0" delayexpr="luminosity_delay * 1000"/>
+					</onentry>
+					<onexit>
+						<cancel sendid="Getting Bright_t_1_timeEvent_0" />
+					</onexit>
+					<transition event="luminosity.dark"  target="Dark">
+					</transition>
+					<transition event="Getting Bright_t_1_timeEvent_0"  target="Bright">
+					</transition>
+				</state>
+				<history type = "shallow" id="Light_Sensing.entry_0">
+					<transition   target="Bright">
+					</transition>
+				</history>
+				<transition event="hmi.toggleMode"  target="Motion_Sensing">
+				</transition>
+			</state>
+			<history type = "shallow" id="Automatic.entry_0">
+				<transition   target="Motion_Sensing">
+				</transition>
+			</history>
+			<transition event="hmi.switch"  target="Manual">
+			</transition>
+		</state>
+		<state id="Manual">
+			<initial>
+				<transition target="Manual.entry_0" type="internal">
+				</transition>
+			</initial>
+			<history type = "shallow" id="Manual.entry_0">
+				<transition   target="Off">
+				</transition>
+			</history>
+			<state id="Off">
+				<onentry>
+					 <assign location="brightness" expr="0"/>
+				</onentry>
+				<transition event="hmi.switch"  target="On">
+					 <assign location="brightness" expr="5"/>
+				</transition>
+			</state>
+			<state id="On">
+				<transition event ="hmi.changeBrightness" cond="brightness &gt; 1" type="internal" >
+					 <assign location="brightness" expr="brightness - 1"/>
+				</transition>
+				<transition event ="hmi.changeBrightness" cond="brightness &lt;= 1" type="internal" >
+					 <assign location="brightness" expr="10"/>
+				</transition>
+				<transition event="hmi.switch"  target="Off">
+				</transition>
+			</state>
+			<transition event="hmi.toggleMode"  target="Automatic">
+			</transition>
+		</state>
+	</state>
+</scxml>
