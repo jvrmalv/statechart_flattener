@@ -5,14 +5,14 @@
       "state": "main_Idle__currentFloor_0__destination_0",
       "transitions": [
         {
-          "input": "floor",
+          "input": "floor [_event.data < currentFloor && _event.data >= 0]",
           "output": [
             "assign destination=_event.data"
           ],
           "target": "main_Moving_MovingDown__currentFloor_0__destination_0"
         },
         {
-          "input": "floor",
+          "input": "floor [_event.data > currentFloor]",
           "output": [
             "assign destination=_event.data"
           ],

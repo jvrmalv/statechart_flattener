@@ -1055,7 +1055,7 @@ defmodule Flatten do
     # Resolve In() predicates against this composite's active component IDs
     active_component_ids = composite.component_ids
 
-    Enum.reduce(all_transitions, %{}, fn {t, _src, affected_component}, acc ->
+    Enum.reduce(all_transitions, [], fn {t, _src, affected_component}, acc ->
       # Resolve In() predicates in the guard condition
       resolved_cond = LogicEngine.resolve_in_predicates(t.cond, active_component_ids)
 
@@ -1072,14 +1072,14 @@ defmodule Flatten do
 
       event_name = t.event || "_auto"
 
-      Map.put_new(acc, "#{event_name}|#{resolved_cond}", %{
+      acc ++ [%{
         "event" => event_name,
         "cond" => resolved_cond,
         "target" => tgt_id,
         "actions" => actions
-      })
+      }]
     end)
-    |> Map.values()
+    |> Enum.uniq_by(fn t -> "#{t["event"]}|#{t["cond"]}" end)
   end
 
   defp resolve_parallel_target(tgt_ref, composite, affected_component, states, history_info) do
@@ -1136,9 +1136,14 @@ defmodule Flatten do
   end
 
   defp get_regular_trans(leaf, states, history_info) do
-    get_ancestry(leaf, states)
+    ancestry = get_ancestry(leaf, states)
+    active_component_ids = Enum.map(ancestry, & &1.id)
+
+    ancestry
     |> Enum.flat_map(fn s -> Map.get(s, :transitions, []) |> Enum.map(&{&1, s}) end)
-    |> Enum.reduce(%{}, fn {t, src}, acc ->
+    |> Enum.reduce([], fn {t, src}, acc ->
+      resolved_cond = LogicEngine.resolve_in_predicates(t.cond, active_component_ids)
+
       tgt_ref = List.first(t.targets)
 
       tgt_id =
@@ -1148,14 +1153,14 @@ defmodule Flatten do
 
       event_name = t.event || "_auto"
 
-      Map.put_new(acc, "#{event_name}|#{t.cond}", %{
+      acc ++ [%{
         "event" => event_name,
-        "cond" => t.cond,
+        "cond" => resolved_cond,
         "target" => tgt_id,
         "actions" => actions
-      })
+      }]
     end)
-    |> Map.values()
+    |> Enum.uniq_by(fn t -> "#{t["event"]}|#{t["cond"]}" end)
   end
 
   defp get_transition_actions(t) do
@@ -1318,16 +1323,34 @@ defmodule Expander do
         # Regular transitions from the statechart
         valid =
           s["transitions"]
-          |> Enum.filter(fn t ->
+          |> Enum.reduce([], fn t, acc ->
             result = LogicEngine.eval(t["cond"], ctx)
-            # Treat :error as true — guard may reference display-only vars we don't track
-            result == true or result == :error
+
+            if result == true or result == :error do
+              is_shadowed = Enum.any?(acc, fn accepted ->
+                accepted["event"] == t["event"] and accepted["eval_result"] == true
+              end)
+
+              if is_shadowed do
+                acc
+              else
+                acc ++ [Map.put(t, "eval_result", result)]
+              end
+            else
+              acc
+            end
           end)
           |> Enum.map(fn t ->
             next_ctx = apply_actions(t["actions"], ctx, guard_var_names, domains)
 
+            event_output = if t["eval_result"] == :error and not is_nil(t["cond"]) and t["cond"] != "" do
+              "#{t["event"]} [#{t["cond"]}]"
+            else
+              t["event"]
+            end
+
             %{
-              "input" => t["event"],
+              "input" => event_output,
               "target" => generate_id(t["target"], next_ctx),
               "output" => t["actions"]
             }
