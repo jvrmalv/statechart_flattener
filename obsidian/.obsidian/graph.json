@@ -1,0 +1,37 @@
+{
+  "collapse-filter": false,
+  "search": "",
+  "showTags": true,
+  "showAttachments": false,
+  "hideUnresolved": false,
+  "showOrphans": true,
+  "collapse-color-groups": false,
+  "colorGroups": [
+    {
+      "query": "path:\"01 - Architecture & Algorithms\"",
+      "color": { "a": 1, "rgb": 3447003 }
+    },
+    {
+      "query": "path:\"02 - Chronology & Development History\"",
+      "color": { "a": 1, "rgb": 10181046 }
+    },
+    {
+      "query": "path:\"03 - Metrics, Benchmarks & Verification\"",
+      "color": { "a": 1, "rgb": 3066993 }
+    },
+    {
+      "query": "path:\"04 - Analysis, Limitations & Roadmap\"",
+      "color": { "a": 1, "rgb": 15105570 }
+    }
+  ],
+  "collapse-display": false,
+  "showArrow": true,
+  "textFadeMultiplier": 0,
+  "nodeSizeMultiplier": 1.1,
+  "lineSizeMultiplier": 1,
+  "collapse-forces": false,
+  "centerStrength": 0.5,
+  "repelStrength": 10,
+  "linkStrength": 1,
+  "linkDistance": 250
+}
