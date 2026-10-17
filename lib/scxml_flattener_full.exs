@@ -196,7 +196,7 @@ defmodule HistoryTracker do
                       id
 
                     target ->
-                      parent = get_parent(id)
+                      parent = get_parent(id, states)
                       fq = if parent, do: "#{parent}_#{target}", else: target
                       fq = if Map.has_key?(states, fq), do: fq, else: target
                       resolve_to_leaf(fq, states)
@@ -231,11 +231,11 @@ defmodule HistoryTracker do
       String.contains?(id, "_history")
   end
 
-  defp get_parent(id) do
-    if String.contains?(id, "_") do
-      String.split(id, "_") |> Enum.drop(-1) |> Enum.join("_")
-    else
-      nil
+  # Real parent recorded by Normalize (ids may themselves contain "_").
+  defp get_parent(id, states) do
+    case Map.get(states, id) do
+      nil -> nil
+      s -> s.parent
     end
   end
 
@@ -751,9 +751,11 @@ defmodule Normalize do
     history_info = detect_history(reg)
     parallel_info = detect_parallel(reg)
 
+    index = local_id_index(reg)
+
     resolved =
       Enum.map(reg, fn {id, s} ->
-        {id, %{s | id: id, transitions: resolve_trans(s, id, reg)}}
+        {id, %{s | id: id, transitions: resolve_trans(s, id, reg, index)}}
       end)
       |> Map.new()
 
@@ -826,16 +828,30 @@ defmodule Normalize do
     end)
   end
 
-  defp resolve_trans(s, scope, reg) do
+  defp resolve_trans(s, scope, reg, index) do
     Map.get(s, :transitions, [])
     |> Enum.map(fn t ->
-      targets = (t.targets || []) |> Enum.map(&find(&1, scope, reg))
+      targets = (t.targets || []) |> Enum.map(&find(&1, scope, reg, index))
       %{t | targets: targets}
     end)
   end
 
-  defp find(tgt, scope, reg) do
-    case Enum.find(gen_scope(scope, tgt), &Map.has_key?(reg, &1)) do
+  # SCXML state ids are unique within the document, so an original (local) id
+  # identifies its fully-qualified id directly. Only unambiguous ids are indexed.
+  # NOTE: never rebuild ancestry by splitting the flattened id on "_": "_" is both
+  # the hierarchy separator and a legal character inside ids (e.g. "Getting_Dark").
+  defp local_id_index(reg) do
+    reg
+    |> Enum.group_by(fn {_fq, s} -> s.id end, fn {fq, _s} -> fq end)
+    |> Enum.flat_map(fn
+      {local, [fq]} when is_binary(local) -> [{local, fq}]
+      _ -> []
+    end)
+    |> Map.new()
+  end
+
+  defp find(tgt, scope, reg, index) do
+    case Map.get(index, tgt) || Enum.find(gen_scope(scope, tgt, reg), &Map.has_key?(reg, &1)) do
       nil ->
         # Fallback: global search for any state whose ID ends with this target
         # This handles inter-level transitions across sibling subtrees
@@ -852,7 +868,7 @@ defmodule Normalize do
           global_match
         else
           if scope do
-            parent = get_parent(scope)
+            parent = parent_of(scope, reg)
             if parent, do: "#{parent}_#{tgt}", else: tgt
           else
             tgt
@@ -864,13 +880,16 @@ defmodule Normalize do
     end
   end
 
-  defp gen_scope(nil, tgt), do: [tgt]
-  defp gen_scope(sc, tgt), do: ["#{sc}_#{tgt}" | gen_scope(get_parent(sc), tgt)]
+  # Candidate fully-qualified ids from the innermost scope outwards (document order).
+  defp gen_scope(nil, tgt, _reg), do: [tgt]
+  defp gen_scope(sc, tgt, reg), do: ["#{sc}_#{tgt}" | gen_scope(parent_of(sc, reg), tgt, reg)]
 
-  defp get_parent(p) do
-    if String.contains?(p, "_"),
-      do: String.split(p, "_") |> Enum.drop(-1) |> Enum.join("_"),
-      else: nil
+  # Real parent recorded by discover/3 (nil for the root or unknown ids).
+  defp parent_of(id, reg) do
+    case Map.get(reg, id) do
+      nil -> nil
+      s -> s.parent
+    end
   end
 end
 
@@ -1266,7 +1285,7 @@ defmodule Flatten do
   end
 
   defp find_fq_target(target, current_scope, states) do
-    parent = get_parent_scope(current_scope)
+    parent = get_parent_scope(current_scope, states)
 
     cond do
       Map.has_key?(states, target) -> target
@@ -1275,11 +1294,11 @@ defmodule Flatten do
     end
   end
 
-  defp get_parent_scope(id) do
-    if String.contains?(id, "_") do
-      String.split(id, "_") |> Enum.drop(-1) |> Enum.join("_")
-    else
-      nil
+  # Real parent recorded by Normalize (ids may themselves contain "_").
+  defp get_parent_scope(id, states) do
+    case Map.get(states, id) do
+      nil -> nil
+      s -> s.parent
     end
   end
 

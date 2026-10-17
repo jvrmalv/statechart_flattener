@@ -1,217 +1,165 @@
-<scxml version="1.0" initial="modes_Manual_Off__brightness_0__luminosity_delay_10__motion_timeout_30" xmlns="http://www.w3.org/2005/07/scxml">
-  <state id="modes_Automatic_Motion_Sensing_Motion__brightness_0__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_0__luminosity_delay_10__motion_timeout_30" event="Motion_t_0_timeEvent_0"/>
-    <transition target="modes_Manual_Off__brightness_0__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_0__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-    <transition target="modes_Automatic_Motion_Sensing_Motion__brightness_0__luminosity_delay_10__motion_timeout_30" event="motion.detected"/>
+<scxml version="1.0" initial="modes_Manual_Off__brightness_0" xmlns="http://www.w3.org/2005/07/scxml">
+  <state id="modes_Automatic_Light_Sensing_Bright__brightness_0">
+    <transition target="modes_Automatic_Light_Sensing_Getting_Dark__brightness_0" event="luminosity.dark"/>
+    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_0" event="hmi.toggleMode"/>
+    <transition target="modes_Manual_Off__brightness_0" event="hmi.switch"/>
   </state>
-  <state id="modes_Automatic_Motion_Sensing_Motion__brightness_10__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_10__luminosity_delay_10__motion_timeout_30" event="Motion_t_0_timeEvent_0"/>
-    <transition target="modes_Manual_Off__brightness_10__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_10__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-    <transition target="modes_Automatic_Motion_Sensing_Motion__brightness_10__luminosity_delay_10__motion_timeout_30" event="motion.detected"/>
+  <state id="modes_Automatic_Light_Sensing_Bright__brightness_1">
+    <transition target="modes_Automatic_Light_Sensing_Getting_Dark__brightness_1" event="luminosity.dark"/>
+    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_1" event="hmi.toggleMode"/>
+    <transition target="modes_Manual_Off__brightness_1" event="hmi.switch"/>
   </state>
-  <state id="modes_Automatic_Motion_Sensing_Motion__brightness_1__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_1__luminosity_delay_10__motion_timeout_30" event="Motion_t_0_timeEvent_0"/>
-    <transition target="modes_Manual_Off__brightness_1__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_1__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-    <transition target="modes_Automatic_Motion_Sensing_Motion__brightness_1__luminosity_delay_10__motion_timeout_30" event="motion.detected"/>
+  <state id="modes_Automatic_Light_Sensing_Bright__brightness_10">
+    <transition target="modes_Automatic_Light_Sensing_Getting_Dark__brightness_10" event="luminosity.dark"/>
+    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_10" event="hmi.toggleMode"/>
+    <transition target="modes_Manual_Off__brightness_10" event="hmi.switch"/>
   </state>
-  <state id="modes_Automatic_Motion_Sensing_Motion__brightness_2__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_2__luminosity_delay_10__motion_timeout_30" event="Motion_t_0_timeEvent_0"/>
-    <transition target="modes_Manual_Off__brightness_2__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_2__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-    <transition target="modes_Automatic_Motion_Sensing_Motion__brightness_2__luminosity_delay_10__motion_timeout_30" event="motion.detected"/>
+  <state id="modes_Automatic_Light_Sensing_Bright__brightness_2">
+    <transition target="modes_Automatic_Light_Sensing_Getting_Dark__brightness_2" event="luminosity.dark"/>
+    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_2" event="hmi.toggleMode"/>
+    <transition target="modes_Manual_Off__brightness_2" event="hmi.switch"/>
   </state>
-  <state id="modes_Automatic_Motion_Sensing_Motion__brightness_3__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_3__luminosity_delay_10__motion_timeout_30" event="Motion_t_0_timeEvent_0"/>
-    <transition target="modes_Manual_Off__brightness_3__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_3__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-    <transition target="modes_Automatic_Motion_Sensing_Motion__brightness_3__luminosity_delay_10__motion_timeout_30" event="motion.detected"/>
+  <state id="modes_Automatic_Light_Sensing_Dark__brightness_0">
+    <transition target="modes_Automatic_Light_Sensing_Getting_Bright__brightness_0" event="luminosity.bright"/>
+    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_0" event="hmi.toggleMode"/>
+    <transition target="modes_Manual_Off__brightness_0" event="hmi.switch"/>
   </state>
-  <state id="modes_Automatic_Motion_Sensing_Motion__brightness_4__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_4__luminosity_delay_10__motion_timeout_30" event="Motion_t_0_timeEvent_0"/>
-    <transition target="modes_Manual_Off__brightness_4__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_4__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-    <transition target="modes_Automatic_Motion_Sensing_Motion__brightness_4__luminosity_delay_10__motion_timeout_30" event="motion.detected"/>
+  <state id="modes_Automatic_Light_Sensing_Dark__brightness_1">
+    <transition target="modes_Automatic_Light_Sensing_Getting_Bright__brightness_1" event="luminosity.bright"/>
+    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_1" event="hmi.toggleMode"/>
+    <transition target="modes_Manual_Off__brightness_1" event="hmi.switch"/>
   </state>
-  <state id="modes_Automatic_Motion_Sensing_Motion__brightness_5__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_5__luminosity_delay_10__motion_timeout_30" event="Motion_t_0_timeEvent_0"/>
-    <transition target="modes_Manual_Off__brightness_5__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_5__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-    <transition target="modes_Automatic_Motion_Sensing_Motion__brightness_5__luminosity_delay_10__motion_timeout_30" event="motion.detected"/>
+  <state id="modes_Automatic_Light_Sensing_Dark__brightness_10">
+    <transition target="modes_Automatic_Light_Sensing_Getting_Bright__brightness_10" event="luminosity.bright"/>
+    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_10" event="hmi.toggleMode"/>
+    <transition target="modes_Manual_Off__brightness_10" event="hmi.switch"/>
   </state>
-  <state id="modes_Automatic_Motion_Sensing_Motion__brightness_6__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_6__luminosity_delay_10__motion_timeout_30" event="Motion_t_0_timeEvent_0"/>
-    <transition target="modes_Manual_Off__brightness_6__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_6__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-    <transition target="modes_Automatic_Motion_Sensing_Motion__brightness_6__luminosity_delay_10__motion_timeout_30" event="motion.detected"/>
+  <state id="modes_Automatic_Light_Sensing_Dark__brightness_2">
+    <transition target="modes_Automatic_Light_Sensing_Getting_Bright__brightness_2" event="luminosity.bright"/>
+    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_2" event="hmi.toggleMode"/>
+    <transition target="modes_Manual_Off__brightness_2" event="hmi.switch"/>
   </state>
-  <state id="modes_Automatic_Motion_Sensing_Motion__brightness_7__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_7__luminosity_delay_10__motion_timeout_30" event="Motion_t_0_timeEvent_0"/>
-    <transition target="modes_Manual_Off__brightness_7__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_7__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-    <transition target="modes_Automatic_Motion_Sensing_Motion__brightness_7__luminosity_delay_10__motion_timeout_30" event="motion.detected"/>
+  <state id="modes_Automatic_Light_Sensing_Getting_Bright__brightness_0">
+    <transition target="modes_Automatic_Light_Sensing_Dark__brightness_0" event="luminosity.dark"/>
+    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_0" event="Getting Bright_t_1_timeEvent_0"/>
+    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_0" event="hmi.toggleMode"/>
+    <transition target="modes_Manual_Off__brightness_0" event="hmi.switch"/>
   </state>
-  <state id="modes_Automatic_Motion_Sensing_Motion__brightness_8__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_8__luminosity_delay_10__motion_timeout_30" event="Motion_t_0_timeEvent_0"/>
-    <transition target="modes_Manual_Off__brightness_8__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_8__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-    <transition target="modes_Automatic_Motion_Sensing_Motion__brightness_8__luminosity_delay_10__motion_timeout_30" event="motion.detected"/>
+  <state id="modes_Automatic_Light_Sensing_Getting_Bright__brightness_1">
+    <transition target="modes_Automatic_Light_Sensing_Dark__brightness_1" event="luminosity.dark"/>
+    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_1" event="Getting Bright_t_1_timeEvent_0"/>
+    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_1" event="hmi.toggleMode"/>
+    <transition target="modes_Manual_Off__brightness_1" event="hmi.switch"/>
   </state>
-  <state id="modes_Automatic_Motion_Sensing_Motion__brightness_9__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_9__luminosity_delay_10__motion_timeout_30" event="Motion_t_0_timeEvent_0"/>
-    <transition target="modes_Manual_Off__brightness_9__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_9__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-    <transition target="modes_Automatic_Motion_Sensing_Motion__brightness_9__luminosity_delay_10__motion_timeout_30" event="motion.detected"/>
+  <state id="modes_Automatic_Light_Sensing_Getting_Bright__brightness_10">
+    <transition target="modes_Automatic_Light_Sensing_Dark__brightness_10" event="luminosity.dark"/>
+    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_10" event="Getting Bright_t_1_timeEvent_0"/>
+    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_10" event="hmi.toggleMode"/>
+    <transition target="modes_Manual_Off__brightness_10" event="hmi.switch"/>
   </state>
-  <state id="modes_Automatic_Motion_Sensing_Still__brightness_0__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Manual_Off__brightness_0__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_0__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-    <transition target="modes_Automatic_Motion_Sensing_Motion__brightness_0__luminosity_delay_10__motion_timeout_30" event="motion.detected"/>
+  <state id="modes_Automatic_Light_Sensing_Getting_Bright__brightness_2">
+    <transition target="modes_Automatic_Light_Sensing_Dark__brightness_2" event="luminosity.dark"/>
+    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_2" event="Getting Bright_t_1_timeEvent_0"/>
+    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_2" event="hmi.toggleMode"/>
+    <transition target="modes_Manual_Off__brightness_2" event="hmi.switch"/>
   </state>
-  <state id="modes_Automatic_Motion_Sensing_Still__brightness_10__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Manual_Off__brightness_10__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_10__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-    <transition target="modes_Automatic_Motion_Sensing_Motion__brightness_10__luminosity_delay_10__motion_timeout_30" event="motion.detected"/>
+  <state id="modes_Automatic_Light_Sensing_Getting_Dark__brightness_0">
+    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_0" event="luminosity.bright"/>
+    <transition target="modes_Automatic_Light_Sensing_Dark__brightness_0" event="Getting Dark_t_1_timeEvent_0"/>
+    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_0" event="hmi.toggleMode"/>
+    <transition target="modes_Manual_Off__brightness_0" event="hmi.switch"/>
   </state>
-  <state id="modes_Automatic_Motion_Sensing_Still__brightness_1__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Manual_Off__brightness_1__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_1__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-    <transition target="modes_Automatic_Motion_Sensing_Motion__brightness_1__luminosity_delay_10__motion_timeout_30" event="motion.detected"/>
+  <state id="modes_Automatic_Light_Sensing_Getting_Dark__brightness_1">
+    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_1" event="luminosity.bright"/>
+    <transition target="modes_Automatic_Light_Sensing_Dark__brightness_1" event="Getting Dark_t_1_timeEvent_0"/>
+    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_1" event="hmi.toggleMode"/>
+    <transition target="modes_Manual_Off__brightness_1" event="hmi.switch"/>
   </state>
-  <state id="modes_Automatic_Motion_Sensing_Still__brightness_2__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Manual_Off__brightness_2__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_2__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-    <transition target="modes_Automatic_Motion_Sensing_Motion__brightness_2__luminosity_delay_10__motion_timeout_30" event="motion.detected"/>
+  <state id="modes_Automatic_Light_Sensing_Getting_Dark__brightness_10">
+    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_10" event="luminosity.bright"/>
+    <transition target="modes_Automatic_Light_Sensing_Dark__brightness_10" event="Getting Dark_t_1_timeEvent_0"/>
+    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_10" event="hmi.toggleMode"/>
+    <transition target="modes_Manual_Off__brightness_10" event="hmi.switch"/>
   </state>
-  <state id="modes_Automatic_Motion_Sensing_Still__brightness_3__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Manual_Off__brightness_3__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_3__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-    <transition target="modes_Automatic_Motion_Sensing_Motion__brightness_3__luminosity_delay_10__motion_timeout_30" event="motion.detected"/>
+  <state id="modes_Automatic_Light_Sensing_Getting_Dark__brightness_2">
+    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_2" event="luminosity.bright"/>
+    <transition target="modes_Automatic_Light_Sensing_Dark__brightness_2" event="Getting Dark_t_1_timeEvent_0"/>
+    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_2" event="hmi.toggleMode"/>
+    <transition target="modes_Manual_Off__brightness_2" event="hmi.switch"/>
   </state>
-  <state id="modes_Automatic_Motion_Sensing_Still__brightness_4__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Manual_Off__brightness_4__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_4__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-    <transition target="modes_Automatic_Motion_Sensing_Motion__brightness_4__luminosity_delay_10__motion_timeout_30" event="motion.detected"/>
+  <state id="modes_Automatic_Motion_Sensing_Motion__brightness_0">
+    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_0" event="Motion_t_0_timeEvent_0"/>
+    <transition target="modes_Automatic_Motion_Sensing_Motion__brightness_0" event="motion.detected"/>
+    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_0" event="hmi.toggleMode"/>
+    <transition target="modes_Manual_Off__brightness_0" event="hmi.switch"/>
   </state>
-  <state id="modes_Automatic_Motion_Sensing_Still__brightness_5__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Manual_Off__brightness_5__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_5__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-    <transition target="modes_Automatic_Motion_Sensing_Motion__brightness_5__luminosity_delay_10__motion_timeout_30" event="motion.detected"/>
+  <state id="modes_Automatic_Motion_Sensing_Motion__brightness_1">
+    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_1" event="Motion_t_0_timeEvent_0"/>
+    <transition target="modes_Automatic_Motion_Sensing_Motion__brightness_1" event="motion.detected"/>
+    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_1" event="hmi.toggleMode"/>
+    <transition target="modes_Manual_Off__brightness_1" event="hmi.switch"/>
   </state>
-  <state id="modes_Automatic_Motion_Sensing_Still__brightness_6__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Manual_Off__brightness_6__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_6__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-    <transition target="modes_Automatic_Motion_Sensing_Motion__brightness_6__luminosity_delay_10__motion_timeout_30" event="motion.detected"/>
+  <state id="modes_Automatic_Motion_Sensing_Motion__brightness_10">
+    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_10" event="Motion_t_0_timeEvent_0"/>
+    <transition target="modes_Automatic_Motion_Sensing_Motion__brightness_10" event="motion.detected"/>
+    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_10" event="hmi.toggleMode"/>
+    <transition target="modes_Manual_Off__brightness_10" event="hmi.switch"/>
   </state>
-  <state id="modes_Automatic_Motion_Sensing_Still__brightness_7__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Manual_Off__brightness_7__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_7__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-    <transition target="modes_Automatic_Motion_Sensing_Motion__brightness_7__luminosity_delay_10__motion_timeout_30" event="motion.detected"/>
+  <state id="modes_Automatic_Motion_Sensing_Motion__brightness_2">
+    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_2" event="Motion_t_0_timeEvent_0"/>
+    <transition target="modes_Automatic_Motion_Sensing_Motion__brightness_2" event="motion.detected"/>
+    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_2" event="hmi.toggleMode"/>
+    <transition target="modes_Manual_Off__brightness_2" event="hmi.switch"/>
   </state>
-  <state id="modes_Automatic_Motion_Sensing_Still__brightness_8__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Manual_Off__brightness_8__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_8__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-    <transition target="modes_Automatic_Motion_Sensing_Motion__brightness_8__luminosity_delay_10__motion_timeout_30" event="motion.detected"/>
+  <state id="modes_Automatic_Motion_Sensing_Still__brightness_0">
+    <transition target="modes_Automatic_Motion_Sensing_Motion__brightness_0" event="motion.detected"/>
+    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_0" event="hmi.toggleMode"/>
+    <transition target="modes_Manual_Off__brightness_0" event="hmi.switch"/>
   </state>
-  <state id="modes_Automatic_Motion_Sensing_Still__brightness_9__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Manual_Off__brightness_9__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_9__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-    <transition target="modes_Automatic_Motion_Sensing_Motion__brightness_9__luminosity_delay_10__motion_timeout_30" event="motion.detected"/>
+  <state id="modes_Automatic_Motion_Sensing_Still__brightness_1">
+    <transition target="modes_Automatic_Motion_Sensing_Motion__brightness_1" event="motion.detected"/>
+    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_1" event="hmi.toggleMode"/>
+    <transition target="modes_Manual_Off__brightness_1" event="hmi.switch"/>
   </state>
-  <state id="modes_Manual_Off__brightness_0__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Manual_On__brightness_5__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_0__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
+  <state id="modes_Automatic_Motion_Sensing_Still__brightness_10">
+    <transition target="modes_Automatic_Motion_Sensing_Motion__brightness_10" event="motion.detected"/>
+    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_10" event="hmi.toggleMode"/>
+    <transition target="modes_Manual_Off__brightness_10" event="hmi.switch"/>
   </state>
-  <state id="modes_Manual_Off__brightness_10__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Manual_On__brightness_5__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_10__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
+  <state id="modes_Automatic_Motion_Sensing_Still__brightness_2">
+    <transition target="modes_Automatic_Motion_Sensing_Motion__brightness_2" event="motion.detected"/>
+    <transition target="modes_Automatic_Light_Sensing_Bright__brightness_2" event="hmi.toggleMode"/>
+    <transition target="modes_Manual_Off__brightness_2" event="hmi.switch"/>
   </state>
-  <state id="modes_Manual_Off__brightness_1__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Manual_On__brightness_5__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_1__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
+  <state id="modes_Manual_Off__brightness_0">
+    <transition target="modes_Manual_On__brightness_2" event="hmi.switch"/>
+    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_0" event="hmi.toggleMode"/>
   </state>
-  <state id="modes_Manual_Off__brightness_2__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Manual_On__brightness_5__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_2__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
+  <state id="modes_Manual_Off__brightness_1">
+    <transition target="modes_Manual_On__brightness_2" event="hmi.switch"/>
+    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_1" event="hmi.toggleMode"/>
   </state>
-  <state id="modes_Manual_Off__brightness_3__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Manual_On__brightness_5__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_3__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
+  <state id="modes_Manual_Off__brightness_10">
+    <transition target="modes_Manual_On__brightness_2" event="hmi.switch"/>
+    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_10" event="hmi.toggleMode"/>
   </state>
-  <state id="modes_Manual_Off__brightness_4__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Manual_On__brightness_5__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_4__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
+  <state id="modes_Manual_Off__brightness_2">
+    <transition target="modes_Manual_On__brightness_2" event="hmi.switch"/>
+    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_2" event="hmi.toggleMode"/>
   </state>
-  <state id="modes_Manual_Off__brightness_5__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Manual_On__brightness_5__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_5__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
+  <state id="modes_Manual_On__brightness_1">
+    <transition target="modes_Manual_On__brightness_10" event="hmi.changeBrightness"/>
+    <transition target="modes_Manual_Off__brightness_1" event="hmi.switch"/>
+    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_1" event="hmi.toggleMode"/>
   </state>
-  <state id="modes_Manual_Off__brightness_6__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Manual_On__brightness_5__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_6__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
+  <state id="modes_Manual_On__brightness_10">
+    <transition target="modes_Manual_On__brightness_10" event="hmi.changeBrightness"/>
+    <transition target="modes_Manual_Off__brightness_10" event="hmi.switch"/>
+    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_10" event="hmi.toggleMode"/>
   </state>
-  <state id="modes_Manual_Off__brightness_7__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Manual_On__brightness_5__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_7__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-  </state>
-  <state id="modes_Manual_Off__brightness_8__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Manual_On__brightness_5__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_8__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-  </state>
-  <state id="modes_Manual_Off__brightness_9__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Manual_On__brightness_5__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_9__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-  </state>
-  <state id="modes_Manual_On__brightness_10__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Manual_On__brightness_9__luminosity_delay_10__motion_timeout_30" event="hmi.changeBrightness"/>
-    <transition target="modes_Manual_Off__brightness_10__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_10__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-  </state>
-  <state id="modes_Manual_On__brightness_1__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Manual_On__brightness_10__luminosity_delay_10__motion_timeout_30" event="hmi.changeBrightness"/>
-    <transition target="modes_Manual_Off__brightness_1__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_1__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-  </state>
-  <state id="modes_Manual_On__brightness_2__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Manual_On__brightness_1__luminosity_delay_10__motion_timeout_30" event="hmi.changeBrightness"/>
-    <transition target="modes_Manual_Off__brightness_2__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_2__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-  </state>
-  <state id="modes_Manual_On__brightness_3__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Manual_On__brightness_2__luminosity_delay_10__motion_timeout_30" event="hmi.changeBrightness"/>
-    <transition target="modes_Manual_Off__brightness_3__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_3__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-  </state>
-  <state id="modes_Manual_On__brightness_4__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Manual_On__brightness_3__luminosity_delay_10__motion_timeout_30" event="hmi.changeBrightness"/>
-    <transition target="modes_Manual_Off__brightness_4__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_4__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-  </state>
-  <state id="modes_Manual_On__brightness_5__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Manual_On__brightness_4__luminosity_delay_10__motion_timeout_30" event="hmi.changeBrightness"/>
-    <transition target="modes_Manual_Off__brightness_5__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_5__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-  </state>
-  <state id="modes_Manual_On__brightness_6__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Manual_On__brightness_5__luminosity_delay_10__motion_timeout_30" event="hmi.changeBrightness"/>
-    <transition target="modes_Manual_Off__brightness_6__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_6__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-  </state>
-  <state id="modes_Manual_On__brightness_7__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Manual_On__brightness_6__luminosity_delay_10__motion_timeout_30" event="hmi.changeBrightness"/>
-    <transition target="modes_Manual_Off__brightness_7__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_7__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-  </state>
-  <state id="modes_Manual_On__brightness_8__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Manual_On__brightness_7__luminosity_delay_10__motion_timeout_30" event="hmi.changeBrightness"/>
-    <transition target="modes_Manual_Off__brightness_8__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_8__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
-  </state>
-  <state id="modes_Manual_On__brightness_9__luminosity_delay_10__motion_timeout_30">
-    <transition target="modes_Manual_On__brightness_8__luminosity_delay_10__motion_timeout_30" event="hmi.changeBrightness"/>
-    <transition target="modes_Manual_Off__brightness_9__luminosity_delay_10__motion_timeout_30" event="hmi.switch"/>
-    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_9__luminosity_delay_10__motion_timeout_30" event="hmi.toggleMode"/>
+  <state id="modes_Manual_On__brightness_2">
+    <transition target="modes_Manual_On__brightness_1" event="hmi.changeBrightness"/>
+    <transition target="modes_Manual_Off__brightness_2" event="hmi.switch"/>
+    <transition target="modes_Automatic_Motion_Sensing_Still__brightness_2" event="hmi.toggleMode"/>
   </state>
 </scxml>

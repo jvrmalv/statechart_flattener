@@ -222,12 +222,232 @@
       ]
     },
     {
+      "state": "modes_Automatic_Light_Sensing_Dark__brightness_0__luminosity_delay_10__motion_timeout_30",
+      "transitions": [
+        {
+          "input": "hmi.switch",
+          "output": [],
+          "target": "modes_Manual_Off__brightness_0__luminosity_delay_10__motion_timeout_30"
+        },
+        {
+          "input": "hmi.toggleMode",
+          "output": [],
+          "target": "modes_Automatic_Motion_Sensing_Still__brightness_0__luminosity_delay_10__motion_timeout_30"
+        },
+        {
+          "input": "luminosity.bright",
+          "output": [],
+          "target": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_0__luminosity_delay_10__motion_timeout_30"
+        }
+      ]
+    },
+    {
+      "state": "modes_Automatic_Light_Sensing_Dark__brightness_10__luminosity_delay_10__motion_timeout_30",
+      "transitions": [
+        {
+          "input": "hmi.switch",
+          "output": [],
+          "target": "modes_Manual_Off__brightness_10__luminosity_delay_10__motion_timeout_30"
+        },
+        {
+          "input": "hmi.toggleMode",
+          "output": [],
+          "target": "modes_Automatic_Motion_Sensing_Still__brightness_10__luminosity_delay_10__motion_timeout_30"
+        },
+        {
+          "input": "luminosity.bright",
+          "output": [],
+          "target": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_10__luminosity_delay_10__motion_timeout_30"
+        }
+      ]
+    },
+    {
+      "state": "modes_Automatic_Light_Sensing_Dark__brightness_1__luminosity_delay_10__motion_timeout_30",
+      "transitions": [
+        {
+          "input": "hmi.switch",
+          "output": [],
+          "target": "modes_Manual_Off__brightness_1__luminosity_delay_10__motion_timeout_30"
+        },
+        {
+          "input": "hmi.toggleMode",
+          "output": [],
+          "target": "modes_Automatic_Motion_Sensing_Still__brightness_1__luminosity_delay_10__motion_timeout_30"
+        },
+        {
+          "input": "luminosity.bright",
+          "output": [],
+          "target": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_1__luminosity_delay_10__motion_timeout_30"
+        }
+      ]
+    },
+    {
+      "state": "modes_Automatic_Light_Sensing_Dark__brightness_2__luminosity_delay_10__motion_timeout_30",
+      "transitions": [
+        {
+          "input": "hmi.switch",
+          "output": [],
+          "target": "modes_Manual_Off__brightness_2__luminosity_delay_10__motion_timeout_30"
+        },
+        {
+          "input": "hmi.toggleMode",
+          "output": [],
+          "target": "modes_Automatic_Motion_Sensing_Still__brightness_2__luminosity_delay_10__motion_timeout_30"
+        },
+        {
+          "input": "luminosity.bright",
+          "output": [],
+          "target": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_2__luminosity_delay_10__motion_timeout_30"
+        }
+      ]
+    },
+    {
+      "state": "modes_Automatic_Light_Sensing_Dark__brightness_3__luminosity_delay_10__motion_timeout_30",
+      "transitions": [
+        {
+          "input": "hmi.switch",
+          "output": [],
+          "target": "modes_Manual_Off__brightness_3__luminosity_delay_10__motion_timeout_30"
+        },
+        {
+          "input": "hmi.toggleMode",
+          "output": [],
+          "target": "modes_Automatic_Motion_Sensing_Still__brightness_3__luminosity_delay_10__motion_timeout_30"
+        },
+        {
+          "input": "luminosity.bright",
+          "output": [],
+          "target": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_3__luminosity_delay_10__motion_timeout_30"
+        }
+      ]
+    },
+    {
+      "state": "modes_Automatic_Light_Sensing_Dark__brightness_4__luminosity_delay_10__motion_timeout_30",
+      "transitions": [
+        {
+          "input": "hmi.switch",
+          "output": [],
+          "target": "modes_Manual_Off__brightness_4__luminosity_delay_10__motion_timeout_30"
+        },
+        {
+          "input": "hmi.toggleMode",
+          "output": [],
+          "target": "modes_Automatic_Motion_Sensing_Still__brightness_4__luminosity_delay_10__motion_timeout_30"
+        },
+        {
+          "input": "luminosity.bright",
+          "output": [],
+          "target": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_4__luminosity_delay_10__motion_timeout_30"
+        }
+      ]
+    },
+    {
+      "state": "modes_Automatic_Light_Sensing_Dark__brightness_5__luminosity_delay_10__motion_timeout_30",
+      "transitions": [
+        {
+          "input": "hmi.switch",
+          "output": [],
+          "target": "modes_Manual_Off__brightness_5__luminosity_delay_10__motion_timeout_30"
+        },
+        {
+          "input": "hmi.toggleMode",
+          "output": [],
+          "target": "modes_Automatic_Motion_Sensing_Still__brightness_5__luminosity_delay_10__motion_timeout_30"
+        },
+        {
+          "input": "luminosity.bright",
+          "output": [],
+          "target": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_5__luminosity_delay_10__motion_timeout_30"
+        }
+      ]
+    },
+    {
+      "state": "modes_Automatic_Light_Sensing_Dark__brightness_6__luminosity_delay_10__motion_timeout_30",
+      "transitions": [
+        {
+          "input": "hmi.switch",
+          "output": [],
+          "target": "modes_Manual_Off__brightness_6__luminosity_delay_10__motion_timeout_30"
+        },
+        {
+          "input": "hmi.toggleMode",
+          "output": [],
+          "target": "modes_Automatic_Motion_Sensing_Still__brightness_6__luminosity_delay_10__motion_timeout_30"
+        },
+        {
+          "input": "luminosity.bright",
+          "output": [],
+          "target": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_6__luminosity_delay_10__motion_timeout_30"
+        }
+      ]
+    },
+    {
+      "state": "modes_Automatic_Light_Sensing_Dark__brightness_7__luminosity_delay_10__motion_timeout_30",
+      "transitions": [
+        {
+          "input": "hmi.switch",
+          "output": [],
+          "target": "modes_Manual_Off__brightness_7__luminosity_delay_10__motion_timeout_30"
+        },
+        {
+          "input": "hmi.toggleMode",
+          "output": [],
+          "target": "modes_Automatic_Motion_Sensing_Still__brightness_7__luminosity_delay_10__motion_timeout_30"
+        },
+        {
+          "input": "luminosity.bright",
+          "output": [],
+          "target": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_7__luminosity_delay_10__motion_timeout_30"
+        }
+      ]
+    },
+    {
+      "state": "modes_Automatic_Light_Sensing_Dark__brightness_8__luminosity_delay_10__motion_timeout_30",
+      "transitions": [
+        {
+          "input": "hmi.switch",
+          "output": [],
+          "target": "modes_Manual_Off__brightness_8__luminosity_delay_10__motion_timeout_30"
+        },
+        {
+          "input": "hmi.toggleMode",
+          "output": [],
+          "target": "modes_Automatic_Motion_Sensing_Still__brightness_8__luminosity_delay_10__motion_timeout_30"
+        },
+        {
+          "input": "luminosity.bright",
+          "output": [],
+          "target": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_8__luminosity_delay_10__motion_timeout_30"
+        }
+      ]
+    },
+    {
+      "state": "modes_Automatic_Light_Sensing_Dark__brightness_9__luminosity_delay_10__motion_timeout_30",
+      "transitions": [
+        {
+          "input": "hmi.switch",
+          "output": [],
+          "target": "modes_Manual_Off__brightness_9__luminosity_delay_10__motion_timeout_30"
+        },
+        {
+          "input": "hmi.toggleMode",
+          "output": [],
+          "target": "modes_Automatic_Motion_Sensing_Still__brightness_9__luminosity_delay_10__motion_timeout_30"
+        },
+        {
+          "input": "luminosity.bright",
+          "output": [],
+          "target": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_9__luminosity_delay_10__motion_timeout_30"
+        }
+      ]
+    },
+    {
       "state": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_0__luminosity_delay_10__motion_timeout_30",
       "transitions": [
         {
           "input": "Getting Bright_t_1_timeEvent_0",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_0__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Bright__brightness_0__luminosity_delay_10__motion_timeout_30"
         },
         {
           "input": "hmi.switch",
@@ -242,7 +462,7 @@
         {
           "input": "luminosity.dark",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Dark__brightness_0__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Dark__brightness_0__luminosity_delay_10__motion_timeout_30"
         }
       ]
     },
@@ -252,7 +472,7 @@
         {
           "input": "Getting Bright_t_1_timeEvent_0",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_10__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Bright__brightness_10__luminosity_delay_10__motion_timeout_30"
         },
         {
           "input": "hmi.switch",
@@ -267,7 +487,7 @@
         {
           "input": "luminosity.dark",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Dark__brightness_10__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Dark__brightness_10__luminosity_delay_10__motion_timeout_30"
         }
       ]
     },
@@ -277,7 +497,7 @@
         {
           "input": "Getting Bright_t_1_timeEvent_0",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_1__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Bright__brightness_1__luminosity_delay_10__motion_timeout_30"
         },
         {
           "input": "hmi.switch",
@@ -292,7 +512,7 @@
         {
           "input": "luminosity.dark",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Dark__brightness_1__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Dark__brightness_1__luminosity_delay_10__motion_timeout_30"
         }
       ]
     },
@@ -302,7 +522,7 @@
         {
           "input": "Getting Bright_t_1_timeEvent_0",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_2__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Bright__brightness_2__luminosity_delay_10__motion_timeout_30"
         },
         {
           "input": "hmi.switch",
@@ -317,7 +537,7 @@
         {
           "input": "luminosity.dark",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Dark__brightness_2__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Dark__brightness_2__luminosity_delay_10__motion_timeout_30"
         }
       ]
     },
@@ -327,7 +547,7 @@
         {
           "input": "Getting Bright_t_1_timeEvent_0",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_3__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Bright__brightness_3__luminosity_delay_10__motion_timeout_30"
         },
         {
           "input": "hmi.switch",
@@ -342,7 +562,7 @@
         {
           "input": "luminosity.dark",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Dark__brightness_3__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Dark__brightness_3__luminosity_delay_10__motion_timeout_30"
         }
       ]
     },
@@ -352,7 +572,7 @@
         {
           "input": "Getting Bright_t_1_timeEvent_0",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_4__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Bright__brightness_4__luminosity_delay_10__motion_timeout_30"
         },
         {
           "input": "hmi.switch",
@@ -367,7 +587,7 @@
         {
           "input": "luminosity.dark",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Dark__brightness_4__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Dark__brightness_4__luminosity_delay_10__motion_timeout_30"
         }
       ]
     },
@@ -377,7 +597,7 @@
         {
           "input": "Getting Bright_t_1_timeEvent_0",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_5__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Bright__brightness_5__luminosity_delay_10__motion_timeout_30"
         },
         {
           "input": "hmi.switch",
@@ -392,7 +612,7 @@
         {
           "input": "luminosity.dark",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Dark__brightness_5__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Dark__brightness_5__luminosity_delay_10__motion_timeout_30"
         }
       ]
     },
@@ -402,7 +622,7 @@
         {
           "input": "Getting Bright_t_1_timeEvent_0",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_6__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Bright__brightness_6__luminosity_delay_10__motion_timeout_30"
         },
         {
           "input": "hmi.switch",
@@ -417,7 +637,7 @@
         {
           "input": "luminosity.dark",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Dark__brightness_6__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Dark__brightness_6__luminosity_delay_10__motion_timeout_30"
         }
       ]
     },
@@ -427,7 +647,7 @@
         {
           "input": "Getting Bright_t_1_timeEvent_0",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_7__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Bright__brightness_7__luminosity_delay_10__motion_timeout_30"
         },
         {
           "input": "hmi.switch",
@@ -442,7 +662,7 @@
         {
           "input": "luminosity.dark",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Dark__brightness_7__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Dark__brightness_7__luminosity_delay_10__motion_timeout_30"
         }
       ]
     },
@@ -452,7 +672,7 @@
         {
           "input": "Getting Bright_t_1_timeEvent_0",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_8__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Bright__brightness_8__luminosity_delay_10__motion_timeout_30"
         },
         {
           "input": "hmi.switch",
@@ -467,7 +687,7 @@
         {
           "input": "luminosity.dark",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Dark__brightness_8__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Dark__brightness_8__luminosity_delay_10__motion_timeout_30"
         }
       ]
     },
@@ -477,7 +697,7 @@
         {
           "input": "Getting Bright_t_1_timeEvent_0",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_9__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Bright__brightness_9__luminosity_delay_10__motion_timeout_30"
         },
         {
           "input": "hmi.switch",
@@ -492,7 +712,7 @@
         {
           "input": "luminosity.dark",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Dark__brightness_9__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Dark__brightness_9__luminosity_delay_10__motion_timeout_30"
         }
       ]
     },
@@ -502,7 +722,7 @@
         {
           "input": "Getting Dark_t_1_timeEvent_0",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Dark__brightness_0__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Dark__brightness_0__luminosity_delay_10__motion_timeout_30"
         },
         {
           "input": "hmi.switch",
@@ -517,7 +737,7 @@
         {
           "input": "luminosity.bright",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_0__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Bright__brightness_0__luminosity_delay_10__motion_timeout_30"
         }
       ]
     },
@@ -527,7 +747,7 @@
         {
           "input": "Getting Dark_t_1_timeEvent_0",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Dark__brightness_10__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Dark__brightness_10__luminosity_delay_10__motion_timeout_30"
         },
         {
           "input": "hmi.switch",
@@ -542,7 +762,7 @@
         {
           "input": "luminosity.bright",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_10__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Bright__brightness_10__luminosity_delay_10__motion_timeout_30"
         }
       ]
     },
@@ -552,7 +772,7 @@
         {
           "input": "Getting Dark_t_1_timeEvent_0",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Dark__brightness_1__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Dark__brightness_1__luminosity_delay_10__motion_timeout_30"
         },
         {
           "input": "hmi.switch",
@@ -567,7 +787,7 @@
         {
           "input": "luminosity.bright",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_1__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Bright__brightness_1__luminosity_delay_10__motion_timeout_30"
         }
       ]
     },
@@ -577,7 +797,7 @@
         {
           "input": "Getting Dark_t_1_timeEvent_0",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Dark__brightness_2__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Dark__brightness_2__luminosity_delay_10__motion_timeout_30"
         },
         {
           "input": "hmi.switch",
@@ -592,7 +812,7 @@
         {
           "input": "luminosity.bright",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_2__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Bright__brightness_2__luminosity_delay_10__motion_timeout_30"
         }
       ]
     },
@@ -602,7 +822,7 @@
         {
           "input": "Getting Dark_t_1_timeEvent_0",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Dark__brightness_3__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Dark__brightness_3__luminosity_delay_10__motion_timeout_30"
         },
         {
           "input": "hmi.switch",
@@ -617,7 +837,7 @@
         {
           "input": "luminosity.bright",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_3__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Bright__brightness_3__luminosity_delay_10__motion_timeout_30"
         }
       ]
     },
@@ -627,7 +847,7 @@
         {
           "input": "Getting Dark_t_1_timeEvent_0",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Dark__brightness_4__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Dark__brightness_4__luminosity_delay_10__motion_timeout_30"
         },
         {
           "input": "hmi.switch",
@@ -642,7 +862,7 @@
         {
           "input": "luminosity.bright",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_4__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Bright__brightness_4__luminosity_delay_10__motion_timeout_30"
         }
       ]
     },
@@ -652,7 +872,7 @@
         {
           "input": "Getting Dark_t_1_timeEvent_0",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Dark__brightness_5__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Dark__brightness_5__luminosity_delay_10__motion_timeout_30"
         },
         {
           "input": "hmi.switch",
@@ -667,7 +887,7 @@
         {
           "input": "luminosity.bright",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_5__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Bright__brightness_5__luminosity_delay_10__motion_timeout_30"
         }
       ]
     },
@@ -677,7 +897,7 @@
         {
           "input": "Getting Dark_t_1_timeEvent_0",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Dark__brightness_6__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Dark__brightness_6__luminosity_delay_10__motion_timeout_30"
         },
         {
           "input": "hmi.switch",
@@ -692,7 +912,7 @@
         {
           "input": "luminosity.bright",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_6__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Bright__brightness_6__luminosity_delay_10__motion_timeout_30"
         }
       ]
     },
@@ -702,7 +922,7 @@
         {
           "input": "Getting Dark_t_1_timeEvent_0",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Dark__brightness_7__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Dark__brightness_7__luminosity_delay_10__motion_timeout_30"
         },
         {
           "input": "hmi.switch",
@@ -717,7 +937,7 @@
         {
           "input": "luminosity.bright",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_7__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Bright__brightness_7__luminosity_delay_10__motion_timeout_30"
         }
       ]
     },
@@ -727,7 +947,7 @@
         {
           "input": "Getting Dark_t_1_timeEvent_0",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Dark__brightness_8__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Dark__brightness_8__luminosity_delay_10__motion_timeout_30"
         },
         {
           "input": "hmi.switch",
@@ -742,7 +962,7 @@
         {
           "input": "luminosity.bright",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_8__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Bright__brightness_8__luminosity_delay_10__motion_timeout_30"
         }
       ]
     },
@@ -752,7 +972,7 @@
         {
           "input": "Getting Dark_t_1_timeEvent_0",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Dark__brightness_9__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Dark__brightness_9__luminosity_delay_10__motion_timeout_30"
         },
         {
           "input": "hmi.switch",
@@ -767,7 +987,7 @@
         {
           "input": "luminosity.bright",
           "output": [],
-          "target": "modes_Automatic_Light_Sensing_Getting_Bright__brightness_9__luminosity_delay_10__motion_timeout_30"
+          "target": "modes_Automatic_Light_Sensing_Bright__brightness_9__luminosity_delay_10__motion_timeout_30"
         }
       ]
     },
